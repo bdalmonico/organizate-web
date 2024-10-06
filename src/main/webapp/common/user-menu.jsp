@@ -5,11 +5,11 @@
 <% 	
 	EmpleadoDTO empleado = (EmpleadoDTO) SessionManager.getAttribute(request, Attributes.EMPLEADO);
 	if (empleado==null) {
-		%><a href="/HelloWorldWeb/user/login.jsp">Autenticarse</a><%
+		%><a href="/OrganizateWeb/user/login.jsp">Autenticarse</a><%
 	} else {
 		%>
 			<p><%=empleado.getNombre()%></p>
-			<a href="/HelloWorldWeb/UsuarioServlet?action=logout">Salir</a>
+			<a href="/OrganizateWeb/UsuarioServlet?action=logout">Salir</a>
 		<%		
 	}
 %>

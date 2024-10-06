@@ -11,4 +11,8 @@
 		<h5>Fecha estimada de inicio: <%=tarea.getFechaEstimadaInicio()%></h5>
 		<h5>Fecha estimada de fin: <%=tarea.getFechaEstimadaFin()%></h5>
 	</ul>
+	
+	<p>___________________________________</p>
+	
+
 <%@include file="/common/footer.jsp" %>

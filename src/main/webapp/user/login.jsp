@@ -1,7 +1,7 @@
 <%@ page import="com.bruno.training.web.util.*"%>
 <%@include file="/common/header.jsp"%>
 
-	<form action="/HelloWorldWeb/UsuarioServlet" method="post">
+	<form action="/OrganizateWeb/UsuarioServlet" method="post">
 	
 	<input type="hidden" name="<%=Parameters.ACTION%>" value="<%=Actions.LOGIN%>">
 	

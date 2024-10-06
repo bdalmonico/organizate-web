@@ -26,6 +26,7 @@ import com.bruno.training.web.util.Views;
 /**
  * Servlet para peticione sosbre tareas
  */
+//@SuppressWarnings("serial")
 @WebServlet("/TareaServlet")
 public class TareaServlet extends HttpServlet {
 	
@@ -41,7 +42,7 @@ public class TareaServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		String action = request.getParameter("action");
+		String action = request.getParameter(Parameters.ACTION);
 		String targetView = null;
 		boolean forwardOrRedirect = false;
 		
@@ -84,9 +85,6 @@ public class TareaServlet extends HttpServlet {
 			
 		}
 		RouterUtils.route(request, response, forwardOrRedirect, targetView);
-		// Forward a la Vista
-		request.getRequestDispatcher(targetView).forward(request, response);
-		//response.sendRedirect("httpS://www.LAVOZDEGALICIA.ES");
 
 	}
 		

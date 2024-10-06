@@ -7,7 +7,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,7 +25,8 @@ import com.bruno.training.web.util.Views;
 /**
  * Controller para peticiones sobre Usuario.
  */
-@WebServlet("/UsuarioServlet")
+@WebServlet("/private/UsuarioServlet")
+//@WebServlet("/UsuarioServlet")
 public class UsuarioServlet extends HttpServlet {
 
 	private static Logger logger = LogManager.getLogger(UsuarioServlet.class);
