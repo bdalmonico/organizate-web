@@ -17,7 +17,7 @@ import com.bruno.training.web.util.SessionManager;
 import com.bruno.training.web.util.Views;
 
 // Al tener varios filtros, la anotacion no garantiza el orden.
-// @WebFilter("/*")
+// @WebFilter("/private/*")
 public class AuthenticationFilter extends HttpFilter implements Filter {
     public AuthenticationFilter() {
         super();
@@ -31,10 +31,8 @@ public class AuthenticationFilter extends HttpFilter implements Filter {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 	
 		if (SessionManager.getAttribute(httpRequest, "empleado")==null) {
-			// Usuario no autenticado
 			RouterUtils.route(httpRequest, (HttpServletResponse) response, true, Views.LOGIN);
 		} else {			
-			// Usuario autenticado, continua la ejecución
 			chain.doFilter(request, response);
 		}
 		

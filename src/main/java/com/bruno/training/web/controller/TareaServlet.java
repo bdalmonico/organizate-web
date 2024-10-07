@@ -23,11 +23,8 @@ import com.bruno.training.web.util.Parameters;
 import com.bruno.training.web.util.RouterUtils;
 import com.bruno.training.web.util.Views;
 
-/**
- * Servlet para peticione sosbre tareas
- */
-//@SuppressWarnings("serial")
-@WebServlet("/TareaServlet")
+
+@WebServlet("/private/TareaServlet")
 public class TareaServlet extends HttpServlet {
 	
 	private Logger logger = LogManager.getLogger(TareaServlet.class);

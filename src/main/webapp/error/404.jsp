@@ -9,5 +9,5 @@
 <p>No se ha encontrado el dirección.</p>
 <p>No se ha encontrado el dirección.</p>
 <p>No se ha encontrado el dirección.</p>
-<a href="OrganizateWeb">Volver al inicio</a>
+<a href="/HelloWorldWeb">Volver al inicio</a>
 <%@include file="/common/footer.jsp" %>

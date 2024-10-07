@@ -3,7 +3,7 @@
     <%@ page import="com.bruno.training.web.util.*"%>
 <%@include file="/common/header.jsp" %>
 	<div>
-		<form action="/OrganizateWeb/TareaServlet" method="post">	
+		<form action="/HelloWorldWeb/private/TareaServlet" method="post">	
 		
 				
 			<h3 class="titulo">Buscar tareas</h3>
@@ -25,7 +25,7 @@
 				for (TareaDTO tarea:resultados.getPage()) {
 					%>
 						<li>
-							<a href="/OrganizateWeb/TareaServlet?action=detail&id=<%=tarea.getId()%>">
+							<a href="/HelloWorldWeb/private/TareaServlet?action=detail&id=<%=tarea.getId()%>">
 								<%=tarea.getNombre()%></a> (<%=tarea.getDescripcion()%>)
 						</li>
 					<%	
