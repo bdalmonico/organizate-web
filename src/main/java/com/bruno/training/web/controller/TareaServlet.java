@@ -50,24 +50,20 @@ public class TareaServlet extends HttpServlet {
 		
 		if (Actions.SEARCH.equalsIgnoreCase(action)) {
 			String nombre = request.getParameter(Parameters.NOMBRE);
-			String clienteIdStr = request.getParameter(Parameters.CLIENTEID);
 			String descripcion = request.getParameter(Parameters.DESCRIPCION);
-			String empleadoIdStr = request.getParameter(Parameters.EMPLEADOID);
 			String fechaEstimadaInicioStr = request.getParameter(Parameters.FECHAESTIMADAINICIO);
 			String fechaEstimadaFinStr = request.getParameter(Parameters.FECHAESTIMADAFIN);
 			String fechaRealInicioStr = request.getParameter(Parameters.FECHAREALINICIO);
 			String fechaRealFinStr = request.getParameter(Parameters.FECHAREALFIN);
 			String idStr = request.getParameter(Parameters.ID);
 			String proyectoIdStr = request.getParameter(Parameters.PROYECTOID);
-			// Otros parametros de busqueda ...
-
-			Long clienteId = Long.valueOf(clienteIdStr);
-			Long empleadoId = Long.valueOf(empleadoIdStr);
+//			
+//			//converte o que é string para long con valueof
 			Long id = Long.valueOf(idStr);
 			Long proyectoId = Long.valueOf(proyectoIdStr);
-			
-			
-			
+//			
+//			
+//			
 			Date fechaEstimadaInicio = null;
 			try {
 				fechaEstimadaInicio = FECHA_OF.parse(fechaEstimadaInicioStr);
@@ -96,13 +92,12 @@ public class TareaServlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+//			
 			
 			TareaCriteria criteria = new TareaCriteria();
 			criteria.setNombre(nombre);
-			criteria.setClienteId(clienteId);
+			
 			criteria.setDescripcion(descripcion);
-			criteria.setEmpleadoId(empleadoId);
 			criteria.setFechaEstimadaFin(fechaEstimadaFin);
 			criteria.setFechaEstimadaInicio(fechaEstimadaInicio);
 			criteria.setFechaRealFin(fechaRealFin);
