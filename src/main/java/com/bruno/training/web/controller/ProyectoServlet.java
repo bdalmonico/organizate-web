@@ -1,9 +1,6 @@
 package com.bruno.training.web.controller;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,14 +24,13 @@ import com.bruno.training.web.util.RouterUtils;
 import com.bruno.training.web.util.Views;
 
 
-@WebServlet("/private/TareaServlet")
-public class TareaServlet extends HttpServlet {
+//@WebServlet("/private/TareaServlet")
+public class ProyectoServlet extends HttpServlet {
 	
-	private static SimpleDateFormat FECHA_OF = new SimpleDateFormat("dd/MM/YYYY");
-	private Logger logger = LogManager.getLogger(TareaServlet.class);
+	private Logger logger = LogManager.getLogger(ProyectoServlet.class);
 	private TareaService tareaService = null;
 
-	public TareaServlet() {
+	public ProyectoServlet() {
 		super();
 		tareaService = new TareaServiceImpl();
 
@@ -47,68 +43,12 @@ public class TareaServlet extends HttpServlet {
 		String targetView = null;
 		boolean forwardOrRedirect = false;
 		
-		
 		if (Actions.SEARCH.equalsIgnoreCase(action)) {
 			String nombre = request.getParameter(Parameters.NOMBRE);
-			String clienteIdStr = request.getParameter(Parameters.CLIENTEID);
-			String descripcion = request.getParameter(Parameters.DESCRIPCION);
-			String empleadoIdStr = request.getParameter(Parameters.EMPLEADOID);
-			String fechaEstimadaInicioStr = request.getParameter(Parameters.FECHAESTIMADAINICIO);
-			String fechaEstimadaFinStr = request.getParameter(Parameters.FECHAESTIMADAFIN);
-			String fechaRealInicioStr = request.getParameter(Parameters.FECHAREALINICIO);
-			String fechaRealFinStr = request.getParameter(Parameters.FECHAREALFIN);
-			String idStr = request.getParameter(Parameters.ID);
-			String proyectoIdStr = request.getParameter(Parameters.PROYECTOID);
 			// Otros parametros de busqueda ...
 
-			Long clienteId = Long.valueOf(clienteIdStr);
-			Long empleadoId = Long.valueOf(empleadoIdStr);
-			Long id = Long.valueOf(idStr);
-			Long proyectoId = Long.valueOf(proyectoIdStr);
-			
-			
-			
-			Date fechaEstimadaInicio = null;
-			try {
-				fechaEstimadaInicio = FECHA_OF.parse(fechaEstimadaInicioStr);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			Date fechaEstimadaFin = null;
-			try {
-				fechaEstimadaFin = FECHA_OF.parse(fechaEstimadaFinStr);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			Date fechaRealInicio = null;
-			try {
-				fechaRealInicio = FECHA_OF.parse(fechaRealInicioStr);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			Date fechaRealFin = null;
-			try {
-				fechaRealFin = FECHA_OF.parse(fechaRealFinStr);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			
 			TareaCriteria criteria = new TareaCriteria();
 			criteria.setNombre(nombre);
-			criteria.setClienteId(clienteId);
-			criteria.setDescripcion(descripcion);
-			criteria.setEmpleadoId(empleadoId);
-			criteria.setFechaEstimadaFin(fechaEstimadaFin);
-			criteria.setFechaEstimadaInicio(fechaEstimadaInicio);
-			criteria.setFechaRealFin(fechaRealFin);
-			criteria.setFechaRealInicio(fechaRealInicio);
-			criteria.setId(id);
-			criteria.setProyectoId(proyectoId);
 
 			try {
 				Results<TareaDTO>resultados = tareaService.findByCriteria(criteria, 1, 20);			

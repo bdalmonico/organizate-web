@@ -9,7 +9,7 @@
 	} else {
 		%>
 			<p><%=empleado.getNombre()%></p>
-			<a href="/HelloWorldWeb/UsuarioServlet?action=logout">Salir</a>
+			<a href="/HelloWorldWeb/private/UsuarioServlet?action=logout">Salir</a>
 		<%		
 	}
 %>
