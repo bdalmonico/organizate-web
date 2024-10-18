@@ -13,7 +13,26 @@
 			<label>Nombre:</label> 
 			<input type="text" name="<%=Parameters.NOMBRE %>" placeholder="Ejemplo: tarea" />
 						
+			<label>Descipcion:</label>	
+			<input type="text" name="<%=Parameters.DESCRIPCION %>" placeholder="Ejemplo: descripcion" />
 			
+			<label>Fecha Estimada inicio:</label>	
+			<input type="text" name="<%=Parameters.FECHAESTIMADAINICIO %>" placeholder="Ejemplo: fecha estimada inicio" />
+			
+			<label>Fecha Estimada fin:</label>	
+			<input type="text" name="<%=Parameters.FECHAESTIMADAFIN %>" placeholder="Ejemplo: fecha estimada fin" />
+			
+			<label>Fecha real inicio:</label>	
+			<input type="text" name="<%=Parameters.FECHAREALINICIO %>" placeholder="Ejemplo: fecha real inicio" />
+			
+			<label>Fecha real fin:</label>	
+			<input type="text" name="<%=Parameters.FECHAREALFIN%>" placeholder="Ejemplo: fecha real fin" />
+			
+			<label>Id de la tarea:</label>	
+			<input type="text" name="<%=Parameters.ID%>" placeholder="Ejemplo: id de la tarea" />
+			
+			<label>Id del proyecto:</label>	
+			<input type="text" name="<%=Parameters.PROYECTOID%>" placeholder="Ejemplo: id del proyecto" />
 			
 			
 			
