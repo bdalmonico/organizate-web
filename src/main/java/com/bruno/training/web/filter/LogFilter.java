@@ -34,11 +34,18 @@ public class LogFilter extends HttpFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		StringBuffer url = new StringBuffer();	
+		url.append(httpRequest.getScheme());
 		url.append(httpRequest.getRequestURL());
+
 		logger.info("--> Request "+url+" from "+httpRequest.getRemoteHost());
+		if(httpRequest.getCookies() != null){
+			for(Cookie c : httpRequest.getCookies()){
+				logger.info("Cookie [" + c.getPath() + "] " + c.getName() + "=" + c.getValue() + " (ttl:"
+						+ c.getMaxAge() + ")");
+			}
+		}
 		
-		
-		Map<String, String[]> parameters = httpRequest.getParameterMap();
+		// Map<String, String[]> parameters = httpRequest.getParameterMap();
 		chain.doFilter(request, response);
 		
 		logger.info("Request "+url+" from "+httpRequest.getRemoteAddr()+" --> ");

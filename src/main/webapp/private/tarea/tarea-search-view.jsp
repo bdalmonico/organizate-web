@@ -43,7 +43,7 @@
 		<div id="resultados">
 		<ul>
 			<%
-			Results<TareaDTO> resultados = (Results<TareaDTO>) request.getAttribute("resultados");
+			Results<TareaDTO> resultados = (Results<TareaDTO>) request.getAttribute(Attributes.RESULTADOS);
 			if (resultados!=null) {
 				for (TareaDTO tarea:resultados.getPage()) {
 					%>
@@ -56,6 +56,9 @@
 				%>
 				<p>Encontrados <%=resultados.getTotal() %> tareas</p>
 				<% 
+			} else {
+				%> <p>No se encontraram resultados.</p>
+				<%
 			}
 			%>
 		</ul>

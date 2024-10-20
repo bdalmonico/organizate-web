@@ -51,60 +51,71 @@ public class TareaServlet extends HttpServlet {
 		
 		if (Actions.SEARCH.equalsIgnoreCase(action)) {
 			String nombre = request.getParameter(Parameters.NOMBRE);
-			String descripcion = request.getParameter(Parameters.DESCRIPCION);
-			String fechaEstimadaInicioStr = request.getParameter(Parameters.FECHAESTIMADAINICIO);
-			String fechaEstimadaFinStr = request.getParameter(Parameters.FECHAESTIMADAFIN);
-			String fechaRealInicioStr = request.getParameter(Parameters.FECHAREALINICIO);
-			String fechaRealFinStr = request.getParameter(Parameters.FECHAREALFIN);
-			String idStr = request.getParameter(Parameters.ID);
-			String proyectoIdStr = request.getParameter(Parameters.PROYECTOID);
-//			
-//			//converte o que é string para long con valueof
-			Long id = Long.valueOf(idStr);
-			Long proyectoId = Long.valueOf(proyectoIdStr);
-//			
-//			
-//			
-			Date fechaEstimadaInicio = null;
-			try {
-				fechaEstimadaInicio = FECHA_OF.parse(fechaEstimadaInicioStr);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			Date fechaEstimadaFin = null;
-			try {
-				fechaEstimadaFin = FECHA_OF.parse(fechaEstimadaFinStr);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			Date fechaRealInicio = null;
-			try {
-				fechaRealInicio = FECHA_OF.parse(fechaRealInicioStr);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			Date fechaRealFin = null;
-			try {
-				fechaRealFin = FECHA_OF.parse(fechaRealFinStr);
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-//			
-			
 			TareaCriteria criteria = new TareaCriteria();
 			criteria.setNombre(nombre);
+
+			String idStr = request.getParameter("id");
+			if(idStr==null || idStr.isEmpty()){
+				criteria.setId(null);
+			} else {
+				Long id = Long.valueOf(idStr);
+				criteria.setId(id);
+			}
+
+			String descripcion = request.getParameter("descripcion");
+			if(descripcion==null || descripcion.isEmpty()){
+				criteria.setDescripcion(null);
+			} else {
+				criteria.setDescripcion(descripcion);
+			}
+
+			String proyectoIdStr = request.getParameter("proyectoId");
+			if(proyectoIdStr==null || proyectoIdStr.isEmpty()){
+				criteria.setProyectoId(null);
+			} else {
+				Long proyectoId = Long.valueOf(proyectoIdStr);
+				criteria.setProyectoId(proyectoId);
+			}
 			
-			criteria.setDescripcion(descripcion);
-			criteria.setFechaEstimadaFin(fechaEstimadaFin);
-			criteria.setFechaEstimadaInicio(fechaEstimadaInicio);
-			criteria.setFechaRealFin(fechaRealFin);
-			criteria.setFechaRealInicio(fechaRealInicio);
-			criteria.setId(id);
-			criteria.setProyectoId(proyectoId);
+			String fechaRealInicioStr = request.getParameter("fechaRealInicio");
+			if(fechaRealInicioStr==null || fechaRealInicioStr.isEmpty()){
+				criteria.setFechaRealInicio(null);
+			} else {
+				Date fechaRealInicio = FECHA_OF.parse(fechaRealInicioStr);
+				criteria.setFechaRealInicio(fechaRealInicio)
+			}
+
+			String fechaRealInicioStr = request.getParameter("fechaRealInicio");
+			if(fechaRealInicioStr==null || fechaRealInicioStr.isEmpty()){
+				criteria.setFechaRealInicio(null);
+			} else {
+				Date fechaRealInicio = FECHA_OF.parse(fechaRealInicioStr);
+				criteria.setFechaRealInicio(fechaRealInicio)
+			}
+			
+			String fechaRealFinStr = request.getParameter("fechaRealFin");
+			if(fechaRealFinStr==null || fechaRealFinStr.isEmpty()){
+				criteria.setFechaRealFin(null);
+			} else {
+				Date fechaRealFin = FECHA_OF.parse(fechaRealFinStr);
+				criteria.setFechaRealFin(fechaRealFin)
+			}
+
+			String fechaEstimadaFinStr = request.getParameter("fechaEstimadaFin");
+			if(fechaEstimadaFinStr==null || fechaEstimadaFinStr.isEmpty()){
+				criteria.setFechaEstimadaFin(null);
+			} else {
+				Date fechaEstimadaFin = FECHA_OF.parse(fechaEstimadaFinStr);
+				criteria.setFechaEstimadaFin(fechaEstimadaFin)
+			}
+			
+			String fechaEstimadaInicioStr = request.getParameter("fechaEstimadaInicio");
+			if(fechaEstimadaInicioStr==null || fechaEstimadaInicioStr.isEmpty()){
+				criteria.setFechaEstimadaInicio(null);
+			} else {
+				Date fechaEstimadaInicio = FECHA_OF.parse(fechaEstimadaInicioStr);
+				criteria.setFechaEstimadaInicio(fechaEstimadaInicio)
+			}
 
 			try {
 				Results<TareaDTO>resultados = tareaService.findByCriteria(criteria, 1, 20);			
@@ -136,6 +147,25 @@ public class TareaServlet extends HttpServlet {
 				logger.error(pe.getMessage(), pe);
 			} 
 			
+		} else if ("create".equalsIgnoreCase(action)) {
+			try {
+				TareaDTO tarea = new TareaDTO();
+				String nombre = request.getParameter("nombre");
+				String descripcion = request.getParameter("descripcion");
+
+				tarea.setNombre(nombre);
+				tarea.setDescripcion(descripcion);
+
+				Long id = tareaService.create(tarea);
+
+				targetView  = Views.TAREA_CREAR;
+				forwardOrRedirect = true;
+
+
+
+			} catch (OrganizateException | ServiceException pe) {
+				logger.error(pe.getMessage(), pe);
+			} 
 		}
 		RouterUtils.route(request, response, forwardOrRedirect, targetView);
 

@@ -65,6 +65,8 @@ public class UsuarioServlet extends HttpServlet {
 					}
 					targetView = Views.HOME;
 					forwardOrRedirect = false;
+				} else {
+					targetView=Views.LOGIN;
 				}
 
 			} catch (DataException | ServiceException e) {

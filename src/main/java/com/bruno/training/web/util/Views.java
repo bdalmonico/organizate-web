@@ -5,4 +5,14 @@ public class Views {
 	public static final String LOGIN = "/HelloWorldWeb/user/login.jsp";
 	public static final String TAREA_SEARCH = "/private/tarea/tarea-search-view.jsp";
 	public static final String TAREA_RESULTS = "/private/tarea/tarea-results-view.jsp";
+
+
+	public static final String EMPLEADO_SEARCH = "/private/user/empleado-search-view.jsp";
+	public static final String EMPLEADO_DETAIL = "/private/user/empleado-detail-view.jsp";
+	public static final String EMPLEADO_INSERT= "/private/user/empleado-insert-view.jsp";
+
+	public static final String PROYECTO_SEARCH= "/private/proyecto/proyecto-search-view.jsp";
+	public static final String PROYECTO_DETAIL = "/private/proyecto/proyecto-detail-view.jsp";
+	public static final String PROYECTO_INSERT = "/private/proyecto/proyecto-insert-view.jsp";
+
 }
