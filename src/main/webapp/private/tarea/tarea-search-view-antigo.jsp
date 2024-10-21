@@ -35,18 +35,32 @@
 			<input type="text" name="<%=Parameters.PROYECTOID%>" placeholder="Ejemplo: id del proyecto" />
 			
 			
+
+			 
 			 
 			<input type="submit" value="Buscar" />
 		</form>
 		<div id="resultados">
 		<ul>
-		<c:forEach var="t" items="${resultados}">
-			<li>
-				<a href="/HelloWorldWeb/private/TareaServlet?action=detail&id=${t.id}">
-					<c:out value="${t.nombre}"/>
-				</a>
-			</li>
-		</c:forEach>
+			<%
+			Results<TareaDTO> resultados = (Results<TareaDTO>) request.getAttribute(Attributes.RESULTADOS);
+			if (resultados!=null) {
+				for (TareaDTO tarea:resultados.getPage()) {
+					%>
+						<li>
+							<a href="/HelloWorldWeb/private/TareaServlet?action=detail&id=<%=tarea.getId()%>">
+								<%=tarea.getNombre()%></a> (<%=tarea.getDescripcion()%>)
+						</li>
+					<%	
+				}
+				%>
+				<p>Encontrados <%=resultados.getTotal() %> tareas</p>
+				<% 
+			} else {
+				%> <p>No se encontraram resultados.</p>
+				<%
+			}
+			%>
 		
 		
 		

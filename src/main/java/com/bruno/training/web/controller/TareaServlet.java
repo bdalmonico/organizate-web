@@ -7,7 +7,6 @@ import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -81,47 +80,64 @@ public class TareaServlet extends HttpServlet {
 			if(fechaRealInicioStr==null || fechaRealInicioStr.isEmpty()){
 				criteria.setFechaRealInicio(null);
 			} else {
-				Date fechaRealInicio = FECHA_OF.parse(fechaRealInicioStr);
-				criteria.setFechaRealInicio(fechaRealInicio)
-			}
-
-			String fechaRealInicioStr = request.getParameter("fechaRealInicio");
-			if(fechaRealInicioStr==null || fechaRealInicioStr.isEmpty()){
-				criteria.setFechaRealInicio(null);
-			} else {
-				Date fechaRealInicio = FECHA_OF.parse(fechaRealInicioStr);
-				criteria.setFechaRealInicio(fechaRealInicio)
+				Date fechaRealInicio = null;
+				try {
+					fechaRealInicio = FECHA_OF.parse(fechaRealInicioStr);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				criteria.setFechaRealInicio(fechaRealInicio);
 			}
 			
 			String fechaRealFinStr = request.getParameter("fechaRealFin");
 			if(fechaRealFinStr==null || fechaRealFinStr.isEmpty()){
 				criteria.setFechaRealFin(null);
 			} else {
-				Date fechaRealFin = FECHA_OF.parse(fechaRealFinStr);
-				criteria.setFechaRealFin(fechaRealFin)
+				Date fechaRealFin = null;
+				try {
+					fechaRealFin = FECHA_OF.parse(fechaRealFinStr);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				criteria.setFechaRealFin(fechaRealFin);
 			}
 
 			String fechaEstimadaFinStr = request.getParameter("fechaEstimadaFin");
 			if(fechaEstimadaFinStr==null || fechaEstimadaFinStr.isEmpty()){
 				criteria.setFechaEstimadaFin(null);
 			} else {
-				Date fechaEstimadaFin = FECHA_OF.parse(fechaEstimadaFinStr);
-				criteria.setFechaEstimadaFin(fechaEstimadaFin)
+				Date fechaEstimadaFin = null;
+				try {
+					fechaEstimadaFin = FECHA_OF.parse(fechaEstimadaFinStr);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				criteria.setFechaEstimadaFin(fechaEstimadaFin);
 			}
 			
 			String fechaEstimadaInicioStr = request.getParameter("fechaEstimadaInicio");
 			if(fechaEstimadaInicioStr==null || fechaEstimadaInicioStr.isEmpty()){
 				criteria.setFechaEstimadaInicio(null);
 			} else {
-				Date fechaEstimadaInicio = FECHA_OF.parse(fechaEstimadaInicioStr);
-				criteria.setFechaEstimadaInicio(fechaEstimadaInicio)
+				Date fechaEstimadaInicio = null;
+				try {
+					fechaEstimadaInicio = FECHA_OF.parse(fechaEstimadaInicioStr);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				criteria.setFechaEstimadaInicio(fechaEstimadaInicio);
 			}
 
 			try {
 				Results<TareaDTO>resultados = tareaService.findByCriteria(criteria, 1, 20);			
 				logger.info("Encontrados "+resultados.getTotal()+" tareas");
 
-				request.setAttribute("resultados", resultados);			
+//				request.setAttribute("resultados", resultados);
+				request.setAttribute("resultados", resultados.getPage());	
 				
 				targetView = Views.TAREA_SEARCH;
 				forwardOrRedirect = true;
@@ -156,7 +172,8 @@ public class TareaServlet extends HttpServlet {
 				tarea.setNombre(nombre);
 				tarea.setDescripcion(descripcion);
 
-				Long id = tareaService.create(tarea);
+				tareaService.registrar(tarea);
+//				Long id = tareaService.create(tarea);
 
 				targetView  = Views.TAREA_CREAR;
 				forwardOrRedirect = true;

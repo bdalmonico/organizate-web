@@ -5,6 +5,7 @@ public class Views {
 	public static final String LOGIN = "/HelloWorldWeb/user/login.jsp";
 	public static final String TAREA_SEARCH = "/private/tarea/tarea-search-view.jsp";
 	public static final String TAREA_RESULTS = "/private/tarea/tarea-results-view.jsp";
+	public static final String TAREA_CREAR= "/private/tarea/tarea-results-view.jsp";
 
 
 	public static final String EMPLEADO_SEARCH = "/private/user/empleado-search-view.jsp";

@@ -12,7 +12,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.bruno.org.dao.DataException;
+import com.bruno.org.model.EmpleadoCriteria;
 import com.bruno.org.model.EmpleadoDTO;
+import com.bruno.org.model.Results;
 import com.bruno.org.service.EmpleadoService;
 import com.bruno.org.service.ServiceException;
 import com.bruno.org.service.impl.EmpleadoServiceImpl;
@@ -41,7 +43,7 @@ public class UsuarioServletPrivate extends HttpServlet {
 			boolean forwardOrRedirect = true;
 	
 			if ("search".equalsIgnoreCase(action)) {
-				EmpleadoCriteria criteria = new UsuarioCriteria();
+				EmpleadoCriteria criteria = new EmpleadoCriteria();
 				
 				String email = request.getParameter("email");
 				if(email == null || email.isEmpty()){
@@ -65,20 +67,21 @@ public class UsuarioServletPrivate extends HttpServlet {
 					criteria.setNombre(nombre);
 				}
 
-				String rol = request.getParameter("rol");
-				if(rol==null||rol.isEmpty()){
-					criteria.setRol(null);
-				} else {
-					criteria.setRol(rol);
-				}
+//				String rol = request.getParameter("rol");
+//				if(rol==null||rol.isEmpty()){
+//					criteria.setRol(null);
+//				} else {
+//					criteria.setRol(rol);
+//				}
 
 				try {
-					Results<EmpleadoDTO> resultados = empleadoService.findByCriteria(criteir, 1,10);
+					Results<EmpleadoDTO> resultados = empleadoService.findByCriteria(criteria, 1,10);
 					request.setAttribute("resultados", resultados);
 					targetView = Views.EMPLEADO_SEARCH;
 					forwardOrRedirect = false;
 				} catch (DataException | ServiceException e) {
-				logger.error(e.getMessage(), e);
+				logger.error(e.getMessage(), e); 
+				}
 			} else if ("detail".equalsIgnoreCase(action)) {
 				try{
 					String idStr = request.getParameter("id");
@@ -96,7 +99,7 @@ public class UsuarioServletPrivate extends HttpServlet {
 				targetView = Views.HOME;
 				forwardOrRedirect = false;	
 			} else if ("anadir".equalsIgnoreCase(action)) {
-				try {
+				
 					EmpleadoDTO empleado = new EmpleadoDTO();
 					String nombre = request.getParameter("nombre");
 					String email = request.getParameter("email");
@@ -105,21 +108,19 @@ public class UsuarioServletPrivate extends HttpServlet {
 
 					empleado.setNombre(nombre);
 					empleado.setEmail(email);
-					empleado.setRol(rol);
-					empleado.setPassword(password);
-					Long id = empleadoService.insert(empleado);
+//					empleado.setRol(rol);
+//					empleado.setPassword(password);
+//					Long id = empleadoService.(empleado);
 					targetView = Views.EMPLEADO_INSERT;
 					forwardOrRedirect = false;
 
 
-				} catch (DataException | ServiceException e) {
-				logger.error(e.getMessage(), e);
-			    }
+				
 
 			}
 
 
-			}			
+					
 			RouterUtils.route(request, response, forwardOrRedirect, targetView);
 
 	}
