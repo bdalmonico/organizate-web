@@ -13,7 +13,7 @@ public class Views {
 	public static final String EMPLEADO_INSERT= "/private/user/empleado-insert-view.jsp";
 
 	public static final String PROYECTO_SEARCH= "/private/proyecto/proyecto-search-view.jsp";
-	public static final String PROYECTO_DETAIL = "/private/proyecto/proyecto-detail-view.jsp";
-	public static final String PROYECTO_INSERT = "/private/proyecto/proyecto-insert-view.jsp";
+	public static final String PROYECTO_RESULTS = "/private/proyecto/proyecto-results-view.jsp";
+	public static final String PROYECTO_CREAR = "/private/proyecto/proyecto-insert-view.jsp";
 
 }
