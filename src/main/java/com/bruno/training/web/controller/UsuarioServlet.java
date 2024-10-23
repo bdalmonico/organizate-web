@@ -35,13 +35,11 @@ public class UsuarioServlet extends HttpServlet {
 		empleadoService = new EmpleadoServiceImpl();
 	}
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter(Parameters.ACTION);
 		String targetView = null;
-		boolean forwardOrRedirect = true;
+		boolean forwardOrRedirect = false;
 
-		logger.info("action" + action);
 
 		if (Actions.LOGIN.equalsIgnoreCase(action)) {
 
@@ -57,11 +55,13 @@ public class UsuarioServlet extends HttpServlet {
 					SessionManager.setAttribute(request, Attributes.EMPLEADO, empleado);
 					String rememberMeStr = request.getParameter("remember-user");
 					Boolean rememberMe = rememberMeStr != null;
+					Long id = Long.valueOf(request.getParameter(Parameters.ID));
+					String idStr = String.valueOf(empleado.getId());
 					if (rememberMe) {
-						CookieManager.setCookie(response, request.getContextPath(), "user", empleado.getEmail(),
+						CookieManager.setCookie(response, request.getContextPath(), "empleado", idStr,
 								30 * 24 * 60 * 60);
 					} else {
-						CookieManager.removeCookie(response, request.getContextPath(), "user");
+						CookieManager.removeCookie(response, request.getContextPath(), "empleado");
 					}
 					targetView = Views.HOME;
 					forwardOrRedirect = false;

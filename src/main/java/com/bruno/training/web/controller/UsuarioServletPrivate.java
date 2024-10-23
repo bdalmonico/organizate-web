@@ -40,7 +40,7 @@ public class UsuarioServletPrivate extends HttpServlet {
 			throws ServletException, IOException {
 			String action = request.getParameter(Parameters.ACTION);
 			String targetView = null;
-			boolean forwardOrRedirect = true;
+			boolean forwardOrRedirect = false;
 	
 			if ("search".equalsIgnoreCase(action)) {
 				EmpleadoCriteria criteria = new EmpleadoCriteria();
@@ -68,17 +68,18 @@ public class UsuarioServletPrivate extends HttpServlet {
 				}
 
 //				String rol = request.getParameter("rol");
+//				Integer rolId = Integer.valueOf(rol);
 //				if(rol==null||rol.isEmpty()){
-//					criteria.setRol(null);
+//					criteria.setRolId(null);
 //				} else {
-//					criteria.setRol(rol);
+//					criteria.setRolId(rolId);
 //				}
 
 				try {
 					Results<EmpleadoDTO> resultados = empleadoService.findByCriteria(criteria, 1,10);
-					request.setAttribute("resultados", resultados);
+					request.setAttribute("resultados", resultados.getPage());
 					targetView = Views.EMPLEADO_SEARCH;
-					forwardOrRedirect = false;
+					forwardOrRedirect = true;
 				} catch (DataException | ServiceException e) {
 				logger.error(e.getMessage(), e); 
 				}
@@ -89,7 +90,7 @@ public class UsuarioServletPrivate extends HttpServlet {
 					EmpleadoDTO empleado = empleadoService.findById(id);
 					request.setAttribute("empleado", empleado);
 					targetView = Views.EMPLEADO_DETAIL;
-					forwardOrRedirect = false;
+					forwardOrRedirect = true;
 				} catch (DataException | ServiceException e) {
 				logger.error(e.getMessage(), e);
 		    	}
@@ -98,24 +99,19 @@ public class UsuarioServletPrivate extends HttpServlet {
 				SessionManager.removeAttribute(request, "empleado");
 				targetView = Views.HOME;
 				forwardOrRedirect = false;	
-			} else if ("anadir".equalsIgnoreCase(action)) {
+			} else if ("registrar".equalsIgnoreCase(action)) {
 				
 					EmpleadoDTO empleado = new EmpleadoDTO();
 					String nombre = request.getParameter("nombre");
 					String email = request.getParameter("email");
-					String rol = request.getParameter("rol");
 					String password = request.getParameter("password");
 
+				
 					empleado.setNombre(nombre);
 					empleado.setEmail(email);
-//					empleado.setRol(rol);
-//					empleado.setPassword(password);
-//					Long id = empleadoService.(empleado);
+					empleado.setContrasena(password);
 					targetView = Views.EMPLEADO_INSERT;
-					forwardOrRedirect = false;
-
-
-				
+					forwardOrRedirect = true;
 
 			}
 

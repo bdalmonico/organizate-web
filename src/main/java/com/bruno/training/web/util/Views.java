@@ -8,9 +8,9 @@ public class Views {
 	public static final String TAREA_CREAR= "/private/tarea/tarea-results-view.jsp";
 
 
-	public static final String EMPLEADO_SEARCH = "/private/user/empleado-search-view.jsp";
-	public static final String EMPLEADO_DETAIL = "/private/user/empleado-detail-view.jsp";
-	public static final String EMPLEADO_INSERT= "/private/user/empleado-insert-view.jsp";
+	public static final String EMPLEADO_SEARCH = "/private/empleado/empleado-search-view.jsp";
+	public static final String EMPLEADO_DETAIL = "/private/empleado/empleado-detail-view.jsp";
+	public static final String EMPLEADO_INSERT= "/private/empleado/empleado-insert-view.jsp";
 
 	public static final String PROYECTO_SEARCH= "/private/proyecto/proyecto-search-view.jsp";
 	public static final String PROYECTO_RESULTS = "/private/proyecto/proyecto-results-view.jsp";
