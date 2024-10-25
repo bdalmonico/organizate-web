@@ -61,11 +61,14 @@ public class UsuarioServletPrivate extends HttpServlet {
 				}
 
 				String nombre = request.getParameter("nombre");
-				if(nombre == null || nombre.isEmpty()){
-					criteria.setNombre(null);
-				} else {
-					criteria.setNombre(nombre);
-				}
+				
+				criteria.setNombre((nombre == null || nombre.isEmpty()) ? null : nombre);
+//				criteria.setNombre(String.isEmpty(nombre)?null:nombre);
+//				if(nombre == null || nombre.isEmpty()){
+//					criteria.setNombre(null);
+//				} else {
+//					criteria.setNombre(nombre);
+//				}
 
 //				String rol = request.getParameter("rol");
 //				Integer rolId = Integer.valueOf(rol);

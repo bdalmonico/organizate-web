@@ -22,7 +22,7 @@ private static Logger logger = LogManager.getLogger(RouterUtils.class);
 			request.getRequestDispatcher(targetView).forward(request, response);		
 		} else {
 			logger.info("Redirecting to "+targetView+"...");
-			response.sendRedirect(targetView);
+			response.sendRedirect(request.getContextPath() + targetView);
 		}		
 	}
 }
