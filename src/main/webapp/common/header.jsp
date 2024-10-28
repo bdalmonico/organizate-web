@@ -4,6 +4,10 @@
 <%@ page import="com.bruno.training.web.controller.*"%>
 <%@ page import="com.bruno.*"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix = "fmt" %>
+
+<fmt:setLocale value="${sessionScope['locale']}"/>
+
     
 <!DOCTYPE html>
 <html>
