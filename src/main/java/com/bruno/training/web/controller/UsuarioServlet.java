@@ -44,12 +44,12 @@ public class UsuarioServlet extends HttpServlet {
 		if (Actions.LOGIN.equalsIgnoreCase(action)) {
 
 			String empleadoIdStr = request.getParameter(Parameters.ID);
-			String password = request.getParameter(Parameters.PASSWORD);
-
+			String password = request.getParameter(Parameters.CONTRASENA);
 			Long empleadoId = Long.valueOf(empleadoIdStr); // id empleado em long
 
 			try {
 				EmpleadoDTO empleado = empleadoService.autenticar(empleadoId, password);
+				logger.info("Usuario: " + empleadoId + " " + empleado.getNombre());
 
 				if (empleado != null) {
 					SessionManager.setAttribute(request, Attributes.EMPLEADO, empleado);

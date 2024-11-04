@@ -1,6 +1,7 @@
 package com.bruno.training.web.controller;
 
 import java.io.IOException;
+import java.security.KeyStore.Entry.Attribute;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -22,6 +23,7 @@ import com.bruno.org.service.ServiceException;
 import com.bruno.org.service.TareaService;
 import com.bruno.org.service.impl.TareaServiceImpl;
 import com.bruno.training.web.util.Actions;
+import com.bruno.training.web.util.Attributes;
 import com.bruno.training.web.util.Parameters;
 import com.bruno.training.web.util.RouterUtils;
 import com.bruno.training.web.util.Views;
@@ -61,14 +63,14 @@ public class TareaServlet extends HttpServlet {
 				criteria.setId(id);
 			}
 
-			String descripcion = request.getParameter("descripcion");
+			String descripcion = request.getParameter(Parameters.DESCRIPCION);
 			if(descripcion==null || descripcion.isEmpty()){
 				criteria.setDescripcion(null);
 			} else {
 				criteria.setDescripcion(descripcion);
 			}
 
-			String proyectoIdStr = request.getParameter("proyectoId");
+			String proyectoIdStr = request.getParameter(Parameters.PROYECTOID);
 			if(proyectoIdStr==null || proyectoIdStr.isEmpty()){
 				criteria.setProyectoId(null);
 			} else {
@@ -76,7 +78,7 @@ public class TareaServlet extends HttpServlet {
 				criteria.setProyectoId(proyectoId);
 			}
 			
-			String fechaRealInicioStr = request.getParameter("fechaRealInicio");
+			String fechaRealInicioStr = request.getParameter(Parameters.FECHAREALINICIO);
 			if(fechaRealInicioStr==null || fechaRealInicioStr.isEmpty()){
 				criteria.setFechaRealInicio(null);
 			} else {
@@ -90,7 +92,7 @@ public class TareaServlet extends HttpServlet {
 				criteria.setFechaRealInicio(fechaRealInicio);
 			}
 			
-			String fechaRealFinStr = request.getParameter("fechaRealFin");
+			String fechaRealFinStr = request.getParameter(Parameters.FECHAREALFIN);
 			if(fechaRealFinStr==null || fechaRealFinStr.isEmpty()){
 				criteria.setFechaRealFin(null);
 			} else {
@@ -104,7 +106,7 @@ public class TareaServlet extends HttpServlet {
 				criteria.setFechaRealFin(fechaRealFin);
 			}
 
-			String fechaEstimadaFinStr = request.getParameter("fechaEstimadaFin");
+			String fechaEstimadaFinStr = request.getParameter(Parameters.FECHAESTIMADAFIN);
 			if(fechaEstimadaFinStr==null || fechaEstimadaFinStr.isEmpty()){
 				criteria.setFechaEstimadaFin(null);
 			} else {
@@ -118,7 +120,7 @@ public class TareaServlet extends HttpServlet {
 				criteria.setFechaEstimadaFin(fechaEstimadaFin);
 			}
 			
-			String fechaEstimadaInicioStr = request.getParameter("fechaEstimadaInicio");
+			String fechaEstimadaInicioStr = request.getParameter(Parameters.FECHAESTIMADAINICIO);
 			if(fechaEstimadaInicioStr==null || fechaEstimadaInicioStr.isEmpty()){
 				criteria.setFechaEstimadaInicio(null);
 			} else {
@@ -150,11 +152,11 @@ public class TareaServlet extends HttpServlet {
 			
 		} else if (Actions.DETAIL.equalsIgnoreCase(action)) {
 			try {
-				String idStr = request.getParameter("id");
+				String idStr = request.getParameter(Parameters.ID);
 				Long id = Long.valueOf(idStr);
 				
 				TareaDTO tarea =tareaService.findById(id);
-				request.setAttribute("tarea", tarea);
+				request.setAttribute(Attributes.TAREA, tarea);
 				
 				targetView = Views.TAREA_RESULTS;
 				forwardOrRedirect = true;
@@ -166,8 +168,8 @@ public class TareaServlet extends HttpServlet {
 		} else if ("create".equalsIgnoreCase(action)) {
 			try {
 				TareaDTO tarea = new TareaDTO();
-				String nombre = request.getParameter("nombre");
-				String descripcion = request.getParameter("descripcion");
+				String nombre = request.getParameter(Parameters.NOMBRE);
+				String descripcion = request.getParameter(Parameters.DESCRIPCION);
 
 				tarea.setNombre(nombre);
 				tarea.setDescripcion(descripcion);

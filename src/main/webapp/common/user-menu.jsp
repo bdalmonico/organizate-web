@@ -8,7 +8,8 @@
 		%><a href="/HelloWorldWeb/user/login.jsp">Autenticarse</a><%
 	} else {
 		%>
-			<p><%=empleado.getNombre()%></p>
+			<p><%=empleado.getNombre()%> <%=empleado.getApellido() %></p>
+			<p><%=empleado.getEmail()%></p>
 			<a href="/HelloWorldWeb/private/UsuarioServlet?action=logout">Salir</a>
 		<%		
 	}

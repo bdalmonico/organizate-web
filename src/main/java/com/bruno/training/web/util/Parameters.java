@@ -5,11 +5,19 @@ public class Parameters {
 
 	public static final String ID = "id";
 	
-	public static final String PASSWORD = "password";
+	public static final String CONTRASENA = "contrasena";
 	
 	public static final String LOGIN = "login";
 	
 	public static final String NOMBRE = "nombre";
+	
+	public static final String APELLIDO = "apellido";
+	
+	public static final String EMAIL = "email";
+	
+	public static final String ROLID = "rolId";
+	
+	public static final String FECHAALTA = "fechaAlta";
 	
 	public static final String CLIENTEID = "clienteId";
 	

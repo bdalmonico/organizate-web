@@ -2,14 +2,16 @@
 <%@include file="/common/header.jsp"%>
 
 <form action="/HelloWorldWeb/private/UsuarioServlet" method="post">
-
 	<h3>Buscar Usuarios</h3>
-
-	<input type="hidden" name="action" value="search" /> <label>Id:</label>
-	<input type="number" name="id" /> <label>Nombre:</label> <input
-		type="text" name="nombre" /> <label>Rol:</label> <input type="text"
-		name="rol" /> <label>Correo:</label> <input type="text" name="correo" />
-
+	<input type="hidden" name="action" value="search" />
+	<label>Id:</label>
+	<input type="number" name="id" /> 
+	<label>Nombre:</label> 
+	<input type="text" name="nombre" />
+	<label>Rol:</label>
+	<input type="text" name="rolId" />
+	<label>Email:</label> 
+	<input type="text" name="email" />
 	<input type="submit" value="Buscar" />
 </form>
 
@@ -21,10 +23,13 @@
 			<h3>Empleados de la búsqueda:</h3>
 			<ul>
 				<c:forEach var="emp" items="${resultados}">
-					<li><b>ID: <c:out value="${emp.id}" />: <b/><a href="/HelloWorldWeb/private/UsuarioServlet?action=detail&id=${emp.id}">
+					<li>
+						<b>ID: <c:out value="${emp.id}"/>:<b/>
+						<a href="/HelloWorldWeb/private/UsuarioServlet?action=detail&id=${emp.id}">
 							<c:out value="${emp.nombre}" />
 							<c:out value="${emp.apellido}" />
-					</a></li>
+						</a>
+					</li>
 				</c:forEach>
 			</ul>
 		</c:when>
@@ -33,10 +38,5 @@
 		</c:otherwise>
 	</c:choose>
 </div>
-
-
-
-
-
 
 <%@include file="/common/footer.jsp"%>

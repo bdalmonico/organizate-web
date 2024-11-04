@@ -18,10 +18,10 @@ private static Logger logger = LogManager.getLogger(RouterUtils.class);
 		throws IOException, ServletException {
 				
 		if (forwardOrRedirect) {
-			logger.info("Forwarding to "+targetView+"...");
+			logger.warn("Forwarding to "+targetView+"...");
 			request.getRequestDispatcher(targetView).forward(request, response);		
 		} else {
-			logger.info("Redirecting to "+targetView+"...");
+			logger.warn("Redirecting to "+targetView+"...");
 			response.sendRedirect(request.getContextPath() + targetView);
 		}		
 	}

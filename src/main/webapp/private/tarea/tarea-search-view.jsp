@@ -42,9 +42,11 @@
 		<ul>
 		<c:forEach var="t" items="${resultados}">
 			<li>
-				<a href="/HelloWorldWeb/private/TareaServlet?action=detail&id=${t.id}">
-					<c:out value="${t.nombre}"/>
+				<ol><a href="/HelloWorldWeb/private/TareaServlet?action=detail&id=${t.id}">
+					<h2><c:out value="${t.nombre}"/> | <c:out value="${t.fechaRealInicio}"/></ol></h2>
+					<p><ol><c:out value="${t.descripcion}"/></ol></p>
 				</a>
+				
 			</li>
 		</c:forEach>
 		
