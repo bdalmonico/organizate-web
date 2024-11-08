@@ -97,9 +97,10 @@ public class UsuarioServletPrivate extends HttpServlet {
 			String apellido = request.getParameter(Parameters.APELLIDO);
 			String email = request.getParameter(Parameters.EMAIL);
 			String contrasena = request.getParameter(Parameters.CONTRASENA);
+			String fechaAltaStr = request.getParameter(Parameters.FECHAALTA);
 			String rol = request.getParameter(Parameters.ROLID);
 			Integer rolId = Integer.valueOf(rol);
-			String fechaAltaStr = request.getParameter(Parameters.FECHAALTA);
+			
 			Date fechaAlta = null;
 			try {
 				fechaAlta = FECHA_OF.parse(fechaAltaStr);

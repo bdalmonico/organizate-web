@@ -16,7 +16,7 @@
 	<label>RolId:</label> 
 	<input type="text" name="rolId" />
 	<label>Fecha de Alta:</label> 
-	<input type="text" name="fechaAlta" />
+	<input type="date" name="fechaAlta" />
 	<input type="submit" value="Enviar" />
 </form>
 
