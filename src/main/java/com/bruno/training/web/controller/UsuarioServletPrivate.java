@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.util.Strings;
 
 import com.bruno.org.dao.DataException;
 import com.bruno.org.model.EmpleadoCriteria;
@@ -23,17 +24,18 @@ import com.bruno.org.service.ServiceException;
 import com.bruno.org.service.impl.EmpleadoServiceImpl;
 import com.bruno.training.web.util.Actions;
 import com.bruno.training.web.util.Attributes;
+import com.bruno.training.web.util.ErrorCodes;
+import com.bruno.training.web.util.Errors;
 import com.bruno.training.web.util.Parameters;
 import com.bruno.training.web.util.RouterUtils;
 import com.bruno.training.web.util.SessionManager;
 import com.bruno.training.web.util.Views;
-import com.mysql.cj.result.LongValueFactory;
 
 @WebServlet("/private/UsuarioServlet")
 public class UsuarioServletPrivate extends HttpServlet {
 
-	private static SimpleDateFormat FECHA_OF = new SimpleDateFormat("YYYY/MM/dd"); 
-	
+	private static SimpleDateFormat FECHA_OF = new SimpleDateFormat("yyyy-MM-dd");
+
 	private static Logger logger = LogManager.getLogger(UsuarioServletPrivate.class);
 
 	private EmpleadoService empleadoService = null;
@@ -45,6 +47,8 @@ public class UsuarioServletPrivate extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		Errors errors = new Errors();
+		request.setAttribute("errors"/* AttibuteNames.ERRORS */, errors);
 		String action = request.getParameter(Parameters.ACTION);
 		String targetView = null;
 		boolean forwardOrRedirect = false;
@@ -68,7 +72,9 @@ public class UsuarioServletPrivate extends HttpServlet {
 
 			try {
 				Results<EmpleadoDTO> resultados = empleadoService.findByCriteria(criteria, 1, 10);
-				request.setAttribute(Attributes.RESULTADOS, resultados.getPage());
+				if (resultados.getPage().size() > 0) {
+					request.setAttribute(Attributes.RESULTADOS, resultados.getPage());
+				}
 				targetView = Views.EMPLEADO_SEARCH;
 				forwardOrRedirect = true;
 			} catch (DataException | ServiceException e) {
@@ -76,6 +82,7 @@ public class UsuarioServletPrivate extends HttpServlet {
 			}
 		} else if (Actions.DETAIL.equalsIgnoreCase(action)) {
 			try {
+
 				String idStr = request.getParameter(Parameters.ID);
 				Long id = Long.valueOf(idStr);
 				EmpleadoDTO empleado = empleadoService.findById(id);
@@ -88,7 +95,7 @@ public class UsuarioServletPrivate extends HttpServlet {
 
 		} else if (Actions.LOGOUT.equalsIgnoreCase(action)) {
 			SessionManager.removeAttribute(request, Attributes.EMPLEADO);
-			targetView = Views.LOGOUT;
+			targetView = Views.HOME;
 			forwardOrRedirect = false;
 		} else if (Actions.REGISTRAR.equalsIgnoreCase(action)) {
 
@@ -96,11 +103,24 @@ public class UsuarioServletPrivate extends HttpServlet {
 			String nombre = request.getParameter(Parameters.NOMBRE);
 			String apellido = request.getParameter(Parameters.APELLIDO);
 			String email = request.getParameter(Parameters.EMAIL);
+			errors.addFieldError("correo", ErrorCodes.INVALID_EMAIL);
+
 			String contrasena = request.getParameter(Parameters.CONTRASENA);
+			if (!Strings.isBlank(contrasena)) {
+				contrasena = contrasena.trim();
+				if (contrasena.length() >= 6 && contrasena.length() <= 12) {
+					// Expresion regular: Para MAY/min/numers...
+				} else {
+					errors.addFieldError("contrasena", ErrorCodes.INVALID_PASSWORD_LENGTH);
+				}
+			} else {
+				errors.addFieldError("contrasena", ErrorCodes.MANDATORY_FIELD);
+			}
 			String fechaAltaStr = request.getParameter(Parameters.FECHAALTA);
+
 			String rol = request.getParameter(Parameters.ROLID);
 			Integer rolId = Integer.valueOf(rol);
-			
+
 			Date fechaAlta = null;
 			try {
 				fechaAlta = FECHA_OF.parse(fechaAltaStr);
@@ -108,26 +128,55 @@ public class UsuarioServletPrivate extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			
-			empleado.setNombre(nombre);
-			empleado.setApellido(apellido);
-			empleado.setEmail(email);
-			empleado.setContrasena(contrasena);
-			empleado.setRolId(rolId);
-			empleado.setFechaAlta(fechaAlta);
-			
-			try {
-				empleadoService.registrar(empleado);
-			} catch (DataException e) {
-				e.printStackTrace();
-			} catch (ServiceException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			targetView = Views.EMPLEADO_INSERT;
-			forwardOrRedirect = true;
+			if (!errors.hasErrors()) {
+				empleado.setNombre(nombre);
+				empleado.setApellido(apellido);
+				empleado.setEmail(email);
+				empleado.setContrasena(contrasena);
+				empleado.setRolId(rolId);
+				empleado.setFechaAlta(fechaAlta);
 
+				try {
+					empleadoService.registrar(empleado);
+				} catch (DataException e) {
+					e.printStackTrace();
+				} catch (ServiceException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				targetView = Views.EMPLEADO_INSERT;
+				forwardOrRedirect = true;
+			} else {
+				forwardOrRedirect = true;
+				targetView = Views.EMPLEADO_INSERT;
+			}
+
+		}else if ("viewProfile".equalsIgnoreCase(action)) {
+			try {
+				String idStr = request.getParameter("id");
+				Long id = Long.valueOf(idStr);
+
+				EmpleadoDTO u = empleadoService.findById(id);
+
+				request.setAttribute("u", u);
+
+				targetView = Views.EMPLEADO_DETAIL;
+				forwardOrRedirect = true;
+			} catch (DataException | ServiceException pe) {
+				logger.error(pe.getMessage(), pe);
+			}
+		}else if ("borrar".equalsIgnoreCase(action)) {
+
+			try {
+				String idStr = request.getParameter("id");
+				Long id = Long.valueOf(idStr);
+				empleadoService.delete(id);
+				targetView = Views.EMPLEADO_SEARCH;
+				forwardOrRedirect = true;
+
+			} catch (DataException | ServiceException pe) {
+				logger.error(pe.getMessage(), pe);
+			}
 		}
 
 		RouterUtils.route(request, response, forwardOrRedirect, targetView);

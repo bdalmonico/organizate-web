@@ -4,10 +4,11 @@
 	
 	<% TareaDTO tarea = (TareaDTO) request.getAttribute(Attributes.TAREA);%>
 	<ul>
-		<h2>Nombre de la tarea: <%=tarea.getNombre() %></h2>
-		<h4>Descripcion de la tarea: <%=tarea.getDescripcion()%></h3>
-		<h5>Fecha real de inicio: <%=tarea.getFechaRealInicio()%> ---> Fecha real de fin: <%=tarea.getFechaRealFin()%></h5>
-		<h5>Fecha estimada de inicio: <%=tarea.getFechaEstimadaInicio()%> ---> Fecha estimada de fin: <%=tarea.getFechaEstimadaFin()%></h5>
+		<h2><fmt:message key="name2p" bundle="${messages}"/> <%=tarea.getNombre() %></h2>
+		<h4><fmt:message key="description2p" bundle="${messages}"/> <%=tarea.getDescripcion()%></h3>
+		<h5><fmt:message key="real_start_date2p" bundle="${messages}"/> <%=tarea.getFechaRealInicio()%> ---> Fecha real de fin: <%=tarea.getFechaRealFin()%></h5>
+		<h5><fmt:message key="real_end_date2p" bundle="${messages}"/>: <%=tarea.getFechaEstimadaInicio()%> ---> Fecha estimada de fin: <%=tarea.getFechaEstimadaFin()%></h5>
+		<h4><a href="/HelloWorldWeb/private/ProyectoServlet?action=detail&id=${tarea.proyectoId}"><fmt:message key="project_id2p" bundle="${messages}"/> <%=tarea.getProyectoId()%></a></h3>
 	</ul>
 	
 	<p>___________________________________</p>

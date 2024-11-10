@@ -32,7 +32,7 @@ import com.bruno.training.web.util.Views;
 @WebServlet("/private/TareaServlet")
 public class TareaServlet extends HttpServlet {
 	
-	private static SimpleDateFormat FECHA_OF = new SimpleDateFormat("dd/MM/YYYY");
+	private static SimpleDateFormat FECHA_OF = new SimpleDateFormat("yyyy-MM-dd");
 	private Logger logger = LogManager.getLogger(TareaServlet.class);
 	private TareaService tareaService = null;
 
@@ -165,20 +165,62 @@ public class TareaServlet extends HttpServlet {
 				logger.error(pe.getMessage(), pe);
 			} 
 			
-		} else if ("create".equalsIgnoreCase(action)) {
+		} else if (Actions.REGISTRAR.equalsIgnoreCase(action)) {
 			try {
 				TareaDTO tarea = new TareaDTO();
 				String nombre = request.getParameter(Parameters.NOMBRE);
 				String descripcion = request.getParameter(Parameters.DESCRIPCION);
+				String fechaRealInicioStr = request.getParameter(Parameters.FECHAREALINICIO);
+				String fechaRealFinStr  = request.getParameter(Parameters.FECHAREALFIN);
+				String fechaEstimadaInicioStr = request.getParameter(Parameters.FECHAESTIMADAINICIO);
+				String fechaEstimadaFinStr = request.getParameter(Parameters.FECHAESTIMADAFIN);
+				String estadoIdStr = request.getParameter(Parameters.ESTADOID);
+				Long estadoId = null;
+				if (estadoIdStr != null && !estadoIdStr.isEmpty()) {
+				    estadoId = Long.valueOf(estadoIdStr);
+				} else {
+				    logger.warn("Estado ID não fornecido.");
+				    // Trate o caso onde estadoId é necessário, mas não foi fornecido
+				}
 
+				String proyectoIdStr = request.getParameter(Parameters.PROYECTOID);
+				Long proyectoId = null;
+				if (proyectoIdStr != null && !proyectoIdStr.isEmpty()) {
+				    proyectoId = Long.valueOf(proyectoIdStr);
+				} else {
+				    logger.warn("Projeto ID não fornecido.");
+				    // Trate o caso onde proyectoId é necessário, mas não foi fornecido
+				}
+
+				Date fechaRealInicio = null;
+				Date fechaRealFin = null;
+				Date fechaEstimadaInicio= null;
+				Date fechaEstimadaFin = null;
+				try {
+					fechaRealInicio = FECHA_OF.parse(fechaRealInicioStr);
+					fechaRealFin = FECHA_OF.parse(fechaRealFinStr);
+					fechaEstimadaInicio = FECHA_OF.parse(fechaEstimadaInicioStr);
+					fechaEstimadaFin = FECHA_OF.parse(fechaEstimadaFinStr);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
 				tarea.setNombre(nombre);
 				tarea.setDescripcion(descripcion);
+				tarea.setFechaRealInicio(fechaRealInicio);
+				tarea.setFechaRealFin(fechaRealFin);
+				tarea.setFechaEstimadaInicio(fechaEstimadaInicio);
+				tarea.setFechaEstimadaFin(fechaEstimadaFin);
+				tarea.setEstadoId(estadoId);
+				tarea.setProyectoId(proyectoId);
 
 				tareaService.registrar(tarea);
 //				Long id = tareaService.create(tarea);
 
 				targetView  = Views.TAREA_CREAR;
-				forwardOrRedirect = true;
+				forwardOrRedirect = false;
 
 
 

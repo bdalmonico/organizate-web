@@ -6,15 +6,15 @@
 		<form action="/HelloWorldWeb/private/ProyectoServlet" method="post">	
 		
 				
-			<h3 class="titulo">Buscar proyectos</h3>
+			<h3 class="titulo"><fmt:message key="search_project" bundle="${messages}"/></h3>
 			
 			<input type="hidden" name="<%=Parameters.ACTION %>" value="<%=Actions.SEARCH%>"/>
 			
-			<label>Nombre:</label> 
+			<label><fmt:message key="name2p" bundle="${messages}"/></label> 
 			<input type="text" name="<%=Parameters.NOMBRE %>" placeholder="Ejemplo: proyectos" />
 						
 			 
-			<input type="submit" value="Buscar" />
+			<input type="submit" value="<fmt:message key="search" bundle="${messages}"/>" />
 		</form>
 		
 		
@@ -34,7 +34,7 @@
 			</div>
 			</c:when>
 			<c:otherwise>
-				<h1>no se encontraron resultados</h1>
+				<h1><fmt:message key="without_results" bundle="${messages}"/>.</h1>
 			</c:otherwise>
 		</c:choose>
 		

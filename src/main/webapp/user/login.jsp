@@ -7,13 +7,13 @@
 		
 		<%/** <h3><fmt:message key="user_authentication" bundle="resource.i18n.Messages"></fmt:message></h3> */%>
 		
-		<h1>Buscar</h1><h1>usuarios</h1>
+		<h3><fmt:message key="user_authentication" bundle="${messages}"/></h3>
 		<input type="hidden" name="<%=Parameters.ACTION%>" value="<%=Actions.LOGIN%>">
-		<label>id:</label>
+		<label><fmt:message key="user2p" bundle="${messages}"/></label>		
 		<input type="number" name="<%=Parameters.ID %>" placeholder="id usuario" required value="<%=CookieManager.getValue(request, "empleado")%>"/>
 		<%/**<label><fmt:message key="password2p" bundle="resource.i18n.Messages"></fmt:message>
 		Contrasena:</label> */ %>
-		
+		<label><fmt:message key="password2p" bundle="${messages}"/></label>
 		<input type="password" name="<%=Parameters.CONTRASENA%>" placeholder="contraseña" value="abc123." required/>
 		<input type="checkbox" name="remember-user" checked>Recordar usuario</input>
 		<input type="submit" value="Entrar" ></input>

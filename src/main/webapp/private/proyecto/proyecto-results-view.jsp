@@ -4,10 +4,10 @@
 	
 	<% ProyectoDTO proyecto = (ProyectoDTO) request.getAttribute(Attributes.PROYECTO);%>
 	<ul>
-		<h2>Nombre del proyecto: <%=proyecto.getNombre() %></h2>
-		<h3>Descripcion del proyecto: <%=proyecto.getDescripcion()%></h3>
-		<h4>Fecha estimada de inicio: <%=proyecto.getFechaEstimadaInicio()%></h4>
-		<h4>Fecha estimada de fin: <%=proyecto.getFechaEstimadaFin()%></h4>
+		<h2><fmt:message key="name2p" bundle="${messages}"/> <%=proyecto.getNombre() %></h2>
+		<h3><fmt:message key="description2p" bundle="${messages}"/> <%=proyecto.getDescripcion()%></h3>
+		<h4><fmt:message key="start_date2p" bundle="${messages}"/> <%=proyecto.getFechaEstimadaInicio()%></h4>
+		<h4><fmt:message key="end_date2p" bundle="${messages}"/><%=proyecto.getFechaEstimadaFin()%></h4>
 	<p>___________________________________</p>
 	
 

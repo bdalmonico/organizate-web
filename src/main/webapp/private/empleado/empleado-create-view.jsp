@@ -3,21 +3,21 @@
 
 <form action="/HelloWorldWeb/private/UsuarioServlet" method="post">
 	
-	<h3>Criar Usuarios</h3>
+	<h3><fmt:message key="create_employee" bundle="${messages}"/></h3>
 	<input type="hidden" name="action" value="registrar" />
-	<label>Nombre:</label> 
+	<label><fmt:message key="name2p" bundle="${messages}"/></label> 
 	<input type="text" name="nombre" />
-	<label>Apellido:</label> 
-	<input type="text" name="apellido" />
-	<label>Email:</label> 
+	<label><fmt:message key="lastname2p" bundle="${messages}"/></label> 
+	<input type="text" name="apellido"/>
+	<label><fmt:message key="email2p" bundle="${messages}"/></label> 
 	<input type="text" name="email" />
-	<label>Contrasena:</label>
+	<label><fmt:message key="password2p" bundle="${messages}"/></label>
 	<input type="text" name="contrasena" />
-	<label>RolId:</label> 
-	<input type="text" name="rolId" />
-	<label>Fecha de Alta:</label> 
+	<label><fmt:message key="role2p" bundle="${messages}"/></label> 
+	<input type="text" name="rolId"  />
+	<label><fmt:message key="registration_date2p" bundle="${messages}"/></label> 
 	<input type="date" name="fechaAlta" />
-	<input type="submit" value="Enviar" />
+	<input type="submit" value="<fmt:message key="create" bundle="${messages}"/>" />
 </form>
 
 <%@include file="/common/footer.jsp"%>

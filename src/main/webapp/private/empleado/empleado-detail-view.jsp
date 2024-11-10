@@ -3,30 +3,30 @@
 
 <div class="container">
 	<%
-	EmpleadoDTO emple = (EmpleadoDTO) request.getAttribute(Attributes.EMPLEADO);
+	EmpleadoDTO emp = (EmpleadoDTO) request.getAttribute(Attributes.EMPLEADO);
 	%>
 
 	<p>
-		<b>ID:</b>
-		<%=emple.getId()%><br>
+		<b><fmt:message key="id2p" bundle="${messages}"/></b>
+		<%=emp.getId()%><br>
 	</p>
 	<p>
-		<b>Nombre:</b> <%=emple.getNombre()%>
+		<b><fmt:message key="name2p" bundle="${messages}"/></b> <%=emp.getNombre()%>
 	</p>
 	<p>
-		<b>Apellidos:</b> <%=emple.getApellido()%>
+		<b><fmt:message key="lastname2p" bundle="${messages}"/></b> <%=emp.getApellido()%>
 	</p>
 	<p>
-		<b>Correo Electrónico:</b> <%=emple.getEmail()%>
+		<b><fmt:message key="email2p" bundle="${messages}"/></b> <%=emp.getEmail()%>
 	</p>
 	<p>
-		<b>Contraseña:</b> <%=emple.getContrasena()%>
+		<b><fmt:message key="password2p" bundle="${messages}"/></b> <%=emp.getContrasena()%>
 	</p>
 	<p>
-		<b>Fecha de Alta:</b> <%=emple.getFechaAlta()%>
+		<b><fmt:message key="registration_date2p" bundle="${messages}"/></b> <%=emp.getFechaAlta()%>
 	</p>
 	<p>
-		<b>Rol ID:</b> <%=emple.getRolId()%>
+		<b><fmt:message key="role2p" bundle="${messages}"/></b> <%=emp.getRolId()%>
 	</p>
 
 

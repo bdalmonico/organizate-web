@@ -2,17 +2,17 @@
 <%@include file="/common/header.jsp"%>
 
 <form action="/HelloWorldWeb/private/UsuarioServlet" method="post">
-	<h3>Buscar Usuarios</h3>
+	<h3><fmt:message key="search_employee" bundle="${messages}"/></h3>
 	<input type="hidden" name="action" value="search" />
-	<label>Id:</label>
+	<label><fmt:message key="id2p" bundle="${messages}"/></label>
 	<input type="number" name="id" /> 
-	<label>Nombre:</label> 
+	<label><fmt:message key="name2p" bundle="${messages}"/></label> 
 	<input type="text" name="nombre" />
-	<label>Rol:</label>
+	<label><fmt:message key="role2p" bundle="${messages}"/></label>
 	<input type="text" name="rolId" />
-	<label>Email:</label> 
+	<label><fmt:message key="email2p" bundle="${messages}"/></label> 
 	<input type="text" name="email" />
-	<input type="submit" value="Buscar" />
+	<input type="submit" value="<fmt:message key="search" bundle="${messages}"/>" />
 </form>
 
 
@@ -20,7 +20,7 @@
 	<!--  getPage() ? -->
 	<c:choose>
 		<c:when test="${not empty resultados}">
-			<h3>Empleados de la búsqueda:</h3>
+			<h3><fmt:message key="results" bundle="${messages}"/></h3>
 			<ul>
 				<c:forEach var="emp" items="${resultados}">
 					<li>
@@ -34,7 +34,7 @@
 			</ul>
 		</c:when>
 		<c:otherwise>
-			<p>No se encontraron resultados.</p>
+			<p><fmt:message key="search_more" bundle="${messages}"/></p>
 		</c:otherwise>
 	</c:choose>
 </div>

@@ -5,7 +5,8 @@
 <% 	
 	EmpleadoDTO empleado = (EmpleadoDTO) SessionManager.getAttribute(request, Attributes.EMPLEADO);
 	if (empleado==null) {
-		%><a href="/HelloWorldWeb/user/login.jsp">Autenticarse</a><%
+		%><a href="/HelloWorldWeb/user/login.jsp"><fmt:message
+				key="authenticate" bundle="${messages}" /></a><%
 	} else {
 		%>
 			<p><%=empleado.getNombre()%> <%=empleado.getApellido() %></p>

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bruno.training.web.util.Attributes;
 import com.bruno.training.web.util.RouterUtils;
 import com.bruno.training.web.util.SessionManager;
 import com.bruno.training.web.util.Views;
@@ -30,7 +31,7 @@ public class AuthenticationFilter extends HttpFilter implements Filter {
 			
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 	
-		if (SessionManager.getAttribute(httpRequest, "empleado")==null) {
+		if (SessionManager.getAttribute(httpRequest, Attributes.EMPLEADO)==null) {
 			RouterUtils.route(httpRequest, (HttpServletResponse) response, true, Views.LOGIN);
 		} else {			
 			chain.doFilter(request, response);
