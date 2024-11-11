@@ -22,8 +22,8 @@
 	<img src="/HelloWorldWeb/imgs/logo.webp" width="100" height="60" />
 	<%@include file="/common/user-menu.jsp"%>
 	<a
-		href="<%=request.getContextPath()%>/public/UsuarioServlet?action=change-locale&locale=gl_ES">Galego</a>
-	<a
 		href="<%=request.getContextPath()%>/public/UsuarioServlet?action=change-locale&locale=es">Español</a>
 	<a
 		href="<%=request.getContextPath()%>/public/UsuarioServlet?action=change-locale&locale=en">English</a>
+	<a
+		href="<%=request.getContextPath()%>/public/UsuarioServlet?action=change-locale&locale=pt">Portugues</a>
