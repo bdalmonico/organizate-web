@@ -1,7 +1,6 @@
 package com.bruno.training.web.controller;
 
 import java.io.IOException;
-import java.security.KeyStore.Entry.Attribute;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,11 +15,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.bruno.OrganizateException;
+import com.bruno.org.model.ComentarioTareaDTO;
 import com.bruno.org.model.Results;
 import com.bruno.org.model.TareaCriteria;
 import com.bruno.org.model.TareaDTO;
+import com.bruno.org.service.ComentarioTareaService;
 import com.bruno.org.service.ServiceException;
 import com.bruno.org.service.TareaService;
+import com.bruno.org.service.impl.ComentarioTareaServiceImpl;
 import com.bruno.org.service.impl.TareaServiceImpl;
 import com.bruno.training.web.util.Actions;
 import com.bruno.training.web.util.Attributes;
@@ -35,10 +37,13 @@ public class TareaServlet extends HttpServlet {
 	private static SimpleDateFormat FECHA_OF = new SimpleDateFormat("yyyy-MM-dd");
 	private Logger logger = LogManager.getLogger(TareaServlet.class);
 	private TareaService tareaService = null;
+	private ComentarioTareaService comentario = null;
 
+	
 	public TareaServlet() {
 		super();
 		tareaService = new TareaServiceImpl();
+		comentario = new ComentarioTareaServiceImpl();
 
 	}
 
@@ -135,7 +140,7 @@ public class TareaServlet extends HttpServlet {
 			}
 
 			try {
-				Results<TareaDTO>resultados = tareaService.findByCriteria(criteria, 1, 20);			
+				Results<TareaDTO>resultados = tareaService.findByCriteria(criteria, 1, Integer.MAX_VALUE);			
 				logger.info("Encontrados "+resultados.getTotal()+" tareas");
 
 //				request.setAttribute("resultados", resultados);
@@ -154,9 +159,11 @@ public class TareaServlet extends HttpServlet {
 			try {
 				String idStr = request.getParameter(Parameters.ID);
 				Long id = Long.valueOf(idStr);
-				
 				TareaDTO tarea =tareaService.findById(id);
 				request.setAttribute(Attributes.TAREA, tarea);
+				
+				Results<ComentarioTareaDTO> comentarios = comentario.findByTarea(id, 1, 20);
+				request.setAttribute(Attributes.COMENTARIOS, comentarios);
 				
 				targetView = Views.TAREA_RESULTS;
 				forwardOrRedirect = true;

@@ -2,9 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@include file="/common/header.jsp" %>
 
-<h1>Organizate WEB.</h1>
 <%@include file="/common/menu.jsp"%>
 
 <h1><fmt:message key="welcome" bundle="${messages}"/></h1>
-
+<main class="dashboard"> <!-- Dashboard content goes heregsdfgsdfgfsdgsdg -->sdfgsdgsdg </main>
 <%@include file="/common/footer.jsp" %>

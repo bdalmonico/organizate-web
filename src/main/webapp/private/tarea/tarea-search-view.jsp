@@ -17,16 +17,16 @@
 			<input type="text" name="<%=Parameters.DESCRIPCION %>" placeholder="Ejemplo: descripcion" />
 			
 			<label><fmt:message key="start_date2p" bundle="${messages}"/></label>	
-			<input type="text" name="<%=Parameters.FECHAESTIMADAINICIO %>" placeholder="Ejemplo: fecha estimada inicio" />
+			<input type="date" name="<%=Parameters.FECHAESTIMADAINICIO %>" placeholder="Ejemplo: fecha estimada inicio" />
 			
 			<label><fmt:message key="end_date2p" bundle="${messages}"/></label>	
-			<input type="text" name="<%=Parameters.FECHAESTIMADAFIN %>" placeholder="Ejemplo: fecha estimada fin" />
+			<input type="date" name="<%=Parameters.FECHAESTIMADAFIN %>" placeholder="Ejemplo: fecha estimada fin" />
 			
 			<label><fmt:message key="real_start_date2p" bundle="${messages}"/></label>	
-			<input type="text" name="<%=Parameters.FECHAREALINICIO %>" placeholder="Ejemplo: fecha real inicio" />
+			<input type="date" name="<%=Parameters.FECHAREALINICIO %>" placeholder="Ejemplo: fecha real inicio" />
 			
 			<label><fmt:message key="real_end_date2p" bundle="${messages}"/></label>	
-			<input type="text" name="<%=Parameters.FECHAREALFIN%>" placeholder="Ejemplo: fecha real fin" />
+			<input type="date" name="<%=Parameters.FECHAREALFIN%>" placeholder="Ejemplo: fecha real fin" />
 			
 			<label><fmt:message key="task_id2p" bundle="${messages}"/></label>	
 			<input type="text" name="<%=Parameters.ID%>" placeholder="Ejemplo: id de la tarea" />

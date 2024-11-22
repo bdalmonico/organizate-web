@@ -19,11 +19,25 @@
 <title>Organizate</title>
 </head>
 <body>
-	<img src="/HelloWorldWeb/imgs/logo.webp" width="100" height="60" />
-	<%@include file="/common/user-menu.jsp"%>
-	<a
-		href="<%=request.getContextPath()%>/public/UsuarioServlet?action=change-locale&locale=es">Español</a>
-	<a
-		href="<%=request.getContextPath()%>/public/UsuarioServlet?action=change-locale&locale=en">English</a>
-	<a
-		href="<%=request.getContextPath()%>/public/UsuarioServlet?action=change-locale&locale=pt">Portugues</a>
+
+
+	<header>
+		<div class="logo"><img src="/HelloWorldWeb/imgs/logo.webp" width="100" height="60" /></div>
+		<div class="header-right">
+			<div class="language-options">
+				<a
+					href="<%=request.getContextPath()%>/UsuarioServlet?action=change-locale&locale=en">English</a>
+				<a
+					href="<%=request.getContextPath()%>/UsuarioServlet?action=change-locale&locale=es">Español</a>
+				<a
+					href="<%=request.getContextPath()%>/UsuarioServlet?action=change-locale&locale=pt">Português</a>
+			</div>
+			<button class="settings"><%@include file="/common/user-menu.jsp"%></button>
+		</div>
+	</header>
+
+
+
+	
+
+	<div class="coontainer">

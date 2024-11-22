@@ -15,9 +15,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.bruno.OrganizateException;
+import com.bruno.org.model.ComentarioProyectoDTO;
 import com.bruno.org.model.ProyectoCriteria;
 import com.bruno.org.model.ProyectoDTO;
 import com.bruno.org.model.Results;
+import com.bruno.org.service.ComentarioProyectoService;
 import com.bruno.org.service.ProyectoService;
 import com.bruno.org.service.ServiceException;
 import com.bruno.org.service.impl.ProyectoServiceImpl;
@@ -147,6 +149,7 @@ public class ProyectoServlet extends HttpServlet {
 				
 				ProyectoDTO proyecto =proyectoService.findById(id);
 				request.setAttribute("proyecto", proyecto);
+
 				
 				targetView = Views.PROYECTO_RESULTS;
 				forwardOrRedirect = true;

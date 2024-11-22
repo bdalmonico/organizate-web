@@ -1,45 +1,99 @@
 @charset "UTF-8";
-body {
-        font-family: Arial, sans-serif;
-        background-color: #222;
-        color: #f1f1f1;
-        margin: 0;
-        padding: 20px;
-    }
 
-h2 {
-    color: #ffd700;
-    border-bottom: 2px solid #f1d700;
-    padding-bottom: 10px;
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    background-color:#f0f0f0;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #305F8A;
+    color: #fff;
+    width: 100%;
+    box-sizing: border-box; /* Ensure padding and border do not add to the width */
+}
+
+header .logo {
+    font-size: 1.5em;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.language-options {
+    display: flex;
+    gap: 15px;
+    margin-right: 20px;
+}
+
+.language-options a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1em;
+}
+
+.language-options a:hover {
+    text-decoration: underline;
+}
+
+.settings {
+    background-color: #555;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.container {
+    display: flex;
+    flex: 1;
+}
+
+.sidebar {
+    width: 25%;
+    background-color: #f4f4f4;
+    padding: 20px;
+    box-sizing: border-box;
+    height:100vh;
+}
+
+.user-profile {
+    text-align: center;
     margin-bottom: 20px;
 }
 
-form {
-    background-color: #333;
-    padding: 25px;
-    border-radius: 10px;
-    max-width: 600px;
-    margin: 0 auto;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+.user-profile img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
 }
 
-label {
-    display: block;
-    margin: 10px 0 5px;
-    color: #ffd700;
+.menu ul {
+    list-style-type: none;
+    padding: 0;
 }
-a {
-	color:white;
+
+.menu ul li {
+    margin: 10px 0;
 }
-.navbar {
-	display:flex;
-	justify-content:flex-end;
-	width:100vw;
-	padding:40px;
-	
+
+.menu ul li a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1.2em;
 }
-nav {
-	margin-left:40px;
-	margin-right:60px;
-	
+
+.dashboard {
+    width: 75%;
+    padding: 20px;
+    box-sizing: border-box;
 }

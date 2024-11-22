@@ -119,7 +119,7 @@ public class UsuarioServlet extends HttpServlet {
 			CookieManager.setCookie(response, request.getContextPath(), "locale", newLocale.toLanguageTag(),
 					30 * 24 * 60 * 60);
 			targetView = Views.HOME;
-			forwardOrRedirect = true;
+			forwardOrRedirect = false;
 		}
 		RouterUtils.route(request, response, forwardOrRedirect, targetView);
 

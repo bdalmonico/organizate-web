@@ -59,11 +59,13 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
 import config.ConfigurationParametersManager;
 import com.bruno.training.web.util.SessionManager;
 import com.bruno.training.web.util.CookieManager;
+
 
 public class LanguageFilter extends HttpFilter implements Filter {
     private static String[] SUPPORTED_LOCALES = ConfigurationParametersManager.getParameterValue("locale.support").split(",");
