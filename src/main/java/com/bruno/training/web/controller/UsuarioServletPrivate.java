@@ -19,6 +19,7 @@ import com.bruno.org.dao.DataException;
 import com.bruno.org.model.EmpleadoCriteria;
 import com.bruno.org.model.EmpleadoDTO;
 import com.bruno.org.model.Results;
+import com.bruno.org.model.TareaDTO;
 import com.bruno.org.service.EmpleadoService;
 import com.bruno.org.service.ServiceException;
 import com.bruno.org.service.impl.EmpleadoServiceImpl;
@@ -151,7 +152,7 @@ public class UsuarioServletPrivate extends HttpServlet {
 				targetView = Views.EMPLEADO_INSERT;
 			}
 
-		}else if ("viewProfile".equalsIgnoreCase(action)) {
+		} else if ("viewProfile".equalsIgnoreCase(action)) {
 			try {
 				String idStr = request.getParameter("id");
 				Long id = Long.valueOf(idStr);
@@ -165,14 +166,62 @@ public class UsuarioServletPrivate extends HttpServlet {
 			} catch (DataException | ServiceException pe) {
 				logger.error(pe.getMessage(), pe);
 			}
-		}else if ("borrar".equalsIgnoreCase(action)) {
+		} else if (Actions.DELETE.equalsIgnoreCase(action)) {
 
 			try {
 				String idStr = request.getParameter("id");
 				Long id = Long.valueOf(idStr);
 				empleadoService.delete(id);
-				targetView = Views.EMPLEADO_SEARCH;
+				targetView = Views.EMPLEADO_DELETE;
 				forwardOrRedirect = true;
+
+			} catch (DataException | ServiceException pe) {
+				logger.error(pe.getMessage(), pe);
+			}
+		} else if (Actions.UPDATE.equalsIgnoreCase(action)) {
+			try {
+				EmpleadoDTO empleado = new EmpleadoDTO();
+				String idStr = request.getParameter(Parameters.ID); 
+				String nombre = request.getParameter(Parameters.NOMBRE);
+				String apellido = request.getParameter(Parameters.APELLIDO);
+				String email = request.getParameter(Parameters.EMAIL);
+				String fechaAltaStr = request.getParameter(Parameters.FECHAALTA);
+				String rolIdStr = request.getParameter(Parameters.ROLID);
+				
+				Long id = null;
+				if (idStr != null && !idStr.isEmpty()) {
+					id = Long.valueOf(idStr);
+				} else {
+					logger.warn("Estado ID não fornecido.");
+					// Trate o caso onde estadoId é necessário, mas não foi fornecido
+				}
+				
+				Integer rolId = null;
+				if (rolIdStr != null && !rolIdStr.isEmpty()) {
+					rolId = Integer.valueOf(rolIdStr);
+				} else {
+					logger.warn("Estado ID não fornecido.");
+					// Trate o caso onde estadoId é necessário, mas não foi fornecido
+				}
+
+				Date fechaAlta= null;
+				
+				try {
+					fechaAlta = FECHA_OF.parse(fechaAltaStr);
+					
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				empleado.setId(id);
+				empleado.setNombre(nombre);
+				empleado.setApellido(targetView);
+				empleado.setEmail(targetView);
+				empleado.setFechaAlta(fechaAlta);
+				empleado.setRolId(rolId);
+				empleadoService.update(empleado);
+
+				targetView = Views.TAREA_UPDATE;
+				forwardOrRedirect = false;
 
 			} catch (DataException | ServiceException pe) {
 				logger.error(pe.getMessage(), pe);

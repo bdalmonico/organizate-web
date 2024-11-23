@@ -1,7 +1,7 @@
 <%@ page import="com.bruno.training.web.util.*"%>
 <%@include file="/common/header.jsp"%>
 
-	<form action="/HelloWorldWeb/UsuarioServlet" method="post">
+	<form action="<%=request.getContextPath()%>/UsuarioServlet" method="post">
 		
 		
 		
@@ -14,7 +14,7 @@
 		<%/**<label><fmt:message key="password2p" bundle="resource.i18n.Messages"></fmt:message>
 		Contrasena:</label> */ %>
 		<label><fmt:message key="password2p" bundle="${messages}"/></label>
-		<input type="password" name="<%=Parameters.CONTRASENA%>" placeholder="contraseña" value="abc123." required/>
+		<input type="password" name="<%=Parameters.CONTRASENA%>" placeholder="contraseï¿½a" value="abc123." required/>
 		<input type="checkbox" name="remember-user" checked>Recordar usuario</input>
 		<input type="submit" value="Entrar" ></input>
 		<input type="reset" value="limpiar"></input>

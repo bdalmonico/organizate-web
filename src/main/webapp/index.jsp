@@ -4,6 +4,5 @@
 
 <%@include file="/common/menu.jsp"%>
 
-<h1><fmt:message key="welcome" bundle="${messages}"/></h1>
-<main class="dashboard"> <!-- Dashboard content goes heregsdfgsdfgfsdgsdg -->sdfgsdgsdg </main>
+
 <%@include file="/common/footer.jsp" %>

@@ -40,4 +40,6 @@ public class Parameters {
 	public static final String FECHA_HASTA = "fecha-hasta";
 
 	public static final String ESTADOID = "estadoId";
+	
+	public static final String IMPORTE = "importe";
 }

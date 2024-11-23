@@ -5,13 +5,13 @@
 <% 	
 	EmpleadoDTO empleado = (EmpleadoDTO) SessionManager.getAttribute(request, Attributes.EMPLEADO);
 	if (empleado==null) {
-		%><a href="/HelloWorldWeb/user/login.jsp"><fmt:message
+		%><a href="<%=request.getContextPath()%>/user/login.jsp"><fmt:message
 				key="authenticate" bundle="${messages}" /></a><%
 	} else {
 		%>
 			<p><%=empleado.getNombre()%> <%=empleado.getApellido() %></p>
 			<p><%=empleado.getEmail()%></p>
-			<a href="/HelloWorldWeb/private/UsuarioServlet?action=logout">Salir</a>
+			<a href="<%=request.getContextPath()%>/private/UsuarioServlet?action=logout">Salir</a>
 		<%		
 	}
 %>

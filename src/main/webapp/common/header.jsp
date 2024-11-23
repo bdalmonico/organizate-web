@@ -15,14 +15,16 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" type="text/css"
-	href="/HelloWorldWeb/css/styles.css" />
+	href="<%=request.getContextPath()%>/css/styles.css" />
 <title>Organizate</title>
 </head>
 <body>
 
 
 	<header>
-		<div class="logo"><img src="/HelloWorldWeb/imgs/logo.webp" width="100" height="60" /></div>
+		
+		<div class="logo"><a href="<%=request.getContextPath()%>/index.jsp"><img src="<%=request.getContextPath()%>/imgs/logo.webp" width="100" height="60"/></a></div>
+		<h1><fmt:message key="welcome" bundle="${messages}"/></h1>
 		<div class="header-right">
 			<div class="language-options">
 				<a
@@ -34,6 +36,7 @@
 			</div>
 			<button class="settings"><%@include file="/common/user-menu.jsp"%></button>
 		</div>
+		
 	</header>
 
 

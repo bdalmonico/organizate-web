@@ -1,7 +1,7 @@
 <%@ page import="com.bruno.training.web.util.*"%>
 <%@include file="/common/header.jsp"%>
 
-<form action="/HelloWorldWeb/private/UsuarioServlet" method="post">
+<form action="<%=request.getContextPath()%>/private/UsuarioServlet" method="post">
 	<h3><fmt:message key="search_employee" bundle="${messages}"/></h3>
 	<input type="hidden" name="action" value="search" />
 	<label><fmt:message key="id2p" bundle="${messages}"/></label>
@@ -25,7 +25,7 @@
 				<c:forEach var="emp" items="${resultados}">
 					<li>
 						<b>ID: <c:out value="${emp.id}"/>:<b/>
-						<a href="/HelloWorldWeb/private/UsuarioServlet?action=detail&id=${emp.id}">
+						<a href="<%=request.getContextPath()%>/private/UsuarioServlet?action=detail&id=${emp.id}">
 							<c:out value="${emp.nombre}" />
 							<c:out value="${emp.apellido}" />
 						</a>

@@ -4,9 +4,12 @@
 <%@include file="/common/header.jsp" %>
 	<div>
 		<form action="<%=request.getContextPath()%>/private/TareaServlet" method="post">		
-			<h3 class="titulo"><fmt:message key="create_task" bundle="${messages}"/></h3>
+			<h3 class="titulo"><fmt:message key="update_task" bundle="${messages}"/></h3>
 			
-			<input type="hidden" name="<%=Parameters.ACTION %>" value="<%=Actions.REGISTRAR%>"/>
+			<input type="hidden" name="<%=Parameters.ACTION %>" value="<%=Actions.UPDATE%>"/>
+			
+			<label><fmt:message key="id2p" bundle="${messages}"/></label> 
+			<input type="text" name="<%=Parameters.ID %>" placeholder="Ejemplo: id" />
 			
 			<label><fmt:message key="name2p" bundle="${messages}"/></label> 
 			<input type="text" name="<%=Parameters.NOMBRE %>" placeholder="Ejemplo: tarea" />
@@ -31,7 +34,7 @@
 			
 			<label><fmt:message key="project_id2p" bundle="${messages}"/></label>	
 			<input type="number" name="<%=Parameters.PROYECTOID%>" placeholder="Ejemplo: id del proyecto" />
-			<input type="submit" value="<fmt:message key="create" bundle="${messages}"/>" />
+			<input type="submit" value="<fmt:message key="update" bundle="${messages}"/>" />
 		</form>
 	</div>	
 <%@include file="/common/footer.jsp" %>
