@@ -38,6 +38,16 @@
 					</br>
 					<a href="<%=request.getContextPath()%><%=Views.TAREA_DELETE%>"><fmt:message key="delete_task" bundle="${messages}" /></a>
 				</li>
+				<li>
+					<h2><fmt:message key="client" bundle="${messages}" /></h2>
+					<a href="<%=request.getContextPath()%><%=Views.CLIENTE_SEARCH%>"><fmt:message key="search_client" bundle="${messages}" /></a>
+					</br>
+					<a href="<%=request.getContextPath()%><%=Views.CLIENTE_CREAR%>"><fmt:message key="create_client" bundle="${messages}" /></a>
+					</br>
+					<a href="<%=request.getContextPath()%><%=Views.CLIENTE_UPDATE%>"><fmt:message key="update_client" bundle="${messages}"/></a>
+					</br>
+					<a href="<%=request.getContextPath()%><%=Views.CLIENTE_DELETE%>"><fmt:message key="delete_client" bundle="${messages}" /></a>
+				</li>
 				
 				<li><a href="#settings">Settings</a></li>
 			</ul>

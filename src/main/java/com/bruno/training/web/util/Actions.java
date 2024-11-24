@@ -9,4 +9,5 @@ public class Actions {
 	public static final String CREATE = "create";
 	public static final String REGISTRAR = "registrar";
 	public static final String DELETE = "delete";
+	public static final String UPLOAD = "upload";
 }

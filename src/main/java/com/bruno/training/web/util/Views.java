@@ -25,5 +25,13 @@ public class Views {
 	public static final String PROYECTO_CREAR = "/private/proyecto/proyecto-create-view.jsp";
 	public static final String PROYECTO_UPDATE = "/private/proyecto/proyecto-update-view.jsp";
 	public static final String PROYECTO_DELETE = "/private/proyecto/proyecto-delete-view.jsp";
+	
+	public static final String CLIENTE_SEARCH= "/private/cliente/cliente-search-view.jsp";
+	public static final String CLIENTE_RESULTS = "/private/cliente/cliente-detail-view.jsp";
+	public static final String CLIENTE_CREAR = "/private/cliente/cliente-create-view.jsp";
+	public static final String CLIENTE_UPDATE = "/private/cliente/cliente-update-view.jsp";
+	public static final String CLIENTE_DELETE = "/private/cliente/cliente-delete-view.jsp";
+	
+	
 
 }
