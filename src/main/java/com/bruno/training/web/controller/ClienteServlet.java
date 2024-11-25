@@ -48,11 +48,21 @@ public class ClienteServlet extends HttpServlet {
 		boolean forwardOrRedirect = false;
 
 		if (Actions.SEARCH.equalsIgnoreCase(action)) {
-			String nombre = request.getParameter(Parameters.NOMBRE);
-			ClienteCriteria criteria = new ClienteCriteria();
-			criteria.setNombre(nombre);
 
 			String idStr = request.getParameter(Parameters.ID);
+
+			String nombre = request.getParameter(Parameters.NOMBRE);
+
+			String email = request.getParameter(Parameters.EMAIL);
+
+			String estadoIdStr = request.getParameter(Parameters.ESTADOID);
+
+			String nifCif = request.getParameter(Parameters.NIFCIF);
+
+			String telefono = request.getParameter(Parameters.TELEFONO);
+			
+			ClienteCriteria criteria = new ClienteCriteria();
+
 			if (idStr == null || idStr.isEmpty()) {
 				criteria.setId(null);
 			} else {
@@ -60,79 +70,26 @@ public class ClienteServlet extends HttpServlet {
 				criteria.setId(id);
 			}
 
-			String descripcion = request.getParameter(Parameters.DESCRIPCION);
-			if (descripcion == null || descripcion.isEmpty()) {
-				criteria.setDescripcion(null);
+			if (estadoIdStr == null || estadoIdStr.isEmpty()) {
+				criteria.setId(null);
 			} else {
-				criteria.setDescripcion(descripcion);
+				Long estadoId = Long.valueOf(estadoIdStr);
+				criteria.setEstadoId(estadoId);
 			}
 
-			String fechaRealInicioStr = request.getParameter(Parameters.FECHAREALINICIO);
-			if (fechaRealInicioStr == null || fechaRealInicioStr.isEmpty()) {
-				criteria.setFechaRealInicio(null);
-			} else {
-				Date fechaRealInicio = null;
-				try {
-					fechaRealInicio = FECHA_OF.parse(fechaRealInicioStr);
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				criteria.setFechaRealInicio(fechaRealInicio);
-			}
-
-			String fechaRealFinStr = request.getParameter(Parameters.FECHAREALFIN);
-			if (fechaRealFinStr == null || fechaRealFinStr.isEmpty()) {
-				criteria.setFechaRealFin(null);
-			} else {
-				Date fechaRealFin = null;
-				try {
-					fechaRealFin = FECHA_OF.parse(fechaRealFinStr);
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				criteria.setFechaRealFin(fechaRealFin);
-			}
-
-			String fechaEstimadaFinStr = request.getParameter(Parameters.FECHAESTIMADAFIN);
-			if (fechaEstimadaFinStr == null || fechaEstimadaFinStr.isEmpty()) {
-				criteria.setFechaEstimadaFin(null);
-			} else {
-				Date fechaEstimadaFin = null;
-				try {
-					fechaEstimadaFin = FECHA_OF.parse(fechaEstimadaFinStr);
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				criteria.setFechaEstimadaFin(fechaEstimadaFin);
-			}
-
-			String fechaEstimadaInicioStr = request.getParameter(Parameters.FECHAESTIMADAINICIO);
-			if (fechaEstimadaInicioStr == null || fechaEstimadaInicioStr.isEmpty()) {
-				criteria.setFechaEstimadaInicio(null);
-			} else {
-				Date fechaEstimadaInicio = null;
-				try {
-					fechaEstimadaInicio = FECHA_OF.parse(fechaEstimadaInicioStr);
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				criteria.setFechaEstimadaInicio(fechaEstimadaInicio);
-			}
+			criteria.setNombre(nombre);
+			criteria.setEmail(email);
+			criteria.setNifCif(nifCif);
+			criteria.setTelefone(telefono);
 
 			try {
 
+				Results<ClienteDTO> resultados = clienteService.findByCriteria(criteria, 1, 20);
+//				logger.info("Encontrados " + resultados.getTotal() + " clientes");
 
-				Results<ClienteDTO> resultados = proyectoService.findByCriteria(criteria,
-						1,20);
-				logger.info("Encontrados " + resultados.getTotal() + " clientes");
+				request.setAttribute(Attributes.RESULTADOS, resultados);
 
-				request.setAttribute("resultados", resultados);
-				
-				targetView = Views.PROYECTO_SEARCH;
+				targetView = Views.CLIENTE_SEARCH;
 				forwardOrRedirect = true;
 
 			} catch (OrganizateException pe) {
@@ -146,9 +103,9 @@ public class ClienteServlet extends HttpServlet {
 				String idStr = request.getParameter(Parameters.ID);
 				Long id = Long.valueOf(idStr);
 				ClienteDTO cliente = clienteService.findById(id);
-				request.setAttribute(Attributes.PROYECTO, cliente);
+				request.setAttribute(Attributes.CLIENTE, cliente);
 
-				targetView = Views.PROYECTO_RESULTS;
+				targetView = Views.CLIENTE_RESULTS;
 				forwardOrRedirect = true;
 
 			} catch (OrganizateException | ServiceException pe) {
@@ -158,68 +115,39 @@ public class ClienteServlet extends HttpServlet {
 		} else if (Actions.CREATE.equalsIgnoreCase(action)) {
 			try {
 				ClienteDTO cliente = new ClienteDTO();
+
 				String nombre = request.getParameter(Parameters.NOMBRE);
-				String descripcion = request.getParameter(Parameters.DESCRIPCION);
-				String fechaRealInicioStr = request.getParameter(Parameters.FECHAREALINICIO);
-				String fechaRealFinStr = request.getParameter(Parameters.FECHAREALFIN);
-				String fechaEstimadaInicioStr = request.getParameter(Parameters.FECHAESTIMADAINICIO);
-				String fechaEstimadaFinStr = request.getParameter(Parameters.FECHAESTIMADAFIN);
+
+				String email = request.getParameter(Parameters.EMAIL);
+
 				String estadoIdStr = request.getParameter(Parameters.ESTADOID);
-				String clienteIdStr = request.getParameter(Parameters.CLIENTEID);
-				String importeStr = request.getParameter(Parameters.IMPORTE);
+
+				String nifCif = request.getParameter(Parameters.NIFCIF);
+
+				String telefono = request.getParameter(Parameters.TELEFONO);
+
+				cliente.setNombre(nombre);
+
+				cliente.setEmail(email);
+
 				Long estadoId = null;
 				if (estadoIdStr != null && !estadoIdStr.isEmpty()) {
 					estadoId = Long.valueOf(estadoIdStr);
+					cliente.setEstadoId(estadoId);
 				} else {
-					logger.warn("Estado ID não fornecido.");
-					// Trate o caso onde estadoId é necessário, mas não foi fornecido
-				}
-				
-				Long clienteId = null;
-				if (clienteIdStr != null && !clienteIdStr.isEmpty()) {
-					clienteId = Long.valueOf(clienteIdStr);
-				} else {
-					logger.warn("Projeto ID não fornecido.");
-					// Trate o caso onde proyectoId é necessário, mas não foi fornecido
-				}
-				
-				Double importe = null;
-				if (importeStr != null && !importeStr.isEmpty()) {
-					importe = Double.valueOf(importeStr);
-				} else {
-					logger.warn("Projeto ID não fornecido.");
-					// Trate o caso onde proyectoId é necessário, mas não foi fornecido
-				}
-				
-				
-				Date fechaRealInicio = null;
-				Date fechaRealFin = null;
-				Date fechaEstimadaInicio = null;
-				Date fechaEstimadaFin = null;
-				try {
-					fechaRealInicio = FECHA_OF.parse(fechaRealInicioStr);
-					fechaRealFin = FECHA_OF.parse(fechaRealFinStr);
-					fechaEstimadaInicio = FECHA_OF.parse(fechaEstimadaInicioStr);
-					fechaEstimadaFin = FECHA_OF.parse(fechaEstimadaFinStr);
-				} catch (ParseException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					logger.warn("Cliente ID não fornecido.");
+					// Trate o caso onde clienteId é necessário, mas não foi fornecido
 				}
 
+				cliente.setNifCif(nifCif);
 
-				cliente.setDescripcion(descripcion);
-				cliente.setFechaRealInicio(fechaRealInicio);
-				cliente.setFechaRealFin(fechaRealFin);
-				cliente.setFechaEstimadaInicio(fechaEstimadaInicio);
-				cliente.setFechaEstimadaFin(fechaEstimadaFin);
-				cliente.setImporte(importe);
-				cliente.setClienteId(clienteId);
+				cliente.setTelefone(telefono);
+
 				cliente.setEstadoId(estadoId);
-				
 
 				clienteService.registrar(cliente);
 
-				targetView = Views.PROYECTO_CREAR;
+				targetView = Views.CLIENTE_CREAR;
 				forwardOrRedirect = true;
 
 			} catch (OrganizateException | ServiceException pe) {
@@ -228,17 +156,19 @@ public class ClienteServlet extends HttpServlet {
 		} else if (Actions.UPDATE.equalsIgnoreCase(action)) {
 			try {
 				ClienteDTO cliente = new ClienteDTO();
-				String idStr = request.getParameter(Parameters.ID); 
+
+				String idStr = request.getParameter(Parameters.ID);
+
 				String nombre = request.getParameter(Parameters.NOMBRE);
-				String descripcion = request.getParameter(Parameters.DESCRIPCION);
-				String fechaRealInicioStr = request.getParameter(Parameters.FECHAREALINICIO);
-				String fechaRealFinStr = request.getParameter(Parameters.FECHAREALFIN);
-				String fechaEstimadaInicioStr = request.getParameter(Parameters.FECHAESTIMADAINICIO);
-				String fechaEstimadaFinStr = request.getParameter(Parameters.FECHAESTIMADAFIN);
+
+				String email = request.getParameter(Parameters.EMAIL);
+
 				String estadoIdStr = request.getParameter(Parameters.ESTADOID);
-				String clienteIdStr = request.getParameter(Parameters.CLIENTEID);
-				String importeStr = request.getParameter(Parameters.IMPORTE);
-				
+
+				String nifCif = request.getParameter(Parameters.NIFCIF);
+
+				String telefono = request.getParameter(Parameters.TELEFONO);
+
 				Long id = null;
 				if (idStr != null && !idStr.isEmpty()) {
 					id = Long.valueOf(idStr);
@@ -246,7 +176,7 @@ public class ClienteServlet extends HttpServlet {
 					logger.warn("Estado ID não fornecido.");
 					// Trate o caso onde estadoId é necessário, mas não foi fornecido
 				}
-				
+
 				Long estadoId = null;
 				if (estadoIdStr != null && !estadoIdStr.isEmpty()) {
 					estadoId = Long.valueOf(estadoIdStr);
@@ -254,50 +184,16 @@ public class ClienteServlet extends HttpServlet {
 					logger.warn("Estado ID não fornecido.");
 					// Trate o caso onde estadoId é necessário, mas não foi fornecido
 				}
-				
-				Long clienteId = null;
-				if (clienteIdStr != null && !clienteIdStr.isEmpty()) {
-					clienteId = Long.valueOf(clienteIdStr);
-				} else {
-					logger.warn("Projeto ID não fornecido.");
-					// Trate o caso onde proyectoId é necessário, mas não foi fornecido
-				}
-				
-				Double importe = null;
-				if (importeStr != null && !importeStr.isEmpty()) {
-					importe = Double.valueOf(importeStr);
-				} else {
-					logger.warn("Projeto ID não fornecido.");
-					// Trate o caso onde proyectoId é necessário, mas não foi fornecido
-				}
-
-				
-				Date fechaRealInicio = null;
-				Date fechaRealFin = null;
-				Date fechaEstimadaInicio = null;
-				Date fechaEstimadaFin = null;
-				try {
-					fechaRealInicio = FECHA_OF.parse(fechaRealInicioStr);
-					fechaRealFin = FECHA_OF.parse(fechaRealFinStr);
-					fechaEstimadaInicio = FECHA_OF.parse(fechaEstimadaInicioStr);
-					fechaEstimadaFin = FECHA_OF.parse(fechaEstimadaFinStr);
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
 				cliente.setId(id);
 				cliente.setNombre(nombre);
-				cliente.setDescripcion(descripcion);
-				cliente.setFechaRealInicio(fechaRealInicio);
-				cliente.setFechaRealFin(fechaRealFin);
-				cliente.setFechaEstimadaInicio(fechaEstimadaInicio);
-				cliente.setFechaEstimadaFin(fechaEstimadaFin);
 				cliente.setEstadoId(estadoId);
-				cliente.setImporte(importe);
-				cliente.setClienteId(clienteId);
+				cliente.setEmail(email);
+				cliente.setNifCif(nifCif);
+				cliente.setTelefone(telefono);
 
 				clienteService.update(cliente);
 
-				targetView = Views.PROYECTO_UPDATE;
+				targetView = Views.CLIENTE_UPDATE;
 				forwardOrRedirect = false;
 
 			} catch (OrganizateException | ServiceException pe) {
@@ -308,11 +204,10 @@ public class ClienteServlet extends HttpServlet {
 			try {
 				String idStr = request.getParameter(Parameters.ID);
 				Long id = Long.valueOf(idStr);
-				
-			
+
 				clienteService.delete(id);
 
-				targetView = Views.PROYECTO_DELETE;
+				targetView = Views.CLIENTE_DELETE;
 				forwardOrRedirect = true;
 
 			} catch (OrganizateException | ServiceException pe) {
