@@ -5,23 +5,24 @@
 	
 	<h3><fmt:message key="create_client" bundle="${messages}"/></h3>
 	
-	<input type="hidden" name="action" value="registrar" />
+	<input type="hidden" name="<%=Parameters.ACTION %>" value="<%=Actions.CREATE%>" />
+	
 	<label><fmt:message key="name2p" bundle="${messages}"/></label> 
-	<input type="text" name="nombre" />
+	<input type="text" name="<%=Parameters.NOMBRE %>" />
 	
 	<label><fmt:message key="nif_cif2p" bundle="${messages}"/></label> 
-	<input type="text" name="nifCif"/>
+	<input type="text" name="<%=Parameters.NIFCIF %>"/>
 	
 	<label><fmt:message key="email2p" bundle="${messages}"/></label> 
-	<input type="text" name="email" />
+	<input type="text" name="<%=Parameters.EMAIL%>" />
 	
 	
 	<label><fmt:message key="phone2p" bundle="${messages}"/></label>
-	<input type="text" name="telefono" />
+	<input type="text" name="<%=Parameters.TELEFONE %>" />
 	
 	
 	<label><fmt:message key="status_id2p" bundle="${messages}"/></label> 
-	<input type="number" name="estadoId"  />
+	<input type="number" name="<%=Parameters.ESTADOID %>"  />
 	
 	<input type="submit" value="<fmt:message key="create" bundle="${messages}"/>" />
 </form>

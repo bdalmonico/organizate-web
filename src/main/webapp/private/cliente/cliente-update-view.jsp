@@ -10,11 +10,11 @@
 	<input type="hidden" name="<%=Parameters.ACTION %>" value="<%=Actions.UPDATE%>" />
 	
 	<label><fmt:message key="id2p" bundle="${messages}"/></label> 
-	<input type="text" name="<%=Parameters.ID %>" placeholder="Ejemplo: id" />
+	<input type="number" name="<%=Parameters.ID %>" placeholder="Ejemplo: id" />
 	
 	<label><fmt:message key="name2p" bundle="${messages}"/></label> 
-	<input type="text" name="<%=Parameters.NOMBRE %> "/>
-	
+	<input type="text" name="<%=Parameters.NOMBRE %>" placeholder="Ejemplo: cliente" />
+						
 	<label><fmt:message key="nif_cif2p" bundle="${messages}"/></label> 
 	<input type="text" name="<%=Parameters.NIFCIF %>"/>
 	
@@ -23,7 +23,7 @@
 	
 	
 	<label><fmt:message key="phone2p" bundle="${messages}"/></label>
-	<input type="text" name="<%=Parameters.TELEFONO %>" />
+	<input type="text" name="<%=Parameters.TELEFONE %>" />
 	
 	
 	<label><fmt:message key="status_id2p" bundle="${messages}"/></label> 

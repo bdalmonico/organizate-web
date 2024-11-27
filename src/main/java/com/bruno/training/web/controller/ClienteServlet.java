@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,10 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.util.Strings;
 
 import com.bruno.OrganizateException;
 import com.bruno.org.model.ClienteCriteria;
 import com.bruno.org.model.ClienteDTO;
+import com.bruno.org.model.ProyectoCriteria;
+import com.bruno.org.model.ProyectoDTO;
 import com.bruno.org.model.Results;
 import com.bruno.org.service.ClienteService;
 import com.bruno.org.service.ServiceException;
@@ -48,21 +53,11 @@ public class ClienteServlet extends HttpServlet {
 		boolean forwardOrRedirect = false;
 
 		if (Actions.SEARCH.equalsIgnoreCase(action)) {
+			String nombre = request.getParameter(Parameters.NOMBRE);
+			ClienteCriteria criteria = new ClienteCriteria();
+			criteria.setNombre(nombre);
 
 			String idStr = request.getParameter(Parameters.ID);
-
-			String nombre = request.getParameter(Parameters.NOMBRE);
-
-			String email = request.getParameter(Parameters.EMAIL);
-
-			String estadoIdStr = request.getParameter(Parameters.ESTADOID);
-
-			String nifCif = request.getParameter(Parameters.NIFCIF);
-
-			String telefono = request.getParameter(Parameters.TELEFONO);
-			
-			ClienteCriteria criteria = new ClienteCriteria();
-
 			if (idStr == null || idStr.isEmpty()) {
 				criteria.setId(null);
 			} else {
@@ -70,24 +65,83 @@ public class ClienteServlet extends HttpServlet {
 				criteria.setId(id);
 			}
 
+			String nifCif = request.getParameter(Parameters.NIFCIF);
+			if (nifCif == null || nifCif.isEmpty()) {
+				criteria.setNifCif(null);
+			} else {
+				criteria.setNifCif(nifCif);
+			}
+			
+			String telefone = request.getParameter(Parameters.TELEFONE);
+			if (telefone == null || telefone.isEmpty()) {
+				criteria.setTelefone(null);
+			} else {
+				criteria.setTelefone(telefone);
+			}
+			
+			String email = request.getParameter(Parameters.EMAIL);
+			if (email== null || email.isEmpty()) {
+				criteria.setEmail(null);
+			} else {
+				criteria.setEmail(email);
+			}
+			
+			String estadoIdStr = request.getParameter(Parameters.ESTADOID);
 			if (estadoIdStr == null || estadoIdStr.isEmpty()) {
-				criteria.setId(null);
+				criteria.setEstadoId(null);
 			} else {
 				Long estadoId = Long.valueOf(estadoIdStr);
 				criteria.setEstadoId(estadoId);
 			}
 
-			criteria.setNombre(nombre);
-			criteria.setEmail(email);
-			criteria.setNifCif(nifCif);
-			criteria.setTelefone(telefono);
-
+			
 			try {
+				int PAGE_SIZE = 3; /* prefs usuario o default cfg ConfiugrationPar... */
+				int BROWSABLE_PAGE_COUNT = 10;
 
-				Results<ClienteDTO> resultados = clienteService.findByCriteria(criteria, 1, 20);
-//				logger.info("Encontrados " + resultados.getTotal() + " clientes");
+				String newPageStr = request.getParameter("page");
+				int newPage = Strings.isEmpty(newPageStr) ? 1 : Integer.valueOf(newPageStr);
 
-				request.setAttribute(Attributes.RESULTADOS, resultados);
+				Results<ClienteDTO> resultados = clienteService.findByCriteria(criteria,
+						(newPage - 1) * PAGE_SIZE + 1, PAGE_SIZE);
+				logger.info("Encontrados " + resultados.getTotal() + " clientes");
+
+				request.setAttribute("resultados", resultados);
+				//
+				// Paging attributes for view rendering
+				//
+
+				// TODO: A URLUtils... con encode ...
+				StringBuilder urlBuilder = new StringBuilder();
+				urlBuilder.append("/private/ClienteServlet?"); // request.getURI()
+				Map<String, String[]> parametersMap = request.getParameterMap();
+				Set<String> parameterNames = parametersMap.keySet();
+				String parameterValue = null;
+				for (String parameterName : parameterNames) {
+					if (!"page".equalsIgnoreCase(parameterName)) {
+						urlBuilder.append(parameterName).append("=").append(request.getParameter(parameterName));
+						urlBuilder.append("&");
+					}
+				}
+				String baseURL = urlBuilder.toString();
+				request.setAttribute("baseURL", baseURL);
+
+				request.setAttribute("currentPage", Integer.valueOf(newPage));
+
+				// TODO: BUG
+				int fromPage = newPage - BROWSABLE_PAGE_COUNT / 2;
+				if (fromPage < 1)
+					fromPage = 1;
+				request.setAttribute("fromPage", Integer.valueOf(fromPage));
+
+				int lastPage = (resultados.getTotal() / PAGE_SIZE) + 1;
+				request.setAttribute("lastPage", Integer.valueOf(lastPage));
+
+				// TODO: BUG
+				int toPage = newPage + BROWSABLE_PAGE_COUNT / 2;
+				if (toPage > lastPage)
+					toPage = lastPage;
+				request.setAttribute("toPage", Integer.valueOf(toPage));
 
 				targetView = Views.CLIENTE_SEARCH;
 				forwardOrRedirect = true;
@@ -105,7 +159,7 @@ public class ClienteServlet extends HttpServlet {
 				ClienteDTO cliente = clienteService.findById(id);
 				request.setAttribute(Attributes.CLIENTE, cliente);
 
-				targetView = Views.CLIENTE_RESULTS;
+				targetView = Views.CLIENTE_DETAIL;
 				forwardOrRedirect = true;
 
 			} catch (OrganizateException | ServiceException pe) {
@@ -124,7 +178,7 @@ public class ClienteServlet extends HttpServlet {
 
 				String nifCif = request.getParameter(Parameters.NIFCIF);
 
-				String telefono = request.getParameter(Parameters.TELEFONO);
+				String telefone = request.getParameter(Parameters.TELEFONE);
 
 				cliente.setNombre(nombre);
 
@@ -141,7 +195,7 @@ public class ClienteServlet extends HttpServlet {
 
 				cliente.setNifCif(nifCif);
 
-				cliente.setTelefone(telefono);
+				cliente.setTelefone(telefone);
 
 				cliente.setEstadoId(estadoId);
 
@@ -158,16 +212,11 @@ public class ClienteServlet extends HttpServlet {
 				ClienteDTO cliente = new ClienteDTO();
 
 				String idStr = request.getParameter(Parameters.ID);
-
 				String nombre = request.getParameter(Parameters.NOMBRE);
-
 				String email = request.getParameter(Parameters.EMAIL);
-
 				String estadoIdStr = request.getParameter(Parameters.ESTADOID);
-
 				String nifCif = request.getParameter(Parameters.NIFCIF);
-
-				String telefono = request.getParameter(Parameters.TELEFONO);
+				String telefono = request.getParameter(Parameters.TELEFONE);
 
 				Long id = null;
 				if (idStr != null && !idStr.isEmpty()) {
@@ -184,6 +233,7 @@ public class ClienteServlet extends HttpServlet {
 					logger.warn("Estado ID não fornecido.");
 					// Trate o caso onde estadoId é necessário, mas não foi fornecido
 				}
+				
 				cliente.setId(id);
 				cliente.setNombre(nombre);
 				cliente.setEstadoId(estadoId);

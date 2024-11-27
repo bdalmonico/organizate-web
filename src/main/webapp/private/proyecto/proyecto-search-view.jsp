@@ -11,12 +11,11 @@
 			<fmt:message key="search_project" bundle="${messages}" />
 		</h3>
 
-		<input type="hidden" name="<%=Parameters.ACTION%>"
-			value="<%=Actions.SEARCH%>" /> <label><fmt:message
-				key="name2p" bundle="${messages}" /></label> <input type="text"
-			name="<%=Parameters.NOMBRE %>" placeholder="Ejemplo: proyectos"
-			value="${nombre}" /> <input type="submit"
-			value="<fmt:message key="search" bundle="${messages}"/>" />
+		<input type="hidden" name="<%=Parameters.ACTION%>"value="<%=Actions.SEARCH%>" /> 
+		
+		<label><fmt:message key="name2p" bundle="${messages}" /></label> 
+		<input type="text" name="<%=Parameters.NOMBRE %>" placeholder="Ejemplo: proyectos" value="${nombre}" /> 
+		<input type="submit" value="<fmt:message key="search" bundle="${messages}"/>" />
 	</form>
 
 
