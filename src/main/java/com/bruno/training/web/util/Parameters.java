@@ -42,7 +42,12 @@ public class Parameters {
 	public static final String ESTADOID = "estadoId";
 	
 	public static final String IMPORTE = "importe";
+	
 	public static final String NIFCIF = "nifCif";
 
 	public static final String TELEFONE = "telefone";
+	
+	public static final String FECHAPUBLICACION = "fechaPublicacion";
+	
+	public static final String COMENTARIO = "comentario";
 }
