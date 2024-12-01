@@ -38,6 +38,21 @@ public class Views {
 	public static final String COMENTARIOPROYECTO_UPDATE = "/private/comentarioproyecto/comentarioproyecto-update-view.jsp";
 	public static final String COMENTARIOPROYECTO_DELETE = "/private/comentarioproyecto/comentarioproyecto-delete-view.jsp";
 	
-	
+	public static final String COMENTARIOTAREA_SEARCH= "/private/comentariotarea/comentariotarea-search-view.jsp";
+	public static final String COMENTARIOTAREA_DETAIL = "/private/comentariotarea/comentariotarea-detail-view.jsp";
+	public static final String COMENTARIOTAREA_CREAR = "/private/comentariotarea/comentariotarea-create-view.jsp";
+	public static final String COMENTARIOTAREA_UPDATE = "/private/comentariotarea/comentariotarea-update-view.jsp";
+	public static final String COMENTARIOTAREA_DELETE = "/private/comentariotarea/comentariotarea-delete-view.jsp";
 
+	public static final String IMPUTACION_SEARCH= "/private/imputacion/imputacion-search-view.jsp";
+	public static final String IMPUTACION_DETAIL = "/private/imputacion/imputacion-detail-view.jsp";
+	public static final String IMPUTACION_CREAR = "/private/imputacion/imputacion-create-view.jsp";
+	public static final String IMPUTACION_UPDATE = "/private/imputacion/imputacion-update-view.jsp";
+	public static final String IMPUTACION_DELETE = "/private/imputacion/imputacion-delete-view.jsp";
+	
+	public static final String ROL_SEARCH= "/private/rol/rol-search-view.jsp";
+	public static final String ROL_SEARCHALL= "/private/rol/rol-searchall-view.jsp";
+	public static final String ROL_DETAIL= "/private/rol/rol-detail-view.jsp";
+
+	
 }

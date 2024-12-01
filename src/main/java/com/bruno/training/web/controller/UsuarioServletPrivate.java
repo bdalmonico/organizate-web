@@ -19,7 +19,6 @@ import com.bruno.org.dao.DataException;
 import com.bruno.org.model.EmpleadoCriteria;
 import com.bruno.org.model.EmpleadoDTO;
 import com.bruno.org.model.Results;
-import com.bruno.org.model.TareaDTO;
 import com.bruno.org.service.EmpleadoService;
 import com.bruno.org.service.ServiceException;
 import com.bruno.org.service.impl.EmpleadoServiceImpl;

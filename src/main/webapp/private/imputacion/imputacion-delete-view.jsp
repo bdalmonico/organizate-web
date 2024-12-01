@@ -3,7 +3,7 @@
     <%@ page import="com.bruno.training.web.util.*"%>
 <%@include file="/common/header.jsp" %>
 	<div>
-		<form action="<%=request.getContextPath()%>/private/ComentarioProyectoServlet" method="post">		
+		<form action="<%=request.getContextPath()%>/private/ImputacionServlet" method="post">		
 			<h3 class="titulo"><fmt:message key="delete_comment" bundle="${messages}"/></h3>
 			
 			<input type="hidden" name="<%=Parameters.ACTION %>" value="<%=Actions.DELETE%>"/>

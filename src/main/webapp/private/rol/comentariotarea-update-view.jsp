@@ -5,7 +5,7 @@
 	<div>
 				
 	<h3 class="titulo"><fmt:message key="update_comment" bundle="${messages}"/></h3>
-	<form action="<%=request.getContextPath()%>/private/ComentarioProyectoServlet" method="post">
+	<form action="<%=request.getContextPath()%>/private/ComentarioTareaServlet" method="post">
 	
 	<input type="hidden" name="<%=Parameters.ACTION %>" value="<%=Actions.UPDATE%>" />
 	
@@ -15,8 +15,8 @@
 	<label><fmt:message key="employee_id2p" bundle="${messages}"/></label> 
 	<input type="number" name="<%=Parameters.EMPLEADOID %>"  />
 						
-	<label><fmt:message key="project_id2p" bundle="${messages}"/></label> 
-	<input type="number" name="<%=Parameters.PROYECTOID %>"/>
+	<label><fmt:message key="task_id2p" bundle="${messages}"/></label> 
+	<input type="number" name="<%=Parameters.TAREAID %>"/>
 	
 	<label><fmt:message key="publish_date2p" bundle="${messages}"/></label> 
 	<input type="date" name="<%=Parameters.FECHAPUBLICACION%>" />

@@ -35,6 +35,8 @@ public class Parameters {
 	
 	public static final String PROYECTOID = "proyectoId";
 	
+	public static final String TAREAID = "tareaId";
+	
 	public static final String FECHA_DESDE = "fecha-desde";
 	
 	public static final String FECHA_HASTA = "fecha-hasta";
@@ -50,4 +52,8 @@ public class Parameters {
 	public static final String FECHAPUBLICACION = "fechaPublicacion";
 	
 	public static final String COMENTARIO = "comentario";
+	
+	public static final String FECHAHORA = "fechaHora";
+	
+	public static final String HORASIMPUTADAS = "horasImputadas";
 }

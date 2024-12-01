@@ -48,6 +48,38 @@
 					</br>
 					<a href="<%=request.getContextPath()%><%=Views.CLIENTE_DELETE%>"><fmt:message key="delete_client" bundle="${messages}" /></a>
 				</li>
+				<li>
+					<h2><fmt:message key="project_comments" bundle="${messages}" /></h2>
+					<a href="<%=request.getContextPath()%><%=Views.COMENTARIOPROYECTO_SEARCH%>"><fmt:message key="search_comment" bundle="${messages}" /></a>
+					</br>
+					<a href="<%=request.getContextPath()%><%=Views.COMENTARIOPROYECTO_CREAR%>"><fmt:message key="create_comment" bundle="${messages}" /></a>
+					</br>
+					<a href="<%=request.getContextPath()%><%=Views.COMENTARIOPROYECTO_UPDATE%>"><fmt:message key="update_comment" bundle="${messages}"/></a>
+					</br>
+					<a href="<%=request.getContextPath()%><%=Views.COMENTARIOPROYECTO_DELETE%>"><fmt:message key="delete_comment" bundle="${messages}" /></a>
+				</li>
+				<li>
+					<h2><fmt:message key="task_comments" bundle="${messages}" /></h2>
+					<a href="<%=request.getContextPath()%><%=Views.COMENTARIOTAREA_SEARCH%>"><fmt:message key="search_comment" bundle="${messages}" /></a>
+					</br>
+					<a href="<%=request.getContextPath()%><%=Views.COMENTARIOTAREA_CREAR%>"><fmt:message key="create_comment" bundle="${messages}" /></a>
+					</br>
+					<a href="<%=request.getContextPath()%><%=Views.COMENTARIOTAREA_UPDATE%>"><fmt:message key="update_comment" bundle="${messages}"/></a>
+					</br>
+					<a href="<%=request.getContextPath()%><%=Views.COMENTARIOTAREA_DELETE%>"><fmt:message key="delete_comment" bundle="${messages}" /></a>
+				</li>
+				<li>
+					<h2>Imputacion de horas<fmt:message key="task_comments" bundle="${messages}" /></h2>
+					<a href="<%=request.getContextPath()%><%=Views.IMPUTACION_SEARCH%>"><fmt:message key="search_comment" bundle="${messages}" /></a>
+					</br>
+					<a href="<%=request.getContextPath()%><%=Views.IMPUTACION_CREAR%>"><fmt:message key="create_comment" bundle="${messages}" /></a>
+					</br>
+					<a href="<%=request.getContextPath()%><%=Views.IMPUTACION_DELETE%>"><fmt:message key="delete_comment" bundle="${messages}" /></a>
+				</li>
+				<li>
+					<h2>Rol<fmt:message key="task_comments" bundle="${messages}" /></h2>
+					<a href="<%=request.getContextPath()%><%=Views.ROL_SEARCH%>">Rol<fmt:message key="search_comment" bundle="${messages}" /></a>
+				</li>
 				
 				<li><a href="#settings">Settings</a></li>
 			</ul>

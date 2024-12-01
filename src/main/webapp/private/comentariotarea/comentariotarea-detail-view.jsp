@@ -3,7 +3,7 @@
 
 <div class="container">
 	<%
-	ComentarioProyectoDTO cp = (ComentarioProyectoDTO) request.getAttribute(Attributes.COMENTARIOPROYECTO);
+	ComentarioTareaDTO cp = (ComentarioTareaDTO) request.getAttribute(Attributes.COMENTARIOTAREA);
 	%>
 
 	<p>

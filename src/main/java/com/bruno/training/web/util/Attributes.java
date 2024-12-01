@@ -8,4 +8,7 @@ public class Attributes {
 	public static final String COMENTARIOS = "comentarios";
 	public static final String CLIENTE = "cliente";
 	public static final String COMENTARIOPROYECTO = "comentarioproyecto";
+	public static final String COMENTARIOTAREA = "comentariotarea";
+	public static final String IMPUTACION = "imputacion";
+	public static final String ROL = "rol";
 }

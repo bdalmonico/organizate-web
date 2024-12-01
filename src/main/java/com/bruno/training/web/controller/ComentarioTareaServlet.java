@@ -19,27 +19,27 @@ import org.apache.logging.log4j.util.Strings;
 
 import com.bruno.OrganizateException;
 import com.bruno.org.dao.DataException;
-import com.bruno.org.model.ComentarioProyectoDTO;
+import com.bruno.org.model.ComentarioTareaDTO;
 import com.bruno.org.model.Results;
-import com.bruno.org.service.ComentarioProyectoService;
+import com.bruno.org.service.ComentarioTareaService;
 import com.bruno.org.service.ServiceException;
-import com.bruno.org.service.impl.ComentarioProyectoServiceImpl;
+import com.bruno.org.service.impl.ComentarioTareaServiceImpl;
 import com.bruno.training.web.util.Actions;
 import com.bruno.training.web.util.Attributes;
 import com.bruno.training.web.util.Parameters;
 import com.bruno.training.web.util.RouterUtils;
 import com.bruno.training.web.util.Views;
 
-@WebServlet("/private/ComentarioProyectoServlet")
-public class ComentarioProyectoServlet extends HttpServlet {
+@WebServlet("/private/ComentarioTareaServlet")
+public class ComentarioTareaServlet extends HttpServlet {
 
 	private static SimpleDateFormat FECHA_OF = new SimpleDateFormat("yyyy-MM-dd");
-	private Logger logger = LogManager.getLogger(ComentarioProyectoServlet.class);
-	private ComentarioProyectoService comentarioProyectoService = null;
+	private Logger logger = LogManager.getLogger(ComentarioTareaServlet.class);
+	private ComentarioTareaService comentarioTareaService = null;
 
-	public ComentarioProyectoServlet() {
+	public ComentarioTareaServlet() {
 		super();
-		comentarioProyectoService = new ComentarioProyectoServiceImpl();
+		comentarioTareaService = new ComentarioTareaServiceImpl();
 
 	}
 
@@ -52,17 +52,17 @@ public class ComentarioProyectoServlet extends HttpServlet {
 
 		if (Actions.SEARCH.equalsIgnoreCase(action)) {
 
-			ComentarioProyectoDTO comentarioProyecto = new ComentarioProyectoDTO();
+			ComentarioTareaDTO comentarioTarea = new ComentarioTareaDTO();
 
-			String proyectoIdStr = request.getParameter(Parameters.PROYECTOID);
+			String tareaIdStr = request.getParameter(Parameters.TAREAID);
 
-			Long proyectoId = Long.valueOf(proyectoIdStr);
+			Long tareaId = Long.valueOf(tareaIdStr);
 
-			if (proyectoIdStr == null || proyectoIdStr.isEmpty()) {
-				comentarioProyecto.setProyectoId(null);
+			if (tareaIdStr == null || tareaIdStr.isEmpty()) {
+				comentarioTarea.setTareaId(null);
 			} else {
 
-				comentarioProyecto.setProyectoId(proyectoId);
+				comentarioTarea.setTareaId(tareaId);
 			}
 
 			try {
@@ -72,7 +72,7 @@ public class ComentarioProyectoServlet extends HttpServlet {
 				String newPageStr = request.getParameter("page");
 				int newPage = Strings.isEmpty(newPageStr) ? 1 : Integer.valueOf(newPageStr);
 
-				Results<ComentarioProyectoDTO> resultados = comentarioProyectoService.findByProyecto(proyectoId,
+				Results<ComentarioTareaDTO> resultados = comentarioTareaService.findByTarea(tareaId,
 						(newPage - 1) * PAGE_SIZE + 1, PAGE_SIZE);
 				logger.info("Encontrados " + resultados.getTotal() + " comentarios");
 
@@ -83,7 +83,7 @@ public class ComentarioProyectoServlet extends HttpServlet {
 
 				// TODO: A URLUtils... con encode ...
 				StringBuilder urlBuilder = new StringBuilder();
-				urlBuilder.append("/private/ComentarioProyectoServlet?"); // request.getURI()
+				urlBuilder.append("/private/ComentarioTareaServlet?"); // request.getURI()
 				Map<String, String[]> parametersMap = request.getParameterMap();
 				Set<String> parameterNames = parametersMap.keySet();
 				String parameterValue = null;
@@ -113,7 +113,7 @@ public class ComentarioProyectoServlet extends HttpServlet {
 					toPage = lastPage;
 				request.setAttribute("toPage", Integer.valueOf(toPage));
 
-				targetView = Views.COMENTARIOPROYECTO_SEARCH;
+				targetView = Views.COMENTARIOTAREA_SEARCH;
 				forwardOrRedirect = true;
 
 			} catch (OrganizateException pe) {
@@ -126,10 +126,10 @@ public class ComentarioProyectoServlet extends HttpServlet {
 			try {
 				String idStr = request.getParameter(Parameters.ID);
 				Long id = Long.valueOf(idStr);
-				ComentarioProyectoDTO comentarioProyecto = comentarioProyectoService.findById(id);
-				request.setAttribute(Attributes.COMENTARIOPROYECTO, comentarioProyecto);
+				ComentarioTareaDTO comentarioTarea = comentarioTareaService.findById(id);
+				request.setAttribute(Attributes.COMENTARIOTAREA, comentarioTarea);
 
-				targetView = Views.COMENTARIOPROYECTO_DETAIL;
+				targetView = Views.COMENTARIOTAREA_DETAIL;
 				forwardOrRedirect = true;
 
 			} catch (OrganizateException | ServiceException pe) {
@@ -137,9 +137,9 @@ public class ComentarioProyectoServlet extends HttpServlet {
 			}
 
 		} else if (Actions.CREATE.equalsIgnoreCase(action)) {
-			ComentarioProyectoDTO comentarioProyecto = new ComentarioProyectoDTO();
+			ComentarioTareaDTO comentarioTarea = new ComentarioTareaDTO();
 
-			String proyectoIdStr = request.getParameter(Parameters.PROYECTOID);
+			String tareaIdStr = request.getParameter(Parameters.TAREAID);
 
 			String empleadoIdStr = request.getParameter(Parameters.EMPLEADOID);
 
@@ -147,14 +147,14 @@ public class ComentarioProyectoServlet extends HttpServlet {
 
 			String comentario = request.getParameter(Parameters.COMENTARIO);
 
-			Long proyectoId = null;
+			Long tareaId = null;
 			
 
-			if (proyectoIdStr != null && !proyectoIdStr.isEmpty()) {
-				proyectoId = Long.valueOf(proyectoIdStr);
-				comentarioProyecto.setProyectoId(proyectoId);
+			if (tareaIdStr != null && !tareaIdStr.isEmpty()) {
+				tareaId = Long.valueOf(tareaIdStr);
+				comentarioTarea.setTareaId(tareaId);
 			} else {
-				logger.warn(" ID proyecto não fornecido.");
+				logger.warn(" ID tarea não fornecido.");
 			}
 			
 
@@ -162,7 +162,7 @@ public class ComentarioProyectoServlet extends HttpServlet {
 			
 			if (empleadoIdStr != null && !empleadoIdStr.isEmpty()) {
 				empleadoId = Long.valueOf(empleadoIdStr);
-				comentarioProyecto.setEmpleadoId(empleadoId);
+				comentarioTarea.setEmpleadoId(empleadoId);
 				
 			} else {
 				logger.warn("ID  empleadonão fornecido.");
@@ -170,12 +170,12 @@ public class ComentarioProyectoServlet extends HttpServlet {
 			
 
 			if (fechaPublicacionStr == null || fechaPublicacionStr.isEmpty()) {
-				comentarioProyecto.setFechaHora(null);
+				comentarioTarea.setFechaHora(null);
 			} else {
 				Date fechaPublicacion = null;
 				try {
 					fechaPublicacion = FECHA_OF.parse(fechaPublicacionStr);
-					comentarioProyecto.setFechaHora(fechaPublicacion);
+					comentarioTarea.setFechaHora(fechaPublicacion);
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -183,25 +183,25 @@ public class ComentarioProyectoServlet extends HttpServlet {
 				
 			}
 
-			comentarioProyecto.setComentario(comentario);
+			comentarioTarea.setComentario(comentario);
 			
 			try {
-				comentarioProyectoService.comentar(comentarioProyecto);
+				comentarioTareaService.comentar(comentarioTarea);
 			} catch (DataException | ServiceException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
-			targetView = Views.COMENTARIOPROYECTO_CREAR;
+			targetView = Views.COMENTARIOTAREA_CREAR;
 			forwardOrRedirect = true;
 			
 		} else if (Actions.UPDATE.equalsIgnoreCase(action)) {
 			try {
-				ComentarioProyectoDTO comentarioProyecto = new ComentarioProyectoDTO();
+				ComentarioTareaDTO comentarioTarea = new ComentarioTareaDTO();
 				
 				String comentarioIdStr = request.getParameter(Parameters.ID);
 
-				String proyectoIdStr = request.getParameter(Parameters.PROYECTOID);
+				String tareaIdStr = request.getParameter(Parameters.TAREAID);
 
 				String empleadoIdStr = request.getParameter(Parameters.EMPLEADOID);
 
@@ -216,19 +216,19 @@ public class ComentarioProyectoServlet extends HttpServlet {
 
 				if (comentarioIdStr != null && !comentarioIdStr.isEmpty()) {
 					comentarioId = Long.valueOf(comentarioIdStr);
-					comentarioProyecto.setId(comentarioId);
+					comentarioTarea.setId(comentarioId);
 				} else {
 					logger.warn("ID não fornecido.");
 				}
 				
 				
-				Long proyectoId = null;
+				Long tareaId = null;
 
-				proyectoId = Long.valueOf(proyectoIdStr);
+				tareaId = Long.valueOf(tareaIdStr);
 
-				if (proyectoIdStr != null && !proyectoIdStr.isEmpty()) {
+				if (tareaIdStr != null && !tareaIdStr.isEmpty()) {
 
-					comentarioProyecto.setProyectoId(proyectoId);
+					comentarioTarea.setTareaId(tareaId);
 				} else {
 					logger.warn("ID não fornecido.");
 				}
@@ -238,13 +238,13 @@ public class ComentarioProyectoServlet extends HttpServlet {
 
 				if (empleadoIdStr != null && !empleadoIdStr.isEmpty()) {
 
-					comentarioProyecto.setEmpleadoId(empleadoId);
+					comentarioTarea.setEmpleadoId(empleadoId);
 				} else {
 					logger.warn("ID não fornecido.");
 				}
 
 				if (fechaPublicacionStr == null || fechaPublicacionStr.isEmpty()) {
-					comentarioProyecto.setFechaHora(null);
+					comentarioTarea.setFechaHora(null);
 				} else {
 					Date fechaPublicacion = null;
 					try {
@@ -253,14 +253,14 @@ public class ComentarioProyectoServlet extends HttpServlet {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					comentarioProyecto.setFechaHora(fechaPublicacion);
+					comentarioTarea.setFechaHora(fechaPublicacion);
 				}
 
-				comentarioProyecto.setComentario(comentario);
+				comentarioTarea.setComentario(comentario);
 
-				comentarioProyectoService.update(comentarioProyecto);
+				comentarioTareaService.update(comentarioTarea);
 
-				targetView = Views.COMENTARIOPROYECTO_UPDATE;
+				targetView = Views.COMENTARIOTAREA_UPDATE;
 				forwardOrRedirect = false;
 
 			} catch (OrganizateException | ServiceException pe) {
@@ -272,9 +272,9 @@ public class ComentarioProyectoServlet extends HttpServlet {
 				String idStr = request.getParameter(Parameters.ID);
 				Long id = Long.valueOf(idStr);
 
-				comentarioProyectoService.delete(id);
+				comentarioTareaService.delete(id);
 
-				targetView = Views.COMENTARIOPROYECTO_DELETE;
+				targetView = Views.COMENTARIOTAREA_DELETE;
 				forwardOrRedirect = true;
 
 			} catch (OrganizateException | ServiceException pe) {

@@ -1,7 +1,7 @@
 <%@ page import="com.bruno.training.web.util.*"%>
 <%@include file="/common/header.jsp"%>
 
-<form action="<%=request.getContextPath()%>/private/ComentarioProyectoServlet" method="post">
+<form action="<%=request.getContextPath()%>/private/ComentarioTareaServlet" method="post">
 	
 	<h3><fmt:message key="create_comment2p" bundle="${messages}"/></h3>
 	
@@ -14,8 +14,8 @@
 	<label><fmt:message key="employee_id2p" bundle="${messages}"/></label>
 	<input type="number" name="<%=Parameters.EMPLEADOID%>"/>
 	
-	<label><fmt:message key="project_id2p" bundle="${messages}"/></label> 
-	<input type="number" name="<%=Parameters.PROYECTOID %>"  />
+	<label><fmt:message key="task_id2p" bundle="${messages}"/></label> 
+	<input type="number" name="<%=Parameters.TAREAID %>"  />
 	
 	<label><fmt:message key="publish_date2p" bundle="${messages}"/></label> 
 	<input type="date" name="<%=Parameters.FECHAPUBLICACION %>"/>

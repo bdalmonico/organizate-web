@@ -3,7 +3,7 @@
 <%@ page import="com.bruno.training.web.util.*"%>
 <%@include file="/common/header.jsp"%>
 <div>
-	<form action="<%=request.getContextPath()%>/private/ComentarioProyectoServlet" method="post">
+	<form action="<%=request.getContextPath()%>/private/ComentarioTareaServlet" method="post">
 
 
 		<h3 class="titulo">
@@ -13,7 +13,7 @@
 		<input type="hidden" name="<%=Parameters.ACTION%>"value="<%=Actions.SEARCH%>" /> 
 		
 		<label><fmt:message key="name2p" bundle="${messages}" /></label> 
-		<input type="text" name="<%=Parameters.PROYECTOID %>" placeholder="Ejemplo: id de proyecto" value="${proyectoId}" /> 
+		<input type="text" name="<%=Parameters.TAREAID %>" placeholder="Ejemplo: id de tarea" value="${tareaId}" /> 
 		<input type="submit" value="<fmt:message key="search" bundle="${messages}"/>" />
 	</form>
 
@@ -24,7 +24,7 @@
 				<ul>
 					<c:forEach var="c" items="${resultados.page}">
 						<li><a
-							href="<%=request.getContextPath()%>/private/ComentarioProyectoServlet?action=detail&id=${c.id}">
+							href="<%=request.getContextPath()%>/private/ComentarioTareaServlet?action=detail&id=${c.id}">
 								<c:out value="${c.comentario}" />
 						</a></li>
 					</c:forEach>
