@@ -19,7 +19,7 @@ import com.bruno.training.web.util.Parameters;
 /**
  * Servlet implementation class ImageServlet
  */
-@WebServlet("/ImageServlet")
+@WebServlet("/private/ImageServlet")
 public class ImageServlet extends HttpServlet {
 
     private FileService fileService;
@@ -37,7 +37,7 @@ public class ImageServlet extends HttpServlet {
 
             String imageName = request.getParameter("imageName");
 
-            String empleadoIdStr = request.getParameter(Parameters.EMPLEADOID);
+            String empleadoIdStr = request.getParameter(Parameters.ID);
             Long empleadoId = Long.valueOf(empleadoIdStr);
 
             List<File> images = fileService.getProfileImageByEmpleadoId(empleadoId);

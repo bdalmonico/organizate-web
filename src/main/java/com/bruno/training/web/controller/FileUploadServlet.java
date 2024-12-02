@@ -11,15 +11,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.bruno.org.service.FileService;
 import com.bruno.org.service.impl.FileServiceImpl;
 import com.bruno.training.web.util.Parameters;
 import com.bruno.training.web.util.RouterUtils;
+import com.bruno.training.web.util.Views;
 
 import config.ConfigurationParametersManager;
 
 
-@WebServlet("/FileUploadServlet")
+@WebServlet("/private/FileUploadServlet")
 @MultipartConfig(
 		fileSizeThreshold = 1024 * 1024 * 1, //1 MB
 		maxFileSize = 1024 * 1024 * 10, //10MB
@@ -27,8 +31,10 @@ import config.ConfigurationParametersManager;
 		)
 
 public class FileUploadServlet extends HttpServlet {
+	private static Logger logger = LogManager.getLogger(FileUploadServlet.class);
     
-	private static final String BASE_PROFILE_IMAGE_PATH = "base.profile.image.path";
+	private static final String BASE_PROFILE_IMAGE_PATH = "base.image.path";
+//	private static final String BASE_PROFILE_IMAGE_PATH =  "C:\\Users\\bdalmonico\\Desktop\\imgs";
 	private FileService fileService = null;
 	
     public FileUploadServlet() {
@@ -37,21 +43,26 @@ public class FileUploadServlet extends HttpServlet {
     }
 	 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String targetView = null;
 		
-		String clienteIdStr = request.getParameter(Parameters.EMPLEADOID);
-		Long clienteId = Long.valueOf(clienteIdStr);
+		String empleadoIdStr = request.getParameter(Parameters.ID);
+		Long empleadoId = Long.valueOf(empleadoIdStr);
 		
-		List<File> clienteImages = fileService.getProfileImageByEmpleadoId(clienteId);
+		List<File> empleadoImages = fileService.getProfileImageByEmpleadoId(empleadoId);
 		
-		String targetView = "/private/user/my-profile.jsp";
+		
 		
 		Part partFile = request.getPart("file");
 		String fileName = "emp1.jpg";
-//		ByteArrayOutputStream buffer 
+//		ByteArrayOutputStream buffer
+		String userPath = 
+					ConfigurationParametersManager.getParameterValue(BASE_PROFILE_IMAGE_PATH)
+					+File.separator+empleadoId+File.separator+fileName; 
 		for(Part part : request.getParts()) {
-			part.write(ConfigurationParametersManager.getParameterValue(BASE_PROFILE_IMAGE_PATH)+File.separator+clienteId+File.separator+fileName);
+			logger.info("Saving file to "+userPath);
+			part.write(userPath);
 		}
-		
+		targetView = Views.EMPLEADO_DETAIL;
 		RouterUtils.route(request, response, false, targetView);
 	}
 
