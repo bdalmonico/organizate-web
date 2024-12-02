@@ -53,6 +53,8 @@ public class Views {
 	public static final String ROL_SEARCH= "/private/rol/rol-search-view.jsp";
 	public static final String ROL_SEARCHALL= "/private/rol/rol-searchall-view.jsp";
 	public static final String ROL_DETAIL= "/private/rol/rol-detail-view.jsp";
+	
+	public static final String PROFILE= "/private/empleado/my-profile.jsp";
 
 	
 }

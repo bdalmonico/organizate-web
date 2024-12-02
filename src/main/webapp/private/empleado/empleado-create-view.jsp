@@ -6,11 +6,11 @@
 	<h3><fmt:message key="create_employee" bundle="${messages}"/></h3>
 	<input type="hidden" name="action" value="registrar" />
 	<label><fmt:message key="name2p" bundle="${messages}"/></label> 
-	<input type="text" name="nombre" />
+	<input type="text" name="nombre" value="${sessionScope.empleado.nombre}" />
 	<label><fmt:message key="lastname2p" bundle="${messages}"/></label> 
-	<input type="text" name="apellido"/>
+	<input type="text" name="apellido" value="${sessionScope.empleado.apellido}"/>
 	<label><fmt:message key="email2p" bundle="${messages}"/></label> 
-	<input type="text" name="email" />
+	<input type="text" name="email" value="${sessionScope.empleado.email}" />
 	<label><fmt:message key="password2p" bundle="${messages}"/></label>
 	<input type="text" name="contrasena" />
 	<label><fmt:message key="role2p" bundle="${messages}"/></label> 

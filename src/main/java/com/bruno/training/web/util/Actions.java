@@ -12,4 +12,5 @@ public class Actions {
 	public static final String UPLOAD = "upload";
 	public static final String ALL = "all";
 	public static final String DETAILAll = "detailall";
+	public static final String EDITPROFILE= "edit-profile";
 }

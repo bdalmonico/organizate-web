@@ -15,6 +15,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.util.Strings;
 
+import com.bruno.OrganizateException;
 import com.bruno.org.dao.DataException;
 import com.bruno.org.model.EmpleadoCriteria;
 import com.bruno.org.model.EmpleadoDTO;
@@ -213,8 +214,8 @@ public class UsuarioServletPrivate extends HttpServlet {
 				}
 				empleado.setId(id);
 				empleado.setNombre(nombre);
-				empleado.setApellido(targetView);
-				empleado.setEmail(targetView);
+				empleado.setApellido(apellido);
+				empleado.setEmail(email);
 				empleado.setFechaAlta(fechaAlta);
 				empleado.setRolId(rolId);
 				empleadoService.update(empleado);
@@ -225,6 +226,50 @@ public class UsuarioServletPrivate extends HttpServlet {
 			} catch (DataException | ServiceException pe) {
 				logger.error(pe.getMessage(), pe);
 			}
+		}else if(Actions.EDITPROFILE.equalsIgnoreCase(action)) {
+			
+			String nombre = request.getParameter(Parameters.NOMBRE);
+			String apellido = request.getParameter(Parameters.APELLIDO);
+			String email = request.getParameter(Parameters.EMAIL);
+			String fechaAltaStr = request.getParameter(Parameters.FECHAALTA);
+			String rolIdStr = request.getParameter(Parameters.ROLID);
+			Integer rolId = null;
+			if (rolIdStr != null && !rolIdStr.isEmpty()) {
+				rolId = Integer.valueOf(rolIdStr);
+			} else {
+				logger.warn("Estado ID não fornecido.");
+				// Trate o caso onde estadoId é necessário, mas não foi fornecido
+			}
+
+			Date fechaAlta= null;
+			
+			try {
+				fechaAlta = FECHA_OF.parse(fechaAltaStr);
+				
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
+			try {
+				EmpleadoDTO empleado = (EmpleadoDTO)SessionManager.getAttribute(request, Attributes.EMPLEADO);
+				
+				empleado.setNombre(nombre);
+				empleado.setApellido(apellido);
+				empleado.setEmail(email);
+				empleado.setFechaAlta(fechaAlta);
+				empleado.setRolId(rolId);
+				
+				if(empleadoService.update(empleado)) {
+					SessionManager.removeAttribute(request, Attributes.EMPLEADO);
+					SessionManager.setAttribute(request, Attributes.EMPLEADO, empleado);
+				}
+				
+				targetView = Views.PROFILE;
+				
+			}catch(OrganizateException | ServiceException pe) {
+				logger.error(pe.getMessage(), pe);
+			}
+			
 		}
 
 		RouterUtils.route(request, response, forwardOrRedirect, targetView);
