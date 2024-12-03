@@ -8,7 +8,7 @@
 	
 	<div id="image-container">
        <div style="border:1px solid black" width="50px" height="100px">
-        <img alt="profile image" src="<%=request.getContextPath()%>/private/ImageServlet?action=profileImage&id=${sessionScope.empleado.id}&imageName=emp1.jpg" />
+        <img alt="profile image" src="<%=request.getContextPath()%>/private/ImageServlet?action=profileImage&id=<%=emp.getId()%>&imageName=emp1.jpg" />
         </div>
 	    <form action="<%=request.getContextPath()%>/private/FileUploadServlet" method="post" enctype="multipart/form-data">
 	        <input type="hidden" name="id" value="${sessionScope.empleado.id}">

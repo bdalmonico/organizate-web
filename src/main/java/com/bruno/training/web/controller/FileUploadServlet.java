@@ -1,7 +1,6 @@
 package com.bruno.training.web.controller;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -20,8 +19,6 @@ import com.bruno.training.web.util.Parameters;
 import com.bruno.training.web.util.RouterUtils;
 import com.bruno.training.web.util.Views;
 
-import config.ConfigurationParametersManager;
-
 
 @WebServlet("/private/FileUploadServlet")
 @MultipartConfig(
@@ -32,9 +29,7 @@ import config.ConfigurationParametersManager;
 
 public class FileUploadServlet extends HttpServlet {
 	private static Logger logger = LogManager.getLogger(FileUploadServlet.class);
-    
-	private static final String BASE_PROFILE_IMAGE_PATH = "base.image.path";
-//	private static final String BASE_PROFILE_IMAGE_PATH =  "C:\\Users\\bdalmonico\\Desktop\\imgs";
+	private static final String BASE_PROFILEIMAGE_PATH = "base.profile.image.path";
 	private FileService fileService = null;
 	
     public FileUploadServlet() {
@@ -48,20 +43,22 @@ public class FileUploadServlet extends HttpServlet {
 		String empleadoIdStr = request.getParameter(Parameters.ID);
 		Long empleadoId = Long.valueOf(empleadoIdStr);
 		
-		List<File> empleadoImages = fileService.getProfileImageByEmpleadoId(empleadoId);
+
+		
+		String tmpPath = System.getProperty("java.io.tmpdir")+"/"+empleadoIdStr+"-"+System.currentTimeMillis();
 		
 		
 		
 		Part partFile = request.getPart("file");
-		String fileName = "emp1.jpg";
-//		ByteArrayOutputStream buffer
-		String userPath = 
-					ConfigurationParametersManager.getParameterValue(BASE_PROFILE_IMAGE_PATH)
-					+File.separator+empleadoId+File.separator+fileName; 
+		 
+	 
 		for(Part part : request.getParts()) {
-			logger.info("Saving file to "+userPath);
-			part.write(userPath);
+			logger.info("Saving file to "+tmpPath);
+			part.write(tmpPath);
 		}
+		
+		fileService.saveEmpleadoProfileImage(empleadoId, new File(tmpPath));
+		
 		targetView = Views.EMPLEADO_DETAIL;
 		RouterUtils.route(request, response, false, targetView);
 	}
