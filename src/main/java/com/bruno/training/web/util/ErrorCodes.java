@@ -14,4 +14,17 @@ public class ErrorCodes {
 	public static final String INVALID_PASSWORD_LENGTH = "INVALID_PASSWORD_LENGTH";
 	public static final String UNKNOWN_ROLE = "UNKNOWN_ROLE";
 	
+	// Field errors
+	public static final String UNKNOWN_UNIDADMEDIDA = "UNKNOWN_UNIDADMEDIDA";
+
+	public static final String INVALID_NAME_FORMAT="INVALID_NAME_FORMAT";
+	
+	public static final String INVALID_ID="INVALID_ID";
+	
+	public static final String INVALID_NAME_LENGTH="INVALID_NAME_LENGTH";
+	
+	public static final String INVALID_NAME_CHARACTERS="INVALID_NAME_CHARACTERS";
+	
+	
+	public static final String INVALID_NUMERIC_FORMAT="INVALID_NUMERIC_FORMAT";
 }

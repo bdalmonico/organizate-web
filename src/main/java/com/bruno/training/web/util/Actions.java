@@ -13,4 +13,9 @@ public class Actions {
 	public static final String ALL = "all";
 	public static final String DETAILAll = "detailall";
 	public static final String EDITPROFILE= "edit-profile";
+	public static final String UPLOAD_IMAGE = "uploadImage";
+	public static final String CHANGE_LOCALE = "change-locale";
+	public static final String SEARCHTAREAS = "searchtareas";
+	public static final String SEARCHEMPLEADOS = "searchempleados";
+	public static final String SEARCHALL= "searcall";
 }

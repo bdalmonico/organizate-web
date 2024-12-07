@@ -3,7 +3,7 @@
 
 <form action="<%=request.getContextPath()%>/private/ImputacionServlet" method="post">
 	
-	<h3><fmt:message key="create_comment2p" bundle="${messages}"/></h3>
+	<h3><fmt:message key="hour_imputation" bundle="${messages}"/></h3>
 	
 	<input type="hidden" name="<%=Parameters.ACTION %>" value="<%=Actions.CREATE%>" />
 	

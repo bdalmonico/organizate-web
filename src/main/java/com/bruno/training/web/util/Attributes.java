@@ -11,4 +11,9 @@ public class Attributes {
 	public static final String COMENTARIOTAREA = "comentariotarea";
 	public static final String IMPUTACION = "imputacion";
 	public static final String ROL = "rol";
+	public static final String ESTADO = "estado";
+	public static final String ERRORS = "errors";
+	public static final String LOCALE = "locale";
+	public static final String EMPLEADOTAREA = "empleadotarea";
+	
 }

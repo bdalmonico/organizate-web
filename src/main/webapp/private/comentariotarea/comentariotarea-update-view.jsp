@@ -4,7 +4,7 @@
 <%@include file="/common/header.jsp" %>
 	<div>
 				
-	<h3 class="titulo"><fmt:message key="update_comment" bundle="${messages}"/></h3>
+	<h3 class="titulo"><fmt:message key="update_task_comment" bundle="${messages}"/></h3>
 	<form action="<%=request.getContextPath()%>/private/ComentarioTareaServlet" method="post">
 	
 	<input type="hidden" name="<%=Parameters.ACTION %>" value="<%=Actions.UPDATE%>" />

@@ -69,7 +69,7 @@ public class RolServlet extends HttpServlet {
 
 		        request.setAttribute(Attributes.RESULTADOS, resultados);
 
-		        targetView = Views.ROL_SEARCHALL;
+		        targetView = Views.ROL_SEARCH;
 		        forwardOrRedirect = true;
 
 		    } catch (OrganizateException pe) {

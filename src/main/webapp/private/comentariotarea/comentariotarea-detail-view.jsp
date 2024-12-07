@@ -2,6 +2,7 @@
 <%@include file="/common/header.jsp"%>
 
 <div class="container">
+	<fmt:message key="task_comment_results" bundle="${messages}"/>
 	<%
 	ComentarioTareaDTO cp = (ComentarioTareaDTO) request.getAttribute(Attributes.COMENTARIOTAREA);
 	%>

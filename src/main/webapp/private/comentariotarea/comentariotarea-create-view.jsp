@@ -3,7 +3,7 @@
 
 <form action="<%=request.getContextPath()%>/private/ComentarioTareaServlet" method="post">
 	
-	<h3><fmt:message key="create_comment2p" bundle="${messages}"/></h3>
+	<h3><fmt:message key="create_task_comment" bundle="${messages}"/></h3>
 	
 	<input type="hidden" name="<%=Parameters.ACTION %>" value="<%=Actions.CREATE%>" />
 	

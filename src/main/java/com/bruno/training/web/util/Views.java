@@ -43,8 +43,17 @@ public class Views {
 	public static final String COMENTARIOTAREA_CREAR = "/private/comentariotarea/comentariotarea-create-view.jsp";
 	public static final String COMENTARIOTAREA_UPDATE = "/private/comentariotarea/comentariotarea-update-view.jsp";
 	public static final String COMENTARIOTAREA_DELETE = "/private/comentariotarea/comentariotarea-delete-view.jsp";
+	
+	public static final String EMPLEADOTAREA_SEARCH = "/private/empleadotarea/empleadotarea-search-view.jsp";
+	public static final String EMPLEADOTAREA_SEARCHTAREA = "/private/empleadotarea/empleadotarea-searchtarea-view.jsp";
+	public static final String EMPLEADOTAREA_SEARCHEMPLEADO = "/private/empleadotarea/empleadotarea-searchempleado-view.jsp";
+	public static final String EMPLEADOTAREA_DETAIL = "/private/empleadotarea/empleadotarea-detail-view.jsp";
+	public static final String EMPLEADOTAREA_CREAR = "/private/empleadotarea/empleadotarea-create-view.jsp";
+	public static final String EMPLEADOTAREA_UPDATE = "/private/empleadotarea/empleadotarea-update-view.jsp";
+	public static final String EMPLEADOTAREA_DELETE = "/private/empleadotarea/empleadotarea-delete-view.jsp";
 
 	public static final String IMPUTACION_SEARCH= "/private/imputacion/imputacion-search-view.jsp";
+	public static final String IMPUTACION_SEARCHALL= "/private/imputacion/imputacion-searchall-view.jsp";
 	public static final String IMPUTACION_DETAIL = "/private/imputacion/imputacion-detail-view.jsp";
 	public static final String IMPUTACION_CREAR = "/private/imputacion/imputacion-create-view.jsp";
 	public static final String IMPUTACION_UPDATE = "/private/imputacion/imputacion-update-view.jsp";
@@ -53,6 +62,11 @@ public class Views {
 	public static final String ROL_SEARCH= "/private/rol/rol-search-view.jsp";
 	public static final String ROL_SEARCHALL= "/private/rol/rol-searchall-view.jsp";
 	public static final String ROL_DETAIL= "/private/rol/rol-detail-view.jsp";
+	public static final String ROL_DETAILALL= "/private/rol/rol-detailall-view.jsp";
+	
+	public static final String ESTADO_SEARCH= "/private/estado/estado-search-view.jsp";
+	public static final String ESTADO_SEARCHALL= "/private/estado/estado-searchall-view.jsp";
+	public static final String ESTADO_DETAIL= "/private/estado/estado-detail-view.jsp";
 	
 	public static final String PROFILE= "/private/empleado/my-profile.jsp";
 

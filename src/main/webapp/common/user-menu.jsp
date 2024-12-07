@@ -5,13 +5,15 @@
 <% 	
 	EmpleadoDTO empleado = (EmpleadoDTO) SessionManager.getAttribute(request, Attributes.EMPLEADO);
 	if (empleado==null) {
-		%><a href="<%=request.getContextPath()%>/user/login.jsp"><fmt:message
-				key="authenticate" bundle="${messages}" /></a><%
+		%>
+
+				<button style="height: 50px; width: 100px; font-size:16px; cursor:pointer;" onclick="window.location='<%=request.getContextPath()%>/user/login.jsp'
+			"><fmt:message key="authenticate" bundle="${messages}" /></button>
+		<%
 	} else {
 		%>
-			<p><%=empleado.getNombre()%> <%=empleado.getApellido() %></p>
-			<p><%=empleado.getEmail()%></p>
-			<a href="<%=request.getContextPath()%>/private/UsuarioServlet?action=logout">Salir</a>
+			<button style="height: 50px; width: 100px; font-size:16px; cursor:pointer;" onclick="window.location='<%=request.getContextPath()%>/private/UsuarioServlet?action=logout'
+			"><fmt:message key="exit" bundle="${messages}" /></button>
 		<%		
 	}
 %>

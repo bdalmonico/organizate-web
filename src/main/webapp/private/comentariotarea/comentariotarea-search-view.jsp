@@ -7,7 +7,7 @@
 
 
 		<h3 class="titulo">
-			<fmt:message key="search_client" bundle="${messages}" />
+			<fmt:message key="search_task_comment" bundle="${messages}" />
 		</h3>
 
 		<input type="hidden" name="<%=Parameters.ACTION%>"value="<%=Actions.SEARCH%>" /> 

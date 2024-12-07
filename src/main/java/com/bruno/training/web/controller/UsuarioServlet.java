@@ -22,12 +22,11 @@ import com.bruno.training.web.util.Attributes;
 import com.bruno.training.web.util.CookieManager;
 import com.bruno.training.web.util.ErrorCodes;
 import com.bruno.training.web.util.Errors;
+import com.bruno.training.web.util.LocaleUtils;
 import com.bruno.training.web.util.Parameters;
 import com.bruno.training.web.util.RouterUtils;
 import com.bruno.training.web.util.SessionManager;
 import com.bruno.training.web.util.Views;
-
-import config.ConfigurationParametersManager;
 
 @WebServlet("/UsuarioServlet")
 public class UsuarioServlet extends HttpServlet {
@@ -89,35 +88,21 @@ public class UsuarioServlet extends HttpServlet {
 			} catch (DataException | ServiceException e) {
 				logger.error(e.getMessage(), e);
 			}
-//		} else if ("change-locale".equalsIgnoreCase(action)) {
-//			String[] newLocaleStr = request.getParameter("locale").split("_");
-//
-//			// El locale que nos piden está soportado????
-//
-//			// Si lo está, y si no el de por defecto
-//			Locale newLocale = new Locale("en");// ConfigurationParametrs.... dfeult;
-//			if (newLocaleStr.length == 1) {
-//				newLocale = new Locale(newLocaleStr[0]);
-//			} else if (newLocaleStr.length == 2) {
-//				newLocale = new Locale(newLocaleStr[0], newLocaleStr[1]);
-//			}
-//			SessionManager.setAttribute(request, "locale", newLocale);
-//			// Se guarda en una cookie
-//			// CookieManager. setCookie...
-//			targetView = Views.HOME;
-//			forwardOrRedirect = false;
 		} else if ("change-locale".equalsIgnoreCase(action)) {
 			String[] newLocaleStr = request.getParameter("locale").split("_");
-			String defaultLocaleStr = ConfigurationParametersManager.getParameterValue("locale.default");
-			Locale newLocale = Locale.forLanguageTag(defaultLocaleStr);
+
+			// El locale que nos piden está soportado????
+
+			// Si lo está, y si no el de por defecto
+			Locale newLocale = new Locale("en");// ConfigurationParametrs.... dfeult;
 			if (newLocaleStr.length == 1) {
 				newLocale = new Locale(newLocaleStr[0]);
 			} else if (newLocaleStr.length == 2) {
 				newLocale = new Locale(newLocaleStr[0], newLocaleStr[1]);
 			}
 			SessionManager.setAttribute(request, "locale", newLocale);
-			CookieManager.setCookie(response, request.getContextPath(), "locale", newLocale.toLanguageTag(),
-					30 * 24 * 60 * 60);
+			// Se guarda en una cookie
+			// CookieManager. setCookie...
 			targetView = Views.HOME;
 			forwardOrRedirect = false;
 		}

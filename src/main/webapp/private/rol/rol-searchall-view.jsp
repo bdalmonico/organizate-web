@@ -4,7 +4,7 @@
 <div>
     <form action="<%=request.getContextPath()%>/private/RolServlet" method="post">
         <h3 class="titulo">
-            <fmt:message key="search_client" bundle="${messages}" />
+            <fmt:message key="searchall_role" bundle="${messages}" />
         </h3>
         <input type="hidden" name="<%=Parameters.ACTION%>" value="<%=Actions.ALL%>" />
         <input type="submit" value="<fmt:message key="search" bundle="${messages}"/>" />
@@ -13,14 +13,13 @@
         <c:choose>
             <c:when test="${not empty resultados}">
                 <ul>
-                    <c:forEach var="c" items="${resultados}">
+                    <c:forEach var="rol" items="${resultados}">
                         <li>
-                            <c:out value="${c.id}" /> - <c:out value="${c.nombre}" />
+                            <c:out value="${rol.id}" /> - <c:out value="${rol.nombre}" />
                             
                         </li>
                     </c:forEach>
                 </ul>
-                <%@include file="/common/paging.jsp"%>
             </c:when>
             <c:otherwise>
                 <h1>

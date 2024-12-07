@@ -4,7 +4,7 @@
 <%@include file="/common/header.jsp" %>
 	<div>
 		<form action="<%=request.getContextPath()%>/private/ComentarioTareaServlet" method="post">		
-			<h3 class="titulo"><fmt:message key="delete_comment" bundle="${messages}"/></h3>
+			<h3 class="titulo"><fmt:message key="delete_task_comment" bundle="${messages}"/></h3>
 			
 			<input type="hidden" name="<%=Parameters.ACTION %>" value="<%=Actions.DELETE%>"/>
 			

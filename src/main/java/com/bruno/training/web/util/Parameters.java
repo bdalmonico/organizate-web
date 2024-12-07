@@ -51,9 +51,15 @@ public class Parameters {
 	
 	public static final String FECHAPUBLICACION = "fechaPublicacion";
 	
+	public static final String EMPLEADOTAREAID = "empleadotareaid";
+	
 	public static final String COMENTARIO = "comentario";
 	
 	public static final String FECHAHORA = "fechaHora";
 	
 	public static final String HORASIMPUTADAS = "horasImputadas";
+	public static final String CALLBACK_URL = "callbackURL"; 
+	public static final String LOCALE = "locale";
+	public static final String ESPANOL = "es";
+	public static final String IMPUTACIONID = "imputacionid";
 }

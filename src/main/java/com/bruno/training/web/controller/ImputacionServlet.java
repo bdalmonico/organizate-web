@@ -18,7 +18,9 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.util.Strings;
 
 import com.bruno.OrganizateException;
+import com.bruno.org.model.ClienteCriteria;
 import com.bruno.org.model.ClienteDTO;
+import com.bruno.org.model.EmpleadoTareaDTO;
 import com.bruno.org.model.ImputacionCriteria;
 import com.bruno.org.model.ImputacionDTO;
 import com.bruno.org.model.Results;
@@ -51,7 +53,34 @@ public class ImputacionServlet extends HttpServlet {
 		String targetView = null;
 		boolean forwardOrRedirect = false;
 
-		if (Actions.SEARCH.equalsIgnoreCase(action)) {
+		if (Actions.SEARCHALL.equalsIgnoreCase(action)) {
+
+			ImputacionCriteria criteria = new ImputacionCriteria();
+			
+
+			String proyectoIdStr = request.getParameter(Parameters.PROYECTOID);
+			if (proyectoIdStr == null || proyectoIdStr.isEmpty()) {
+				criteria.setProyectoId(null);
+			} else {
+				Long proyectoId = Long.valueOf(proyectoIdStr);
+				criteria.setProyectoId(proyectoId);
+			}
+			
+		    try {
+		        double resultados = imputacionService.findByTotalByCriteria(criteria);
+
+		        request.setAttribute(Attributes.RESULTADOS, resultados);
+
+		        targetView = Views.IMPUTACION_SEARCHALL;
+		        forwardOrRedirect = true;
+
+		    } catch (OrganizateException pe) {
+		        logger.error(pe.getMessage(), pe);
+		    } catch (ServiceException e) {
+		        e.printStackTrace();
+		    }
+
+		} else if (Actions.SEARCH.equalsIgnoreCase(action)) {
 			
 			ImputacionCriteria criteria = new ImputacionCriteria();
 			
@@ -84,16 +113,10 @@ public class ImputacionServlet extends HttpServlet {
 				criteria.setEmpleadoId(null);
 			} else {
 				Long empleadoId = Long.valueOf(empleadoIdStr);
-				criteria.setTareaId(empleadoId);
+				criteria.setEmpleadoId(empleadoId);
 			}
 			
-			String horasImputadasStr = request.getParameter(Parameters.HORASIMPUTADAS);
-			if (horasImputadasStr == null || horasImputadasStr.isEmpty()) {
-				criteria.setHorasImputadas(null);
-			} else {
-				Double horasImputadas = Double.valueOf(horasImputadasStr);
-				criteria.setHorasImputadas(horasImputadas);
-			}
+			
 			
 			String fechaHoraStr = request.getParameter(Parameters.FECHAHORA);
 			if (fechaHoraStr == null || fechaHoraStr.isEmpty()) {

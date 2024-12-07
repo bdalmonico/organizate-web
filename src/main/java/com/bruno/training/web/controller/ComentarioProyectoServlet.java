@@ -71,7 +71,6 @@ public class ComentarioProyectoServlet extends HttpServlet {
 
 				String newPageStr = request.getParameter("page");
 				int newPage = Strings.isEmpty(newPageStr) ? 1 : Integer.valueOf(newPageStr);
-
 				Results<ComentarioProyectoDTO> resultados = comentarioProyectoService.findByProyecto(proyectoId,
 						(newPage - 1) * PAGE_SIZE + 1, PAGE_SIZE);
 				logger.info("Encontrados " + resultados.getTotal() + " comentarios");

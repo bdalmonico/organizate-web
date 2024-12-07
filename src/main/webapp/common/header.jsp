@@ -3,6 +3,8 @@
 <%@ page import="com.bruno.org.model.*"%>
 <%@ page import="com.bruno.training.web.controller.*"%>
 <%@ page import="com.bruno.*"%>
+<%@ page import="java.util.List"%>
+<%@ page import="com.bruno.training.web.util.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
@@ -34,7 +36,7 @@
 				<a
 					href="<%=request.getContextPath()%>/UsuarioServlet?action=change-locale&locale=pt">Português</a>
 			</div>
-			<button class="settings"><%@include file="/common/user-menu.jsp"%></button>
+			<%@include file="/common/user-menu.jsp"%>
 		</div>
 		
 	</header>

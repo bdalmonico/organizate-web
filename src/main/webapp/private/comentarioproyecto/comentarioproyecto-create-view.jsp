@@ -3,13 +3,12 @@
 
 <form action="<%=request.getContextPath()%>/private/ComentarioProyectoServlet" method="post">
 	
-	<h3><fmt:message key="create_comment2p" bundle="${messages}"/></h3>
+	<h3><fmt:message key="create_project_comment" bundle="${messages}"/></h3>
 	
 	<input type="hidden" name="<%=Parameters.ACTION %>" value="<%=Actions.CREATE%>" />
 	
 	<label><fmt:message key="comment_2p" bundle="${messages}"/></label> 
 	<input type="text" name="<%=Parameters.COMENTARIO %>" />
-	
 	
 	<label><fmt:message key="employee_id2p" bundle="${messages}"/></label>
 	<input type="number" name="<%=Parameters.EMPLEADOID%>"/>

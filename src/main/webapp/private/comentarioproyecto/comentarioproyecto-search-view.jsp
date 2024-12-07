@@ -7,12 +7,12 @@
 
 
 		<h3 class="titulo">
-			<fmt:message key="search_client" bundle="${messages}" />
+			<fmt:message key="search_project_comments" bundle="${messages}" />
 		</h3>
 
 		<input type="hidden" name="<%=Parameters.ACTION%>"value="<%=Actions.SEARCH%>" /> 
 		
-		<label><fmt:message key="name2p" bundle="${messages}" /></label> 
+		<label><fmt:message key="project_id2p" bundle="${messages}" /></label> 
 		<input type="text" name="<%=Parameters.PROYECTOID %>" placeholder="Ejemplo: id de proyecto" value="${proyectoId}" /> 
 		<input type="submit" value="<fmt:message key="search" bundle="${messages}"/>" />
 	</form>
