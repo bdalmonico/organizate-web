@@ -1,11 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.bruno.training.web.util.*"%>
 <%@include file="/common/header.jsp"%>
-<div>
-	<form action="<%=request.getContextPath()%>/private/ProyectoServlet"
-		method="post">
-
+<div style="margin:30px">
+	<form action="<%=request.getContextPath()%>/private/ProyectoServlet" method="post">
 
 		<h3 class="titulo">
 			<fmt:message key="search_project" bundle="${messages}" />
@@ -44,22 +41,29 @@
 		
 		<input type="submit" value="<fmt:message key="search" bundle="${messages}"/>" />
 	</form>
-
-
+	
 	<div id="resultados">
 		<c:choose>
 			<c:when test="${not empty resultados.page}">
 				<ul>
 					<c:forEach var="p" items="${resultados.page}">
-						<li><a
-							href="<%=request.getContextPath()%>/private/ProyectoServlet?action=detail&id=${p.id}">
+						<h2>
+							<a href="<%=request.getContextPath()%>/private/ProyectoServlet?action=detail&id=${p.id}">
 								<c:out value="${p.nombre}" />
-						</a></li>
+								|
+								<c:out value="${p.fechaRealInicio}" />
+							</a>
+							</h2>
+							<p>
+								<c:out value="${p.descripcion}" />
+							</p>
+							
+							<a href="<%=request.getContextPath()%>/private/ClienteServlet?action=detail&id=<c:out value="${p.clienteId}"/>">
+								<fmt:message key="client_id2p" bundle="${messages}"/>
+								<c:out value="${p.clienteId}" />
+							</a> 
 					</c:forEach>
-
 				</ul>
-
-
 				<%@include file="/common/paging.jsp"%>
 			</c:when>
 			<c:otherwise>
@@ -70,9 +74,11 @@
 			</c:otherwise>
 		</c:choose>
 
-
-
 	</div>
-
-
-	<%@include file="/common/footer.jsp"%>
+	<div>
+		<button class="createbtn" onclick="window.location='<%=request.getContextPath()%><%=Views.PROYECTO_CREAR%>'">
+				<fmt:message key="create_project" bundle="${messages}" />
+		</button>
+	</div>
+</div>
+<%@include file="/common/footer.jsp"%>

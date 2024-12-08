@@ -1,6 +1,6 @@
 <%@ page import="com.bruno.training.web.util.*"%>
 <%@include file="/common/header.jsp"%>
-
+<div style="margin:30px">
 <form action="${pageContext.request.contextPath}/private/UsuarioServlet" method="post">
 	<h3><fmt:message key="search_employee" bundle="${messages}"/></h3>
 	
@@ -31,10 +31,10 @@
     </c:forEach>
     <select id="<%=Parameters.ROLID%>" name="<%=Parameters.ROLID%>" style="text-align: center">
 		<option value=""> - </option>
-		<option value="3">Programador</option>
-		<option value="1">Diretor</option>
-		<option value="2">Administrador</option>
-		<option value="4">Gestor</option>
+		<option value="3"><fmt:message key="${programmer}" bundle="${messages}" /></option>
+		<option value="1"><fmt:message key="${director}" bundle="${messages}" /></option>
+		<option value="2"><fmt:message key="${administrator}" bundle="${messages}" /></option>
+		<option value="4"><fmt:message key="${manager}" bundle="${messages}" /></option>
 	</select>
 	
 	<label><fmt:message key="email2p" bundle="${messages}"/></label> 
@@ -55,7 +55,6 @@
 
 
 <div class="results-container">
-	<!--  getPage() ? -->
 	<c:choose>
 		<c:when test="${not empty resultados}">
 			<h3><fmt:message key="results" bundle="${messages}"/></h3>
@@ -75,5 +74,10 @@
 		</c:otherwise>
 	</c:choose>
 </div>
-
+</div>
+	<div>
+		<button class="createbtn" onclick="window.location='<%=request.getContextPath()%><%=Views.EMPLEADO_INSERT%>'">
+				<fmt:message key="create_employee" bundle="${messages}" />
+		</button>
+	</div>
 <%@include file="/common/footer.jsp"%>

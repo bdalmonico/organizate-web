@@ -16,17 +16,15 @@
             EstadoDTO resultados = (EstadoDTO) request.getAttribute(Attributes.RESULTADOS);
             if (resultados != null) {
         %>
-        <p>
-     
-                <%=resultados.getId()%> - <%=resultados.getNombre()%>
-            
-        </p>
+        	<p>		
+        		<%=resultados.getId()%> - <%=resultados.getNombre()%>      
+	        </p>
         <%
             } else {
         %>
-        <h1>
-            <fmt:message key="without_results" bundle="${messages}" />
-        </h1>
+	        <h1>
+	            <fmt:message key="without_results" bundle="${messages}" />
+	        </h1>
         <%
             }
         %>

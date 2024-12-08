@@ -16,7 +16,6 @@
 	<label><fmt:message key="project_id2p" bundle="${messages}"/></label> 
 	<input type="number" name="<%=Parameters.PROYECTOID %>"  />
 	
-	
 	<label><fmt:message key="hours_2p" bundle="${messages}"/></label> 
 	<input type="text" name="<%=Parameters.HORASIMPUTADAS %>" />
 	

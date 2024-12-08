@@ -18,14 +18,17 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.util.Strings;
 
 import com.bruno.OrganizateException;
+import com.bruno.org.model.ComentarioProyectoDTO;
+import com.bruno.org.model.ImputacionCriteria;
 import com.bruno.org.model.ProyectoCriteria;
 import com.bruno.org.model.ProyectoDTO;
 import com.bruno.org.model.Results;
-import com.bruno.org.model.TareaDTO;
 import com.bruno.org.service.ComentarioProyectoService;
+import com.bruno.org.service.ImputacionService;
 import com.bruno.org.service.ProyectoService;
 import com.bruno.org.service.ServiceException;
 import com.bruno.org.service.impl.ComentarioProyectoServiceImpl;
+import com.bruno.org.service.impl.ImputacionServiceImpl;
 import com.bruno.org.service.impl.ProyectoServiceImpl;
 import com.bruno.training.web.util.Actions;
 import com.bruno.training.web.util.Attributes;
@@ -40,11 +43,13 @@ public class ProyectoServlet extends HttpServlet {
 	private Logger logger = LogManager.getLogger(ProyectoServlet.class);
 	private ProyectoService proyectoService = null;
 	private ComentarioProyectoService comentario = null;
+	private ImputacionService imputacion = null;
 
 	public ProyectoServlet() {
 		super();
 		proyectoService = new ProyectoServiceImpl();
 		comentario = new ComentarioProyectoServiceImpl();
+		imputacion = new ImputacionServiceImpl();
 
 	}
 
@@ -132,7 +137,7 @@ public class ProyectoServlet extends HttpServlet {
 			}
 
 			try {
-				int PAGE_SIZE = 3; /* prefs usuario o default cfg ConfiugrationPar... */
+				int PAGE_SIZE = 10; /* prefs usuario o default cfg ConfiugrationPar... */
 				int BROWSABLE_PAGE_COUNT = 10;
 
 				String newPageStr = request.getParameter("page");
@@ -195,6 +200,17 @@ public class ProyectoServlet extends HttpServlet {
 				ProyectoDTO proyecto = proyectoService.findById(id);
 				request.setAttribute(Attributes.PROYECTO, proyecto);
 
+				Results<ComentarioProyectoDTO> comentarios = comentario.findByProyecto(id, 1, 20);
+				request.setAttribute(Attributes.COMENTARIOS, comentarios);
+
+				ImputacionCriteria criteria = new ImputacionCriteria();
+
+				criteria.setProyectoId(id);
+
+				double horas = imputacion.findByTotalByCriteria(criteria);
+
+				request.setAttribute(Attributes.RESULTADOS, horas);
+
 				targetView = Views.PROYECTO_RESULTS;
 				forwardOrRedirect = true;
 
@@ -221,7 +237,7 @@ public class ProyectoServlet extends HttpServlet {
 					logger.warn("Estado ID não fornecido.");
 					// Trate o caso onde estadoId é necessário, mas não foi fornecido
 				}
-				
+
 				Long clienteId = null;
 				if (clienteIdStr != null && !clienteIdStr.isEmpty()) {
 					clienteId = Long.valueOf(clienteIdStr);
@@ -229,7 +245,7 @@ public class ProyectoServlet extends HttpServlet {
 					logger.warn("Projeto ID não fornecido.");
 					// Trate o caso onde proyectoId é necessário, mas não foi fornecido
 				}
-				
+
 				Double importe = null;
 				if (importeStr != null && !importeStr.isEmpty()) {
 					importe = Double.valueOf(importeStr);
@@ -237,8 +253,7 @@ public class ProyectoServlet extends HttpServlet {
 					logger.warn("Projeto ID não fornecido.");
 					// Trate o caso onde proyectoId é necessário, mas não foi fornecido
 				}
-				
-				
+
 				Date fechaRealInicio = null;
 				Date fechaRealFin = null;
 				Date fechaEstimadaInicio = null;
@@ -253,7 +268,6 @@ public class ProyectoServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 
-
 				proyecto.setNombre(nombre);
 				proyecto.setDescripcion(descripcion);
 				proyecto.setFechaRealInicio(fechaRealInicio);
@@ -263,7 +277,6 @@ public class ProyectoServlet extends HttpServlet {
 				proyecto.setImporte(importe);
 				proyecto.setClienteId(clienteId);
 				proyecto.setEstadoId(estadoId);
-				
 
 				proyectoService.registrar(proyecto);
 
@@ -276,7 +289,7 @@ public class ProyectoServlet extends HttpServlet {
 		} else if (Actions.UPDATE.equalsIgnoreCase(action)) {
 			try {
 				ProyectoDTO proyecto = new ProyectoDTO();
-				String idStr = request.getParameter(Parameters.ID); 
+				String idStr = request.getParameter(Parameters.ID);
 				String nombre = request.getParameter(Parameters.NOMBRE);
 				String descripcion = request.getParameter(Parameters.DESCRIPCION);
 				String fechaRealInicioStr = request.getParameter(Parameters.FECHAREALINICIO);
@@ -286,7 +299,7 @@ public class ProyectoServlet extends HttpServlet {
 				String estadoIdStr = request.getParameter(Parameters.ESTADOID);
 				String clienteIdStr = request.getParameter(Parameters.CLIENTEID);
 				String importeStr = request.getParameter(Parameters.IMPORTE);
-				
+
 				Long id = null;
 				if (idStr != null && !idStr.isEmpty()) {
 					id = Long.valueOf(idStr);
@@ -294,7 +307,7 @@ public class ProyectoServlet extends HttpServlet {
 					logger.warn("Estado ID não fornecido.");
 					// Trate o caso onde estadoId é necessário, mas não foi fornecido
 				}
-				
+
 				Long estadoId = null;
 				if (estadoIdStr != null && !estadoIdStr.isEmpty()) {
 					estadoId = Long.valueOf(estadoIdStr);
@@ -302,7 +315,7 @@ public class ProyectoServlet extends HttpServlet {
 					logger.warn("Estado ID não fornecido.");
 					// Trate o caso onde estadoId é necessário, mas não foi fornecido
 				}
-				
+
 				Long clienteId = null;
 				if (clienteIdStr != null && !clienteIdStr.isEmpty()) {
 					clienteId = Long.valueOf(clienteIdStr);
@@ -310,7 +323,7 @@ public class ProyectoServlet extends HttpServlet {
 					logger.warn("Projeto ID não fornecido.");
 					// Trate o caso onde proyectoId é necessário, mas não foi fornecido
 				}
-				
+
 				Double importe = null;
 				if (importeStr != null && !importeStr.isEmpty()) {
 					importe = Double.valueOf(importeStr);
@@ -319,7 +332,6 @@ public class ProyectoServlet extends HttpServlet {
 					// Trate o caso onde proyectoId é necessário, mas não foi fornecido
 				}
 
-				
 				Date fechaRealInicio = null;
 				Date fechaRealFin = null;
 				Date fechaEstimadaInicio = null;
@@ -356,8 +368,7 @@ public class ProyectoServlet extends HttpServlet {
 			try {
 				String idStr = request.getParameter(Parameters.ID);
 				Long id = Long.valueOf(idStr);
-				
-			
+
 				proyectoService.delete(id);
 
 				targetView = Views.PROYECTO_DELETE;

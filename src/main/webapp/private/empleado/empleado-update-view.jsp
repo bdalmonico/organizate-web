@@ -1,11 +1,13 @@
 <%@ page import="com.bruno.training.web.util.*"%>
 <%@include file="/common/header.jsp"%>
+
 <form action="${pageContext.request.contextPath}/private/UsuarioServlet?action=uploadImage" method="post" enctype="multipart/form-data">
        <img alt="profile image" style="height:50px; width: 50px;" src="${pageContext.request.contextPath}/ImageServlet?action=profileImage&id=${empleado.id}&imageName=g1.jpg" />
        <input type="hidden" name="id" value="${empleado.id}">
        <input type="file" name="file">
        <input type="submit" value="Subir foto">
 </form>
+
 <form action="${pageContext.request.contextPath}/private/UsuarioServlet" method="post">
 	<h3><fmt:message key="update_employee" bundle="${messages}"/></h3>
 	<input type="hidden" name="action" value="update" />
@@ -46,13 +48,12 @@
     </c:forEach>
     <select id="<%=Parameters.ROLID%>" name="<%=Parameters.ROLID%>" style="text-align: center">
 		<option value=""> - </option>
-		<option value="3">Programador</option>
-		<option value="1">Diretor</option>
-		<option value="2">Administrador</option>
-		<option value="4">Gestor</option>
+		<option value="3"><fmt:message key="${programmer}" bundle="${messages}" /></option>
+		<option value="1"><fmt:message key="${director}" bundle="${messages}" /></option>
+		<option value="2"><fmt:message key="${administrator}" bundle="${messages}" /></option>
+		<option value="4"><fmt:message key="${manager}" bundle="${messages}" /></option>
 	</select>
 
-	
 	<label><fmt:message key="registration_date2p" bundle="${messages}"/></label> 
 	<c:forEach var="error" items="${errors.getFieldErrors(Parameters.FECHAALTA)}">
         <li class="error-message"><fmt:message key="${error}" bundle="${messages}" /></li>
@@ -60,6 +61,7 @@
 	<input type="date" name="fechaAlta" value="${sessionScope.empleado.fechaAlta}"/>
 	
 	<input type="submit" value="<fmt:message key="update" bundle="${messages}"/>" />
+	
 </form>
 
 <%@include file="/common/footer.jsp"%>

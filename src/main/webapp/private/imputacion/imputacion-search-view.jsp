@@ -4,8 +4,6 @@
 <%@include file="/common/header.jsp"%>
 <div>
 	<form action="<%=request.getContextPath()%>/private/ImputacionServlet" method="post">
-
-
 		<h3 class="titulo">
 			<fmt:message key="search_imputation" bundle="${messages}" />
 		</h3>
@@ -26,11 +24,9 @@
 		
 		<label><fmt:message key="comment_2p" bundle="${messages}" /></label> 
 		<input type="text" name="<%=Parameters.COMENTARIO %>"  value="${comentario}" /> 
-		
-		
+
 		<input type="submit" value="<fmt:message key="search" bundle="${messages}"/>" />
 	</form>
-
 
 	<div id="resultados">
 		<c:choose>
@@ -47,10 +43,7 @@
 							<p><fmt:message key="comment_2p" bundle="${messages}"/><c:out value="${c.comentario}"/></p>
 						</li>
 					</c:forEach>
-
 				</ul>
-
-
 				<%@include file="/common/paging.jsp"%>
 			</c:when>
 			<c:otherwise>
@@ -60,10 +53,6 @@
 				</h1>
 			</c:otherwise>
 		</c:choose>
-
-
-
 	</div>
-
-
-	<%@include file="/common/footer.jsp"%>
+</div>
+<%@include file="/common/footer.jsp"%>

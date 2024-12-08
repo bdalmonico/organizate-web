@@ -22,39 +22,36 @@ import org.apache.logging.log4j.Logger;
 // @WebFilter("/*")
 public class LogFilter extends HttpFilter implements Filter {
 	private static Logger logger = LogManager.getLogger(LogFilter.class);
-    
-    public LogFilter() {
-        super();
-    }
+
+	public LogFilter() {
+		super();
+	}
 
 	public void init(FilterConfig fConfig) throws ServletException {
 	}
 
-
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
-		StringBuffer url = new StringBuffer();	
+		StringBuffer url = new StringBuffer();
 		url.append(httpRequest.getScheme());
 		url.append(httpRequest.getRequestURL());
 
-		logger.info("--> Request "+url+" from "+httpRequest.getRemoteHost());
-		if(httpRequest.getCookies() != null){
-			for(Cookie c : httpRequest.getCookies()){
+		logger.info("--> Request " + url + " from " + httpRequest.getRemoteHost());
+		if (httpRequest.getCookies() != null) {
+			for (Cookie c : httpRequest.getCookies()) {
 				logger.info("Cookie [" + c.getPath() + "] " + c.getName() + "=" + c.getValue() + " (ttl:"
 						+ c.getMaxAge() + ")");
 			}
 		}
-		
+
 		// Map<String, String[]> parameters = httpRequest.getParameterMap();
 		chain.doFilter(request, response);
-		
-		logger.info("Request "+url+" from "+httpRequest.getRemoteAddr()+" --> ");
-	}
-	
-	
-    public void destroy() {
+
+		logger.info("Request " + url + " from " + httpRequest.getRemoteAddr() + " --> ");
 	}
 
-
+	public void destroy() {
+	}
 
 }

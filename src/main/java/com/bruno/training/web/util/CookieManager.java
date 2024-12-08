@@ -7,9 +7,9 @@ import javax.servlet.http.HttpServletResponse;
 public class CookieManager {
 	public static final Cookie getCookie(HttpServletRequest request, String name) {
 		Cookie[] cookies = request.getCookies();
-		if (cookies!=null) {
-			for(Cookie c: cookies) {
-				if(c.getName().equalsIgnoreCase(name)) {
+		if (cookies != null) {
+			for (Cookie c : cookies) {
+				if (c.getName().equalsIgnoreCase(name)) {
 					return c;
 				}
 			}
@@ -19,7 +19,7 @@ public class CookieManager {
 
 	public static final String getValue(HttpServletRequest request, String name) {
 		Cookie c = getCookie(request, name);
-		return c!=null?c.getValue():null;
+		return c != null ? c.getValue() : null;
 	}
 
 	public static final void setCookie(HttpServletResponse response, String path, String name, String value, int ttl) {
@@ -28,7 +28,7 @@ public class CookieManager {
 		c.setPath(path);
 		response.addCookie(c);
 	}
-	
+
 	public static void removeCookie(HttpServletResponse response, String path, String name) {
 		setCookie(response, path, name, null, 0);
 	}

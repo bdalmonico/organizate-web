@@ -1,9 +1,7 @@
 package com.bruno.training.web.controller;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 
@@ -20,8 +18,6 @@ import org.apache.logging.log4j.util.Strings;
 import com.bruno.OrganizateException;
 import com.bruno.org.model.ClienteCriteria;
 import com.bruno.org.model.ClienteDTO;
-import com.bruno.org.model.ProyectoCriteria;
-import com.bruno.org.model.ProyectoDTO;
 import com.bruno.org.model.Results;
 import com.bruno.org.service.ClienteService;
 import com.bruno.org.service.ServiceException;
@@ -71,21 +67,21 @@ public class ClienteServlet extends HttpServlet {
 			} else {
 				criteria.setNifCif(nifCif);
 			}
-			
+
 			String telefone = request.getParameter(Parameters.TELEFONE);
 			if (telefone == null || telefone.isEmpty()) {
 				criteria.setTelefone(null);
 			} else {
 				criteria.setTelefone(telefone);
 			}
-			
+
 			String email = request.getParameter(Parameters.EMAIL);
-			if (email== null || email.isEmpty()) {
+			if (email == null || email.isEmpty()) {
 				criteria.setEmail(null);
 			} else {
 				criteria.setEmail(email);
 			}
-			
+
 			String estadoIdStr = request.getParameter(Parameters.ESTADOID);
 			if (estadoIdStr == null || estadoIdStr.isEmpty()) {
 				criteria.setEstadoId(null);
@@ -94,16 +90,15 @@ public class ClienteServlet extends HttpServlet {
 				criteria.setEstadoId(estadoId);
 			}
 
-			
 			try {
-				int PAGE_SIZE = 3; /* prefs usuario o default cfg ConfiugrationPar... */
+				int PAGE_SIZE = 10; /* prefs usuario o default cfg ConfiugrationPar... */
 				int BROWSABLE_PAGE_COUNT = 10;
 
 				String newPageStr = request.getParameter("page");
 				int newPage = Strings.isEmpty(newPageStr) ? 1 : Integer.valueOf(newPageStr);
 
-				Results<ClienteDTO> resultados = clienteService.findByCriteria(criteria,
-						(newPage - 1) * PAGE_SIZE + 1, PAGE_SIZE);
+				Results<ClienteDTO> resultados = clienteService.findByCriteria(criteria, (newPage - 1) * PAGE_SIZE + 1,
+						PAGE_SIZE);
 				logger.info("Encontrados " + resultados.getTotal() + " clientes");
 
 				request.setAttribute("resultados", resultados);
@@ -233,7 +228,7 @@ public class ClienteServlet extends HttpServlet {
 					logger.warn("Estado ID não fornecido.");
 					// Trate o caso onde estadoId é necessário, mas não foi fornecido
 				}
-				
+
 				cliente.setId(id);
 				cliente.setNombre(nombre);
 				cliente.setEstadoId(estadoId);

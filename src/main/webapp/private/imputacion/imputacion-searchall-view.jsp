@@ -17,15 +17,15 @@
             Double totalHoras = (Double) request.getAttribute(Attributes.RESULTADOS);
             if (totalHoras != null) {
         %>
-        <p>
-            <strong>Total de horas imputadas no projeto:</strong> <%= String.format("%.2f", totalHoras) %>
-        </p>
+	        <p>
+	            <strong>Total de horas imputadas no projeto:</strong> <%= String.format("%.2f", totalHoras) %>
+	        </p>
         <%
             } else {
         %>
-        <h1>
-            <fmt:message key="without_results" bundle="${messages}" />
-        </h1>
+	        <h1>
+	            <fmt:message key="without_results" bundle="${messages}" />
+	        </h1>
         <%
             }
         %>

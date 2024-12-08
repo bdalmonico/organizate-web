@@ -16,7 +16,6 @@ import javax.servlet.http.Part;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.util.Strings;
 
 import com.bruno.org.dao.DataException;
 import com.bruno.org.model.EmpleadoCriteria;
@@ -110,7 +109,7 @@ public class UsuarioServletPrivate extends HttpServlet {
 					criteria.setEmail(email.trim());
 				}
 			}
-			
+
 			String fechaAltaStr = request.getParameter(Parameters.FECHAALTA);
 			if (fechaAltaStr == null || fechaAltaStr.isEmpty()) {
 				criteria.setFechaAlta(null);
@@ -125,7 +124,6 @@ public class UsuarioServletPrivate extends HttpServlet {
 					}
 				}
 			}
-			
 
 			if (errors.hasErrors()) {
 				request.setAttribute("errors", errors);
@@ -179,7 +177,6 @@ public class UsuarioServletPrivate extends HttpServlet {
 					empleado.setContrasena(contrasena);
 					empleado.setRolId(Integer.valueOf(rolIdStr));
 					empleado.setFechaAlta(FECHA_OF.parse(fechaAltaStr));
-					
 
 					try {
 						empleadoService.registrar(empleado);
@@ -200,45 +197,6 @@ public class UsuarioServletPrivate extends HttpServlet {
 			} catch (Exception e) {
 				logger.error("Error procesando la acción INGRESAR: ", e);
 			}
-
-//			
-//			errors.addFieldError("correo", ErrorCodes.INVALID_EMAIL);
-//			if (!Strings.isBlank(contrasena)) {
-//				contrasena = contrasena.trim();
-//				if (contrasena.length() >= 6 && contrasena.length() <= 12) {
-//					// Expresion regular: Para MAY/min/numers...
-//				} else {
-//					errors.addFieldError("contrasena", ErrorCodes.INVALID_PASSWORD_LENGTH);
-//				}
-//			} else {
-//				errors.addFieldError("contrasena", ErrorCodes.MANDATORY_FIELD);
-//			}
-//			
-//			Integer rolId = Integer.valueOf(rol);
-//
-//			
-//			if (!errors.hasErrors()) {
-//				empleado.setNombre(nombre);
-//				empleado.setApellido(apellido);
-//				empleado.setEmail(email);
-//				empleado.setContrasena(contrasena);
-//				empleado.setRolId(rolId);
-//				empleado.setFechaAlta(fechaAlta);
-//
-//				try {
-//					empleadoService.registrar(empleado);
-//				} catch (DataException e) {
-//					e.printStackTrace();
-//				} catch (ServiceException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//				targetView = Views.EMPLEADO_INSERT;
-//				forwardOrRedirect = true;
-//			} else {
-//				forwardOrRedirect = true;
-//				targetView = Views.EMPLEADO_INSERT;
-//			}
 
 		} else if (Actions.DELETE.equalsIgnoreCase(action)) {
 

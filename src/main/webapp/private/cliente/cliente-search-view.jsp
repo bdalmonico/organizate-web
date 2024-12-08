@@ -1,8 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.bruno.training.web.util.*"%>
 <%@include file="/common/header.jsp"%>
-<div>
+<div style="margin:30px">
 	<form action="${pageContext.request.contextPath}/private/ClienteServlet" method="post">
 
 		<h3 class="titulo">
@@ -27,9 +26,7 @@
 		<input type="number" name="<%=Parameters.ESTADOID %>"  />
 		
 		<input type="submit" value="<fmt:message key="search" bundle="${messages}"/>" />
-	</form>
-
-
+	</form> 
 	<div id="resultados">
 		<c:choose>
 			<c:when test="${not empty resultados.page}">
@@ -37,8 +34,9 @@
 					<c:forEach var="c" items="${resultados.page}">
 						<li>
 							<a href="${pageContext.request.contextPath}/private/ClienteServlet?action=detail&id=${c.id}">
-								<c:out value="${c.nombre}" /></a>
-								<br/>
+								<c:out value="${c.nombre}" />
+							</a>
+							<br/>
 							<span> <fmt:message key="phone2p" bundle="${messages}"/> <c:out value="${c.telefone}" /> | 
 							<fmt:message key="email2p" bundle="${messages}"/>  <c:out value="${c.email}" /> | 
 							<fmt:message key="nif_cif2p" bundle="${messages}"/> <c:out value="${c.nifCif}" /> | 
@@ -70,10 +68,13 @@
 				</h1>
 			</c:otherwise>
 		</c:choose>
-
-
-
+	</div>
+	<div>
+		<button class="createbtn" onclick="window.location='<%=request.getContextPath()%><%=Views.CLIENTE_CREAR%>'">
+				<fmt:message key="create_client" bundle="${messages}" />
+		</button>
 	</div>
 
+	</div>
 
 	<%@include file="/common/footer.jsp"%>

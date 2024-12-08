@@ -1,9 +1,6 @@
 package com.bruno.training.web.controller;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Map;
 import java.util.Set;
 
@@ -18,12 +15,8 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.util.Strings;
 
 import com.bruno.OrganizateException;
-import com.bruno.org.dao.DataException;
-import com.bruno.org.model.ClienteDTO;
-import com.bruno.org.model.ComentarioProyectoDTO;
 import com.bruno.org.model.EmpleadoTareaDTO;
 import com.bruno.org.model.Results;
-import com.bruno.org.model.RolDTO;
 import com.bruno.org.service.EmpleadoTareaService;
 import com.bruno.org.service.ServiceException;
 import com.bruno.org.service.impl.EmpleadoTareaServiceImpl;
@@ -48,7 +41,7 @@ public class EmpleadoTareaServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
- 		String action = request.getParameter(Parameters.ACTION);
+		String action = request.getParameter(Parameters.ACTION);
 		String targetView = null;
 		boolean forwardOrRedirect = false;
 
@@ -58,7 +51,6 @@ public class EmpleadoTareaServlet extends HttpServlet {
 
 			String tareaIdStr = request.getParameter(Parameters.TAREAID);
 
-			
 			Long tareaId = Long.valueOf(tareaIdStr);
 
 			if (tareaIdStr == null || tareaIdStr.isEmpty()) {
@@ -69,7 +61,6 @@ public class EmpleadoTareaServlet extends HttpServlet {
 			}
 			String empleadoIdStr = request.getParameter(Parameters.EMPLEADOID);
 
-			
 			Long empleadoId = Long.valueOf(empleadoIdStr);
 
 			if (empleadoIdStr == null || empleadoIdStr.isEmpty()) {
@@ -79,20 +70,19 @@ public class EmpleadoTareaServlet extends HttpServlet {
 				empleadoTarea.setEmpleadoId(empleadoId);
 			}
 
+			try {
+				EmpleadoTareaDTO resultados = empleadoTareaService.findById(empleadoId, tareaId);
 
-		    try {
-		        EmpleadoTareaDTO resultados = empleadoTareaService.findById(empleadoId, tareaId);
+				request.setAttribute(Attributes.RESULTADOS, resultados);
 
-		        request.setAttribute(Attributes.RESULTADOS, resultados);
+				targetView = Views.EMPLEADOTAREA_SEARCH;
+				forwardOrRedirect = true;
 
-		        targetView = Views.EMPLEADOTAREA_SEARCH;
-		        forwardOrRedirect = true;
-
-		    } catch (OrganizateException pe) {
-		        logger.error(pe.getMessage(), pe);
-		    } catch (ServiceException e) {
-		        e.printStackTrace();
-		    }
+			} catch (OrganizateException pe) {
+				logger.error(pe.getMessage(), pe);
+			} catch (ServiceException e) {
+				e.printStackTrace();
+			}
 
 		} else if (Actions.DELETE.equalsIgnoreCase(action)) {
 			try {
@@ -101,13 +91,13 @@ public class EmpleadoTareaServlet extends HttpServlet {
 				String tareaIdStr = request.getParameter(Parameters.TAREAID);
 				Long tareaId = Long.valueOf(tareaIdStr);
 				empleadoTareaService.delete(empleadoId, tareaId);
-				
+
 				targetView = Views.EMPLEADOTAREA_DELETE;
 				forwardOrRedirect = true;
 
 			} catch (OrganizateException | ServiceException pe) {
-					logger.error(pe.getMessage(), pe);
-				}
+				logger.error(pe.getMessage(), pe);
+			}
 
 		} else if (Actions.SEARCHTAREAS.equalsIgnoreCase(action)) {
 
@@ -115,7 +105,6 @@ public class EmpleadoTareaServlet extends HttpServlet {
 
 			String empleadoIdStr = request.getParameter(Parameters.EMPLEADOID);
 
-			
 			Long empleadoId = Long.valueOf(empleadoIdStr);
 
 			if (empleadoIdStr == null || empleadoIdStr.isEmpty()) {
@@ -188,7 +177,6 @@ public class EmpleadoTareaServlet extends HttpServlet {
 
 			String tareaIdStr = request.getParameter(Parameters.TAREAID);
 
-			
 			Long tareaId = Long.valueOf(tareaIdStr);
 
 			if (tareaIdStr == null || tareaIdStr.isEmpty()) {
@@ -255,36 +243,34 @@ public class EmpleadoTareaServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		} else if (Actions.CREATE.equalsIgnoreCase(action)) {
-			
-				EmpleadoTareaDTO empleadoTarea = new EmpleadoTareaDTO();
-				String empleadoIdStr = request.getParameter(Parameters.EMPLEADOID);
-				String tareaIdStr = request.getParameter(Parameters.TAREAID);				
 
+			EmpleadoTareaDTO empleadoTarea = new EmpleadoTareaDTO();
+			String empleadoIdStr = request.getParameter(Parameters.EMPLEADOID);
+			String tareaIdStr = request.getParameter(Parameters.TAREAID);
 
-				Long empleadoId = null;
-				if (empleadoIdStr != null && !empleadoIdStr.isEmpty()) {
-					empleadoId = Long.valueOf(empleadoIdStr);
-					empleadoTarea.setEmpleadoId(empleadoId);
-				} else {
-					logger.warn("empleado o tarea não fornecido.");
-				}
-				
-				Long tareaId = null;
-				if (tareaIdStr != null && !tareaIdStr.isEmpty()) {
-					tareaId = Long.valueOf(tareaIdStr);
-					empleadoTarea.setTareaId(tareaId);
-				} else {
-					logger.warn("empleado o tarea não fornecido.");
-				}
-				try {
-					empleadoTareaService.create(empleadoTarea);
-				} catch (OrganizateException | ServiceException pe) {
-								logger.error(pe.getMessage(), pe);
-							}
-				targetView = Views.EMPLEADOTAREA_CREAR;
-				forwardOrRedirect = true;
+			Long empleadoId = null;
+			if (empleadoIdStr != null && !empleadoIdStr.isEmpty()) {
+				empleadoId = Long.valueOf(empleadoIdStr);
+				empleadoTarea.setEmpleadoId(empleadoId);
+			} else {
+				logger.warn("empleado o tarea não fornecido.");
+			}
 
-			
+			Long tareaId = null;
+			if (tareaIdStr != null && !tareaIdStr.isEmpty()) {
+				tareaId = Long.valueOf(tareaIdStr);
+				empleadoTarea.setTareaId(tareaId);
+			} else {
+				logger.warn("empleado o tarea não fornecido.");
+			}
+			try {
+				empleadoTareaService.create(empleadoTarea);
+			} catch (OrganizateException | ServiceException pe) {
+				logger.error(pe.getMessage(), pe);
+			}
+			targetView = Views.TAREA;
+			forwardOrRedirect = false;
+
 		}
 		RouterUtils.route(request, response, forwardOrRedirect, targetView);
 

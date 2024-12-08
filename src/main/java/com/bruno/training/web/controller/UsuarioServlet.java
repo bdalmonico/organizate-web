@@ -22,7 +22,6 @@ import com.bruno.training.web.util.Attributes;
 import com.bruno.training.web.util.CookieManager;
 import com.bruno.training.web.util.ErrorCodes;
 import com.bruno.training.web.util.Errors;
-import com.bruno.training.web.util.LocaleUtils;
 import com.bruno.training.web.util.Parameters;
 import com.bruno.training.web.util.RouterUtils;
 import com.bruno.training.web.util.SessionManager;

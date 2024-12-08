@@ -16,16 +16,15 @@
             RolDTO resultados = (RolDTO) request.getAttribute(Attributes.RESULTADOS);
             if (resultados != null) {
         %>
-        <li>
-                <%=resultados.getId()%> - <%=resultados.getNombre()%>
-            
-        </li>
+		        <h1>
+		        	<%=resultados.getId()%> - <%=resultados.getNombre()%>
+		        </h1>
         <%
             } else {
         %>
-        <h1>
-            <fmt:message key="without_results" bundle="${messages}" />
-        </h1>
+		        <h1>
+		            <fmt:message key="without_results" bundle="${messages}" />
+		        </h1>
         <%
             }
         %>

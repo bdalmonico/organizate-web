@@ -1,6 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ page import="com.bruno.training.web.util.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.bruno.training.web.util.*"%>
 <%@include file="/common/header.jsp" %>
 	<div>
 		<form action="<%=request.getContextPath()%>/private/ProyectoServlet" method="post">		
@@ -38,8 +37,6 @@
 			<label><fmt:message key="budget2p" bundle="${messages}"/></label>	<br/>
 			<input type="text" name="<%=Parameters.IMPORTE%>" placeholder="Ejemplo: importe" />
 			<br/>
-			
-			
 			<input type="submit" value="<fmt:message key="update" bundle="${messages}"/>" />
 		</form>
 	</div>	

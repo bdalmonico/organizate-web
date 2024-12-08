@@ -18,9 +18,6 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.util.Strings;
 
 import com.bruno.OrganizateException;
-import com.bruno.org.model.ClienteCriteria;
-import com.bruno.org.model.ClienteDTO;
-import com.bruno.org.model.EmpleadoTareaDTO;
 import com.bruno.org.model.ImputacionCriteria;
 import com.bruno.org.model.ImputacionDTO;
 import com.bruno.org.model.Results;
@@ -56,7 +53,6 @@ public class ImputacionServlet extends HttpServlet {
 		if (Actions.SEARCHALL.equalsIgnoreCase(action)) {
 
 			ImputacionCriteria criteria = new ImputacionCriteria();
-			
 
 			String proyectoIdStr = request.getParameter(Parameters.PROYECTOID);
 			if (proyectoIdStr == null || proyectoIdStr.isEmpty()) {
@@ -65,25 +61,25 @@ public class ImputacionServlet extends HttpServlet {
 				Long proyectoId = Long.valueOf(proyectoIdStr);
 				criteria.setProyectoId(proyectoId);
 			}
-			
-		    try {
-		        double resultados = imputacionService.findByTotalByCriteria(criteria);
 
-		        request.setAttribute(Attributes.RESULTADOS, resultados);
+			try {
+				double resultados = imputacionService.findByTotalByCriteria(criteria);
 
-		        targetView = Views.IMPUTACION_SEARCHALL;
-		        forwardOrRedirect = true;
+				request.setAttribute(Attributes.RESULTADOS, resultados);
 
-		    } catch (OrganizateException pe) {
-		        logger.error(pe.getMessage(), pe);
-		    } catch (ServiceException e) {
-		        e.printStackTrace();
-		    }
+				targetView = Views.IMPUTACION_SEARCHALL;
+				forwardOrRedirect = true;
+
+			} catch (OrganizateException pe) {
+				logger.error(pe.getMessage(), pe);
+			} catch (ServiceException e) {
+				e.printStackTrace();
+			}
 
 		} else if (Actions.SEARCH.equalsIgnoreCase(action)) {
-			
+
 			ImputacionCriteria criteria = new ImputacionCriteria();
-			
+
 			String idStr = request.getParameter(Parameters.ID);
 			if (idStr == null || idStr.isEmpty()) {
 				criteria.setId(null);
@@ -91,7 +87,7 @@ public class ImputacionServlet extends HttpServlet {
 				Long id = Long.valueOf(idStr);
 				criteria.setId(id);
 			}
-			
+
 			String proyectoIdStr = request.getParameter(Parameters.PROYECTOID);
 			if (proyectoIdStr == null || proyectoIdStr.isEmpty()) {
 				criteria.setProyectoId(null);
@@ -99,7 +95,7 @@ public class ImputacionServlet extends HttpServlet {
 				Long proyectoId = Long.valueOf(proyectoIdStr);
 				criteria.setProyectoId(proyectoId);
 			}
-			
+
 			String tareaIdStr = request.getParameter(Parameters.TAREAID);
 			if (tareaIdStr == null || tareaIdStr.isEmpty()) {
 				criteria.setTareaId(null);
@@ -107,7 +103,7 @@ public class ImputacionServlet extends HttpServlet {
 				Long tareaId = Long.valueOf(tareaIdStr);
 				criteria.setTareaId(tareaId);
 			}
-			
+
 			String empleadoIdStr = request.getParameter(Parameters.EMPLEADOID);
 			if (empleadoIdStr == null || empleadoIdStr.isEmpty()) {
 				criteria.setEmpleadoId(null);
@@ -115,9 +111,7 @@ public class ImputacionServlet extends HttpServlet {
 				Long empleadoId = Long.valueOf(empleadoIdStr);
 				criteria.setEmpleadoId(empleadoId);
 			}
-			
-			
-			
+
 			String fechaHoraStr = request.getParameter(Parameters.FECHAHORA);
 			if (fechaHoraStr == null || fechaHoraStr.isEmpty()) {
 				criteria.setFechaHora(null);
@@ -129,14 +123,14 @@ public class ImputacionServlet extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				criteria.setFechaHora(fechaHora); 
+				criteria.setFechaHora(fechaHora);
 			}
 
 			String comentario = request.getParameter(Parameters.COMENTARIO);
 			criteria.setComentario(comentario);
-			
+
 			try {
-				int PAGE_SIZE = 3; /* prefs usuario o default cfg ConfiugrationPar... */
+				int PAGE_SIZE = 5; /* prefs usuario o default cfg ConfiugrationPar... */
 				int BROWSABLE_PAGE_COUNT = 10;
 
 				String newPageStr = request.getParameter("page");
@@ -196,7 +190,7 @@ public class ImputacionServlet extends HttpServlet {
 			try {
 				String idStr = request.getParameter(Parameters.ID);
 				Long id = Long.valueOf(idStr);
-				ImputacionDTO imputacion= imputacionService.findById(id);
+				ImputacionDTO imputacion = imputacionService.findById(id);
 				request.setAttribute(Attributes.IMPUTACION, imputacion);
 
 				targetView = Views.IMPUTACION_DETAIL;
@@ -210,7 +204,6 @@ public class ImputacionServlet extends HttpServlet {
 			try {
 				ImputacionDTO imputacion = new ImputacionDTO();
 
-				
 				String proyectoIdStr = request.getParameter(Parameters.PROYECTOID);
 				if (proyectoIdStr == null || proyectoIdStr.isEmpty()) {
 					imputacion.setProyectoId(null);
@@ -218,7 +211,7 @@ public class ImputacionServlet extends HttpServlet {
 					Long proyectoId = Long.valueOf(proyectoIdStr);
 					imputacion.setProyectoId(proyectoId);
 				}
-				
+
 				String tareaIdStr = request.getParameter(Parameters.TAREAID);
 				if (tareaIdStr == null || tareaIdStr.isEmpty()) {
 					imputacion.setTareaId(null);
@@ -226,7 +219,7 @@ public class ImputacionServlet extends HttpServlet {
 					Long tareaId = Long.valueOf(tareaIdStr);
 					imputacion.setTareaId(tareaId);
 				}
-				
+
 				String empleadoIdStr = request.getParameter(Parameters.EMPLEADOID);
 				if (empleadoIdStr == null || empleadoIdStr.isEmpty()) {
 					imputacion.setEmpleadoId(null);
@@ -234,7 +227,7 @@ public class ImputacionServlet extends HttpServlet {
 					Long empleadoId = Long.valueOf(empleadoIdStr);
 					imputacion.setEmpleadoId(empleadoId);
 				}
-				
+
 				String horasImputadasStr = request.getParameter(Parameters.HORASIMPUTADAS);
 				if (horasImputadasStr == null || horasImputadasStr.isEmpty()) {
 					imputacion.setHorasImputadas(null);
@@ -242,7 +235,7 @@ public class ImputacionServlet extends HttpServlet {
 					Double horasImputadas = Double.valueOf(horasImputadasStr);
 					imputacion.setHorasImputadas(horasImputadas);
 				}
-				
+
 				String fechaHoraStr = request.getParameter(Parameters.FECHAHORA);
 				if (fechaHoraStr == null || fechaHoraStr.isEmpty()) {
 					imputacion.setFechaHora(null);
@@ -254,15 +247,13 @@ public class ImputacionServlet extends HttpServlet {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					imputacion.setFechaHora(fechaHora); 
+					imputacion.setFechaHora(fechaHora);
 				}
 
 				String comentario = request.getParameter(Parameters.COMENTARIO);
 				imputacion.setComentario(comentario);
-				
-				
-				imputacionService.imputar(imputacion);
 
+				imputacionService.imputar(imputacion);
 
 				targetView = Views.IMPUTACION_CREAR;
 				forwardOrRedirect = true;

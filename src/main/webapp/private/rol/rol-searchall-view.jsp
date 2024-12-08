@@ -16,7 +16,6 @@
                     <c:forEach var="rol" items="${resultados}">
                         <li>
                             <c:out value="${rol.id}" /> - <c:out value="${rol.nombre}" />
-                            
                         </li>
                     </c:forEach>
                 </ul>

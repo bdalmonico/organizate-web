@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bruno.org.service.FileService;
 import com.bruno.org.service.impl.FileServiceImpl;
-import com.bruno.training.web.util.Parameters;
 
 /**
  * Servlet implementation class ImageServlet
@@ -36,17 +35,17 @@ public class ImageServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		FileInputStream fileInputStream = null;
 		ByteArrayOutputStream byteArrayOutputStream = null;
-		
+
 		if ("profileImage".equalsIgnoreCase(action)) {
 
 			String imageName = request.getParameter("imageName");
 
 			String empleadoIdStr = request.getParameter("id");
-			
-			if (empleadoIdStr=="") {
+
+			if (empleadoIdStr == "") {
 				return;
 			}
-			
+
 			Long empleadoId = Long.valueOf(empleadoIdStr);
 			List<File> images = fileService.getProfileImageByEmpleadoId(empleadoId);
 
@@ -60,7 +59,7 @@ public class ImageServlet extends HttpServlet {
 				try (OutputStream out = response.getOutputStream()) {
 					if (images.get(0).getName().equalsIgnoreCase(imageName)) {
 						FileInputStream fis = new FileInputStream(images.get(0));
-							
+
 						// Use ByteArrayOutputStream to collect the bytes
 						byteArrayOutputStream = new ByteArrayOutputStream();
 

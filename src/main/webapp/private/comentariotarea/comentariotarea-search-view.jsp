@@ -4,20 +4,14 @@
 <%@include file="/common/header.jsp"%>
 <div>
 	<form action="<%=request.getContextPath()%>/private/ComentarioTareaServlet" method="post">
-
-
 		<h3 class="titulo">
 			<fmt:message key="search_task_comment" bundle="${messages}" />
 		</h3>
-
 		<input type="hidden" name="<%=Parameters.ACTION%>"value="<%=Actions.SEARCH%>" /> 
-		
 		<label><fmt:message key="name2p" bundle="${messages}" /></label> 
 		<input type="text" name="<%=Parameters.TAREAID %>" placeholder="Ejemplo: id de tarea" value="${tareaId}" /> 
 		<input type="submit" value="<fmt:message key="search" bundle="${messages}"/>" />
 	</form>
-
-
 	<div id="resultados">
 		<c:choose>
 			<c:when test="${not empty resultados.page}">
@@ -30,8 +24,6 @@
 					</c:forEach>
 
 				</ul>
-
-
 				<%@include file="/common/paging.jsp"%>
 			</c:when>
 			<c:otherwise>
@@ -41,10 +33,8 @@
 				</h1>
 			</c:otherwise>
 		</c:choose>
-
-
-
 	</div>
+</div>
 
 
 	<%@include file="/common/footer.jsp"%>

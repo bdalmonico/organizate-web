@@ -19,13 +19,19 @@ import org.apache.logging.log4j.util.Strings;
 
 import com.bruno.OrganizateException;
 import com.bruno.org.model.ComentarioTareaDTO;
+import com.bruno.org.model.EmpleadoTareaDTO;
+import com.bruno.org.model.ImputacionCriteria;
 import com.bruno.org.model.Results;
 import com.bruno.org.model.TareaCriteria;
 import com.bruno.org.model.TareaDTO;
 import com.bruno.org.service.ComentarioTareaService;
+import com.bruno.org.service.EmpleadoTareaService;
+import com.bruno.org.service.ImputacionService;
 import com.bruno.org.service.ServiceException;
 import com.bruno.org.service.TareaService;
 import com.bruno.org.service.impl.ComentarioTareaServiceImpl;
+import com.bruno.org.service.impl.EmpleadoTareaServiceImpl;
+import com.bruno.org.service.impl.ImputacionServiceImpl;
 import com.bruno.org.service.impl.TareaServiceImpl;
 import com.bruno.training.web.util.Actions;
 import com.bruno.training.web.util.Attributes;
@@ -40,11 +46,15 @@ public class TareaServlet extends HttpServlet {
 	private Logger logger = LogManager.getLogger(TareaServlet.class);
 	private TareaService tareaService = null;
 	private ComentarioTareaService comentario = null;
+	private EmpleadoTareaService empleadoTarea = null;
+	private ImputacionService imputacion = null;
 
 	public TareaServlet() {
 		super();
 		tareaService = new TareaServiceImpl();
 		comentario = new ComentarioTareaServiceImpl();
+		empleadoTarea = new EmpleadoTareaServiceImpl();
+		imputacion = new ImputacionServiceImpl();
 
 	}
 
@@ -140,20 +150,19 @@ public class TareaServlet extends HttpServlet {
 			}
 
 			try {
-				int PAGE_SIZE = 3; /* prefs usuario o default cfg ConfiugrationPar... */
+				int PAGE_SIZE = 10; /* prefs usuario o default cfg ConfiugrationPar... */
 				int BROWSABLE_PAGE_COUNT = 10;
 
 				String newPageStr = request.getParameter("page");
 				int newPage = Strings.isEmpty(newPageStr) ? 1 : Integer.valueOf(newPageStr);
 
-				Results<TareaDTO> resultados = tareaService.findByCriteria(criteria,(newPage-1)*PAGE_SIZE+1, PAGE_SIZE );
+				Results<TareaDTO> resultados = tareaService.findByCriteria(criteria, (newPage - 1) * PAGE_SIZE + 1,
+						PAGE_SIZE);
 				logger.info("Encontrados " + resultados.getTotal() + " tareas");
 
 				request.setAttribute("resultados", resultados);
 //				request.setAttribute("resultados", resultados.getPage());
-				
-				
-				
+
 				StringBuilder urlBuilder = new StringBuilder();
 				urlBuilder.append("/private/TareaServlet?"); // request.getURI()
 				Map<String, String[]> parametersMap = request.getParameterMap();
@@ -204,6 +213,17 @@ public class TareaServlet extends HttpServlet {
 				Results<ComentarioTareaDTO> comentarios = comentario.findByTarea(id, 1, 20);
 				request.setAttribute(Attributes.COMENTARIOS, comentarios);
 
+				Results<EmpleadoTareaDTO> empleados = empleadoTarea.findByTarea(id, 1, 10);
+				request.setAttribute(Attributes.EMPLEADOS, empleados);
+
+				ImputacionCriteria criteria = new ImputacionCriteria();
+
+				criteria.setTareaId(id);
+
+				double horas = imputacion.findByTotalByCriteria(criteria);
+
+				request.setAttribute(Attributes.RESULTADOS, horas);
+
 				targetView = Views.TAREA_RESULTS;
 				forwardOrRedirect = true;
 
@@ -215,8 +235,7 @@ public class TareaServlet extends HttpServlet {
 			try {
 				String idStr = request.getParameter(Parameters.ID);
 				Long id = Long.valueOf(idStr);
-				
-			
+
 				tareaService.delete(id);
 
 				targetView = Views.TAREA_DELETE;
@@ -229,7 +248,7 @@ public class TareaServlet extends HttpServlet {
 		} else if (Actions.UPDATE.equalsIgnoreCase(action)) {
 			try {
 				TareaDTO tarea = new TareaDTO();
-				String idStr = request.getParameter(Parameters.ID); 
+				String idStr = request.getParameter(Parameters.ID);
 				String nombre = request.getParameter(Parameters.NOMBRE);
 				String descripcion = request.getParameter(Parameters.DESCRIPCION);
 				String fechaRealInicioStr = request.getParameter(Parameters.FECHAREALINICIO);
@@ -237,7 +256,7 @@ public class TareaServlet extends HttpServlet {
 				String fechaEstimadaInicioStr = request.getParameter(Parameters.FECHAESTIMADAINICIO);
 				String fechaEstimadaFinStr = request.getParameter(Parameters.FECHAESTIMADAFIN);
 				String estadoIdStr = request.getParameter(Parameters.ESTADOID);
-				
+
 				Long id = null;
 				if (idStr != null && !idStr.isEmpty()) {
 					id = Long.valueOf(idStr);
@@ -245,7 +264,7 @@ public class TareaServlet extends HttpServlet {
 					logger.warn("Estado ID não fornecido.");
 					// Trate o caso onde estadoId é necessário, mas não foi fornecido
 				}
-				
+
 				Long estadoId = null;
 				if (estadoIdStr != null && !estadoIdStr.isEmpty()) {
 					estadoId = Long.valueOf(estadoIdStr);

@@ -1,6 +1,6 @@
 <%@ page import="com.bruno.training.web.util.*"%>
 <%@include file="/common/header.jsp"%>
-
+<div style="margin:30px">
 <form action="${pageContext.request.contextPath}/private/UsuarioServlet" method="post">
 	
 	<h3><fmt:message key="create_employee" bundle="${messages}"/></h3>
@@ -19,5 +19,5 @@
 	<input type="date" name="fechaAlta" />
 	<input type="submit" value="<fmt:message key="create" bundle="${messages}"/>" />
 </form>
-
+</div>
 <%@include file="/common/footer.jsp"%>

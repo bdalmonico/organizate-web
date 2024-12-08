@@ -13,18 +13,17 @@ import com.bruno.training.web.util.Parameters;
 import com.bruno.training.web.util.URLUtils;
 
 public class ParameterFilter {
-    public ParameterFilter() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
+	public ParameterFilter() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public void destroy() {
 		// TODO Auto-generated method stub
 	}
 
-	
-	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+			throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		String callbackURL = URLUtils.buildBaseURL((httpRequest));
 		httpRequest.setAttribute(Parameters.CALLBACK_URL, callbackURL);

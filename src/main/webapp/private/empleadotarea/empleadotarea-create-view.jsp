@@ -1,11 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ page import="com.bruno.training.web.util.*"%>
 <%@include file="/common/header.jsp"%>
 
 <form action="<%=request.getContextPath()%>/private/EmpleadoTareaServlet" method="post">
-	
-	<h3><fmt:message key="employee_task" bundle="${messages}"/></h3>
+	<h3><fmt:message key="asign_employee" bundle="${messages}"/></h3>
 	
 	<input type="hidden" name="<%=Parameters.ACTION%>" value="<%=Actions.CREATE%>" />
 	

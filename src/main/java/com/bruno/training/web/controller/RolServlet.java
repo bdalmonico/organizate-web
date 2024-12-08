@@ -1,8 +1,6 @@
 package com.bruno.training.web.controller;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,14 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.util.Strings;
 
 import com.bruno.OrganizateException;
 import com.bruno.org.dao.DataException;
-import com.bruno.org.model.ComentarioTareaDTO;
-import com.bruno.org.model.EmpleadoCriteria;
-import com.bruno.org.model.EmpleadoDTO;
-import com.bruno.org.model.Results;
 import com.bruno.org.model.RolDTO;
 import com.bruno.org.service.RolService;
 import com.bruno.org.service.ServiceException;
@@ -46,69 +39,69 @@ public class RolServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
- 		String action = request.getParameter(Parameters.ACTION);
+		String action = request.getParameter(Parameters.ACTION);
 		String targetView = null;
 		boolean forwardOrRedirect = false;
 
 		if (Actions.SEARCH.equalsIgnoreCase(action)) {
 
-		    RolDTO rol = new RolDTO();
+			RolDTO rol = new RolDTO();
 
-		    String rolIdStr = request.getParameter(Parameters.ROLID);
+			String rolIdStr = request.getParameter(Parameters.ROLID);
 
-		    if (rolIdStr == null || rolIdStr.isEmpty()) {
-		        rol.setId(null);
-		    } else {
-		        Long rolId = Long.valueOf(rolIdStr);
-		        rol.setId(rolId);
-		    }
+			if (rolIdStr == null || rolIdStr.isEmpty()) {
+				rol.setId(null);
+			} else {
+				Long rolId = Long.valueOf(rolIdStr);
+				rol.setId(rolId);
+			}
 
-		    try {
-		        RolDTO resultados = rolService.findById(rol.getId());
-		        logger.info("Encontrados " + resultados.getNombre() + " comentarios");
+			try {
+				RolDTO resultados = rolService.findById(rol.getId());
+				logger.info("Encontrados " + resultados.getNombre() + " comentarios");
 
-		        request.setAttribute(Attributes.RESULTADOS, resultados);
+				request.setAttribute(Attributes.RESULTADOS, resultados);
 
-		        targetView = Views.ROL_SEARCH;
-		        forwardOrRedirect = true;
+				targetView = Views.ROL_SEARCH;
+				forwardOrRedirect = true;
 
-		    } catch (OrganizateException pe) {
-		        logger.error(pe.getMessage(), pe);
-		    } catch (ServiceException e) {
-		        e.printStackTrace();
-		    }
+			} catch (OrganizateException pe) {
+				logger.error(pe.getMessage(), pe);
+			} catch (ServiceException e) {
+				e.printStackTrace();
+			}
 
 		} else if (Actions.DETAIL.equalsIgnoreCase(action)) {
-		    try {
-		        String idStr = request.getParameter(Parameters.ROLID);
-		        if (idStr != null && !idStr.isEmpty()) {
-		            Long id = Long.valueOf(idStr);
-		            RolDTO rol = rolService.findById(id);
-		            request.setAttribute(Attributes.ROL, rol);
+			try {
+				String idStr = request.getParameter(Parameters.ROLID);
+				if (idStr != null && !idStr.isEmpty()) {
+					Long id = Long.valueOf(idStr);
+					RolDTO rol = rolService.findById(id);
+					request.setAttribute(Attributes.ROL, rol);
 
-		            targetView = Views.ROL_DETAIL;
-		            forwardOrRedirect = true;
-		        } else {
-		            logger.error("ID is null or empty");
-		        }
+					targetView = Views.ROL_DETAIL;
+					forwardOrRedirect = true;
+				} else {
+					logger.error("ID is null or empty");
+				}
 
-		    } catch (OrganizateException pe) {
-		        logger.error(pe.getMessage(), pe);
-		    } catch (ServiceException e) {
-		        e.printStackTrace();
-		    }
+			} catch (OrganizateException pe) {
+				logger.error(pe.getMessage(), pe);
+			} catch (ServiceException e) {
+				e.printStackTrace();
+			}
 		} else if (Actions.ALL.equalsIgnoreCase(action)) {
-		     List<RolDTO> resultados ;
-		    try {
-		       resultados = rolService.findAll();
-		        if (resultados != null && !resultados.isEmpty()) {
-		            request.setAttribute(Attributes.RESULTADOS, resultados);
-		        }
-		        targetView = Views.ROL_SEARCHALL;
-		        forwardOrRedirect = true;
-		    } catch (DataException e) {
-		        logger.error(e.getMessage(), e);
-		    }
+			List<RolDTO> resultados;
+			try {
+				resultados = rolService.findAll();
+				if (resultados != null && !resultados.isEmpty()) {
+					request.setAttribute(Attributes.RESULTADOS, resultados);
+				}
+				targetView = Views.ROL_SEARCHALL;
+				forwardOrRedirect = true;
+			} catch (DataException e) {
+				logger.error(e.getMessage(), e);
+			}
 		} else if (Actions.DETAILAll.equalsIgnoreCase(action)) {
 			try {
 

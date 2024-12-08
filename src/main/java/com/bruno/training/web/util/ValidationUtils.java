@@ -4,9 +4,8 @@ import org.apache.logging.log4j.util.Strings;
 
 public class ValidationUtils {
 
-
 	public static void validatePassword(String contrasena, Errors errors) {
-		if (contrasena== null || Strings.isBlank(contrasena)) {
+		if (contrasena == null || Strings.isBlank(contrasena)) {
 			errors.addFieldError(Parameters.CONTRASENA, ErrorCodes.MANDATORY_FIELD);
 		} else {
 			contrasena = contrasena.trim();
@@ -22,7 +21,7 @@ public class ValidationUtils {
 		} else {
 			try {
 				Long rol = Long.valueOf(rolStr);
-				if (rol != 1 && rol != 2 && rol!=3 && rol!=4) {
+				if (rol != 1 && rol != 2 && rol != 3 && rol != 4) {
 					errors.addFieldError(Parameters.ROLID, ErrorCodes.UNKNOWN_ROLE);
 				}
 			} catch (NumberFormatException nfe) {
@@ -34,7 +33,7 @@ public class ValidationUtils {
 	public static void validateRolNotMandatory(String rolStr, Errors errors) {
 		try {
 			Long rol = Long.valueOf(rolStr);
-			if (rol != 1 && rol != 2 && rol!=3 && rol!=4) {
+			if (rol != 1 && rol != 2 && rol != 3 && rol != 4 && rol != null && rol != 0) {
 				errors.addFieldError(Parameters.ROLID, ErrorCodes.UNKNOWN_ROLE);
 			}
 		} catch (NumberFormatException nfe) {
@@ -43,28 +42,26 @@ public class ValidationUtils {
 	}
 
 	public static void validateCorreo(String correo, Errors errors) {
-	    if (correo == null || Strings.isBlank(correo)) {
-	        errors.addFieldError(Parameters.CONTRASENA, ErrorCodes.MANDATORY_FIELD);
-	    } else {
-	        // Regex básica para validação de e-mails
-	        String emailRegex = "^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$";
-	        if (!correo.matches(emailRegex)) {
-	            errors.addFieldError(Parameters.EMAIL, ErrorCodes.INVALID_EMAIL);
-	        }
-	    }
+		if (correo == null || Strings.isBlank(correo)) {
+			errors.addFieldError(Parameters.CONTRASENA, ErrorCodes.MANDATORY_FIELD);
+		} else {
+			// Regex básica para validação de e-mails
+			String emailRegex = "^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$";
+			if (!correo.matches(emailRegex)) {
+				errors.addFieldError(Parameters.EMAIL, ErrorCodes.INVALID_EMAIL);
+			}
+		}
 	}
-
 
 	public static void validateCorreoNotMandatory(String correo, Errors errors) {
-	    if (correo != null && !Strings.isBlank(correo)) {
-	        // Regex básica para validação de e-mails
-	        String emailRegex = "^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$";
-	        if (!correo.matches(emailRegex)) {
-	            errors.addFieldError(Parameters.EMAIL, ErrorCodes.INVALID_EMAIL);
-	        }
-	    }
+		if (correo != null && !Strings.isBlank(correo)) {
+			// Regex básica para validação de e-mails
+			String emailRegex = "^[\\w._%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$";
+			if (!correo.matches(emailRegex)) {
+				errors.addFieldError(Parameters.EMAIL, ErrorCodes.INVALID_EMAIL);
+			}
+		}
 	}
-
 
 	public static void validateId(String idStr, Errors errors) {
 		if (idStr == null || Strings.isBlank(idStr)) {
@@ -104,8 +101,6 @@ public class ValidationUtils {
 
 	}
 
-
-	
 	public static void validateNumericField(String valueStr, String attribute, String errorCode, Errors errors) {
 		if (valueStr == null || Strings.isBlank(valueStr)) {
 			errors.addFieldError(attribute, ErrorCodes.MANDATORY_FIELD);
@@ -126,8 +121,5 @@ public class ValidationUtils {
 			errors.addFieldError(attribute, errorCode);
 		}
 	}
-
-
-
 
 }

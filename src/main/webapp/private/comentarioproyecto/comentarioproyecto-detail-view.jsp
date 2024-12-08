@@ -3,10 +3,9 @@
 
 <div class="container">
 <fmt:message key="project_comment_results" bundle="${messages}"/>
-	<%
-	ComentarioProyectoDTO cp = (ComentarioProyectoDTO) request.getAttribute(Attributes.COMENTARIOPROYECTO);
-	%>
-
+	<% 
+		ComentarioProyectoDTO cp = (ComentarioProyectoDTO) request.getAttribute(Attributes.COMENTARIOPROYECTO);
+	%> 
 	<p>
 		<b><fmt:message key="comment_id2p" bundle="${messages}"/></b>
 		<%=cp.getId()%><br>
@@ -17,9 +16,6 @@
 
 	<p>
 		<b><fmt:message key="employee_id2p" bundle="${messages}"/></b> <%=cp.getEmpleadoId()%>
-	</p>
-	
-</div>
-
-
+	</p> 
+</div> 
 <%@include file="/common/footer.jsp"%>

@@ -46,7 +46,7 @@ public class ComentarioTareaServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
- 		String action = request.getParameter(Parameters.ACTION);
+		String action = request.getParameter(Parameters.ACTION);
 		String targetView = null;
 		boolean forwardOrRedirect = false;
 
@@ -66,7 +66,7 @@ public class ComentarioTareaServlet extends HttpServlet {
 			}
 
 			try {
-				int PAGE_SIZE = 3; /* prefs usuario o default cfg ConfiugrationPar... */
+				int PAGE_SIZE = 5; /* prefs usuario o default cfg ConfiugrationPar... */
 				int BROWSABLE_PAGE_COUNT = 10;
 
 				String newPageStr = request.getParameter("page");
@@ -148,7 +148,6 @@ public class ComentarioTareaServlet extends HttpServlet {
 			String comentario = request.getParameter(Parameters.COMENTARIO);
 
 			Long tareaId = null;
-			
 
 			if (tareaIdStr != null && !tareaIdStr.isEmpty()) {
 				tareaId = Long.valueOf(tareaIdStr);
@@ -156,18 +155,16 @@ public class ComentarioTareaServlet extends HttpServlet {
 			} else {
 				logger.warn(" ID tarea não fornecido.");
 			}
-			
 
 			Long empleadoId = null;
-			
+
 			if (empleadoIdStr != null && !empleadoIdStr.isEmpty()) {
 				empleadoId = Long.valueOf(empleadoIdStr);
 				comentarioTarea.setEmpleadoId(empleadoId);
-				
+
 			} else {
 				logger.warn("ID  empleadonão fornecido.");
 			}
-			
 
 			if (fechaPublicacionStr == null || fechaPublicacionStr.isEmpty()) {
 				comentarioTarea.setFechaHora(null);
@@ -180,11 +177,11 @@ public class ComentarioTareaServlet extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+
 			}
 
 			comentarioTarea.setComentario(comentario);
-			
+
 			try {
 				comentarioTareaService.comentar(comentarioTarea);
 			} catch (DataException | ServiceException e) {
@@ -192,13 +189,13 @@ public class ComentarioTareaServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 
-			targetView = Views.COMENTARIOTAREA_CREAR;
+			targetView = Views.TAREA;
 			forwardOrRedirect = true;
-			
+
 		} else if (Actions.UPDATE.equalsIgnoreCase(action)) {
 			try {
 				ComentarioTareaDTO comentarioTarea = new ComentarioTareaDTO();
-				
+
 				String comentarioIdStr = request.getParameter(Parameters.ID);
 
 				String tareaIdStr = request.getParameter(Parameters.TAREAID);
@@ -209,10 +206,7 @@ public class ComentarioTareaServlet extends HttpServlet {
 
 				String comentario = request.getParameter(Parameters.COMENTARIO);
 
-
 				Long comentarioId = null;
-
-				
 
 				if (comentarioIdStr != null && !comentarioIdStr.isEmpty()) {
 					comentarioId = Long.valueOf(comentarioIdStr);
@@ -220,8 +214,7 @@ public class ComentarioTareaServlet extends HttpServlet {
 				} else {
 					logger.warn("ID não fornecido.");
 				}
-				
-				
+
 				Long tareaId = null;
 
 				tareaId = Long.valueOf(tareaIdStr);
