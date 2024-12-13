@@ -35,6 +35,7 @@ import com.bruno.training.web.util.RouterUtils;
 import com.bruno.training.web.util.SessionManager;
 import com.bruno.training.web.util.ValidationUtils;
 import com.bruno.training.web.util.Views;
+import com.google.gson.Gson;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
 		maxFileSize = 1024 * 1024 * 10, // 10MB
@@ -65,6 +66,12 @@ public class UsuarioServletPrivate extends HttpServlet {
 		String targetView = null;
 		boolean forwardOrRedirect = false;
 
+		
+//		Gson gson = new Gson();
+//		String userJSON = gson.toJson(usuario);
+//		response.setContentType("applicationb
+		
+		
 		if (Actions.SEARCH.equalsIgnoreCase(action)) {
 			EmpleadoCriteria criteria = new EmpleadoCriteria();
 

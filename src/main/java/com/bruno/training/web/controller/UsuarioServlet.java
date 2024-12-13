@@ -26,6 +26,7 @@ import com.bruno.training.web.util.Parameters;
 import com.bruno.training.web.util.RouterUtils;
 import com.bruno.training.web.util.SessionManager;
 import com.bruno.training.web.util.Views;
+import com.google.gson.Gson;
 
 @WebServlet("/UsuarioServlet")
 public class UsuarioServlet extends HttpServlet {
@@ -46,7 +47,8 @@ public class UsuarioServlet extends HttpServlet {
 		String action = request.getParameter(Parameters.ACTION);
 		String targetView = null;
 		boolean forwardOrRedirect = false;
-
+		
+		
 		if (Actions.LOGIN.equalsIgnoreCase(action)) {
 
 			try {
