@@ -17,6 +17,7 @@
 		<meta charset="UTF-8">
 		<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/styles.css" />
 		<title>Organizate</title>
+		<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery/jquery-3.7.1.min.js"></script>
 	</head>
 	<body>
 		<header>

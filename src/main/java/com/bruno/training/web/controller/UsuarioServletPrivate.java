@@ -66,10 +66,7 @@ public class UsuarioServletPrivate extends HttpServlet {
 		String targetView = null;
 		boolean forwardOrRedirect = false;
 
-		
-//		Gson gson = new Gson();
-//		String userJSON = gson.toJson(usuario);
-//		response.setContentType("applicationb
+
 		
 		
 		if (Actions.SEARCH.equalsIgnoreCase(action)) {
